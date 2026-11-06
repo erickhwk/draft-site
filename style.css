@@ -312,9 +312,11 @@ nav{display:flex;align-items:center;gap:26px}
 :root[data-theme="dark"] .client:hover,:root[data-theme="dark"] .client:focus-within{background:#ECE8DC}
 :root[data-theme="dark"] .client:hover img,:root[data-theme="dark"] .client:focus-within img{filter:none;mix-blend-mode:multiply;opacity:1}
 @media (hover:none){:root[data-theme="dark"] .client img{filter:invert(1) hue-rotate(180deg);opacity:.85}}
-/* logo: no hover a hachura do "a" é redesenhada traço a traço, de cima para baixo, como um rascunho */
-@media (prefers-reduced-motion:no-preference){
-  .logo:hover .logo-hatch path,.logo:focus-visible .logo-hatch path{stroke-dasharray:1 2;
-    animation:logo-draft .38s cubic-bezier(.3,.6,.3,1) both;animation-delay:calc(var(--i)*55ms)}
+/* logo: no hover a hachura do "a" é redesenhada traço a traço, de cima para baixo, como um rascunho.
+   Tracejado em unidades do viewBox (o traço mais longo tem ~396), sem pathLength: todos andam na mesma
+   velocidade, e o início em 430 deixa a ponta arredondada fora do traço enquanto ele espera a vez. */
+@media (hover:hover) and (prefers-reduced-motion:no-preference){
+  .logo:hover .logo-hatch path,.logo:focus-visible .logo-hatch path{stroke-dasharray:400 500;
+    animation:logo-draft .45s cubic-bezier(.3,.6,.3,1) both;animation-delay:calc(var(--i)*55ms)}
 }
-@keyframes logo-draft{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes logo-draft{from{stroke-dashoffset:430}to{stroke-dashoffset:0}}
