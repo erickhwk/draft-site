@@ -300,6 +300,8 @@ nav{display:flex;align-items:center;gap:26px}
 .theme-toggle .i-sun,:root[data-theme="dark"] .theme-toggle .i-moon{display:none}
 :root[data-theme="dark"] .theme-toggle .i-sun{display:block}
 .top-in>.theme-toggle{margin-left:auto}
+/* sem JS o tema não é aplicado nem alterna, então o botão some */
+:root:not([data-theme]) .theme-toggle{display:none}
 /* em fundo escuro a marca é aplicada em laranja (assets/draft-logo-orange.svg) */
 :root[data-theme="dark"] .logo{color:var(--orange)}
 /* logos dos clientes no modo escuro: os PNGs têm fundo branco, então invertidos e em screen o fundo some;
