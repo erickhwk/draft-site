@@ -6,19 +6,20 @@
   --bg:#F7F5EF; --bg-alt:var(--offwhite); --card:#ECE8DC;
   --fg:var(--graphite); --on-fg:var(--offwhite); --fg-strong:#000; --muted:#5A5D5F;
   --deep:var(--graphite);
-  --line:color-mix(in srgb,var(--fg) 12%,transparent);
+  --line:rgba(37,40,42,.12); --top-bg:rgba(247,245,239,.94);
   color-scheme:light;
 }
 :root[data-theme="dark"]{
   --bg:#1A1C1E; --bg-alt:#212427; --card:#2A2E31;
   --fg:#ECE8DC; --on-fg:#1A1C1E; --fg-strong:#fff; --muted:#A3A6A8;
   --deep:#111314;
+  --line:rgba(236,232,220,.12); --top-bg:rgba(26,28,30,.94);
   color-scheme:dark;
 }
 /* blocos laranja ficam iguais nos dois modos */
 .hero,.contact,.case-orange{--fg:var(--graphite);--on-fg:var(--offwhite);--fg-strong:#000;--muted:#5A5D5F;color:var(--fg)}
 /* superfícies escuras (etapas, case em destaque, rodapé) */
-.section-dark,.case-feature,.foot{--fg:var(--offwhite);background:var(--deep);color:var(--fg)}
+.section-dark,.case-feature,.foot{--fg:var(--offwhite);--on-fg:var(--graphite);--fg-strong:#fff;--muted:#A3A6A8;background:var(--deep);color:var(--fg)}
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:80px}
 body{margin:0;background:var(--bg);color:var(--fg);
@@ -46,7 +47,7 @@ p{margin:0 0 14px}
 .mono{margin:0}
 
 /* top */
-.top{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(8px);
+.top{position:sticky;top:0;z-index:10;background:var(--top-bg);backdrop-filter:blur(8px);
   border-bottom:1px solid var(--line)}
 .top-in{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px}
 .logo{display:block;width:104px;line-height:0}
@@ -306,8 +307,8 @@ nav{display:flex;align-items:center;gap:26px}
 :root[data-theme="dark"] .logo{color:var(--orange)}
 /* logos dos clientes no modo escuro: os PNGs têm fundo branco, então invertidos e em screen o fundo some;
    no hover o card clareia e o logo volta às cores originais */
-:root[data-theme="dark"] .client{transition:background .2s}
-:root[data-theme="dark"] .client img{filter:grayscale(1) invert(1);mix-blend-mode:screen;opacity:.6}
+/* sem transição: o mix-blend-mode troca na hora e, com o filtro ainda animando, o logo piscaria escuro */
+:root[data-theme="dark"] .client img{filter:grayscale(1) invert(1);mix-blend-mode:screen;opacity:.6;transition:none}
 :root[data-theme="dark"] .client:hover,:root[data-theme="dark"] .client:focus-within{background:#ECE8DC}
 :root[data-theme="dark"] .client:hover img,:root[data-theme="dark"] .client:focus-within img{filter:none;mix-blend-mode:multiply;opacity:1}
 @media (hover:none){:root[data-theme="dark"] .client img{filter:invert(1) hue-rotate(180deg);opacity:.85}}
