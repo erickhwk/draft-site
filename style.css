@@ -112,10 +112,20 @@ nav{display:flex;align-items:center;gap:26px}
 .about-text p{font-size:19px;line-height:1.55;max-width:560px}
 
 /* contact */
-.contact{position:relative;overflow:hidden;background:var(--orange);padding:clamp(56px,8vw,96px) 0}
-.contact .hatch-dark{top:auto;bottom:0;right:0;transform:scaleY(-1)}
+.contact{position:relative;overflow:clip visible;background:var(--orange);padding:clamp(56px,8vw,96px) 0}
+/* o "d" do ícone (meio hachurado, corte a 45°) enorme, cortado na borda direita e subindo
+   --over px para dentro da seção de cima. São duas cópias do mesmo desenho, cada uma recortada
+   de um lado da divisa: a de cima fica laranja (como o wallpaper), a de baixo grafite.
+   No claro isso põe laranja sobre off-white, que o manual evita (p.16); aqui é decorativo e foi escolha do Erick */
+.contact{--over:clamp(160px,18vw,280px)}
+.contact-d{position:absolute;top:calc(-1*var(--over));bottom:24px;right:-12%;aspect-ratio:700/840;pointer-events:none}
+.contact-d svg{position:absolute;inset:0;width:100%;height:100%;color:var(--graphite)}
+.contact-d-in{clip-path:inset(calc(var(--over) - 1px) 0 0 0)}
+.contact-d-out{clip-path:inset(0 0 calc(100% - var(--over)) 0)}
+.contact-d svg.contact-d-out{color:var(--orange)}
 .contact .wrap{position:relative}
 .contact h2{margin-bottom:16px}
+.contact .lead{max-width:540px}
 .contact-list{list-style:none;margin:36px 0 0;padding:0;display:grid;gap:14px;max-width:460px}
 .contact-list li{display:flex;flex-direction:column;gap:2px;border-top:2px solid var(--fg);padding-top:12px}
 .contact-list a,.contact-list span:not(.label){font-size:22px;font-weight:700;letter-spacing:-0.02em}
@@ -140,7 +150,6 @@ nav{display:flex;align-items:center;gap:26px}
   .logo{width:88px}
   .hatch{width:84px}
   .hero{padding-top:104px}
-  .contact .hatch-dark{display:none}
   .btn{width:100%;text-align:center}
   .top .btn{width:auto}
 }
@@ -356,5 +365,6 @@ nav{display:flex;align-items:center;gap:26px}
 @media (max-width:960px){.judisys-in,.judisys-mods{grid-template-columns:1fr}}
 .judisys-stats{margin:clamp(40px,5vw,56px) 0 0;padding-top:28px;gap:20px 72px;border-top-color:rgba(244,241,234,.18)}
 .judisys-stats dt{color:var(--orange);font-size:clamp(30px,3.4vw,44px)}
+@media (max-width:1279px){.contact-d{display:none}}
 /* laranja sobre off-white não passa no contraste (2,85:1, manual p.16): no escuro o número fica grafite */
 :root[data-theme="dark"] .card-wide-stat dt{color:inherit}
