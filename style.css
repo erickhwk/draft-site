@@ -54,6 +54,9 @@ p{margin:0 0 14px}
 .logo svg{width:100%;height:auto;display:block}
 nav{display:flex;align-items:center;gap:26px}
 .nav-link{text-decoration:none;font-size:15px;padding:6px 0;border-bottom:2px solid transparent}
+/* com 4 links o menu não cabe abaixo de ~820px: os links somem e fica só o "Fale comigo" */
+.nav-link,.top .btn{white-space:nowrap}
+@media (max-width:820px){.nav-link{display:none}}
 .nav-link:hover{border-bottom-color:var(--orange-dark)}
 
 /* buttons */
@@ -62,7 +65,7 @@ nav{display:flex;align-items:center;gap:26px}
 .btn:hover{transform:translateY(-1px)}
 .btn-dark{background:var(--fg);color:var(--on-fg)}
 .btn-dark:hover{background:var(--fg-strong)}
-.btn-orange-unused{background:var(--orange);color:var(--graphite)}
+.btn-orange{background:var(--orange);color:var(--graphite)}
 .btn-orange:hover{background:#ff6f4f}
 .btn-ghost{border-color:var(--fg);color:var(--fg)}
 .btn-ghost:hover{background:var(--fg);color:var(--on-fg)}
@@ -73,11 +76,9 @@ nav{display:flex;align-items:center;gap:26px}
 
 /* hero */
 .hero{position:relative;overflow:hidden;background:var(--orange);padding:clamp(56px,9vw,120px) 0 clamp(64px,9vw,110px)}
-.hatch{position:absolute;top:0;right:0;width:clamp(120px,22vw,300px);height:auto;pointer-events:none}
 .hero .wrap{position:relative}
 /* hero com título grande: o título ocupa o espaço, e uma linha separa o texto dos botões */
 .hero{padding:clamp(56px,7vw,96px) 0}
-.hero .hatch{width:clamp(140px,25vw,360px)}
 .hero h1{font-size:clamp(52px,8.5vw,124px);line-height:.95;letter-spacing:-0.04em;margin:18px 0 36px}
 .hero h1 span{display:block}
 .hero-bottom{display:grid;grid-template-columns:1fr auto;gap:48px;align-items:end;border-top:2px solid var(--fg);padding-top:28px}
@@ -87,7 +88,7 @@ nav{display:flex;align-items:center;gap:26px}
   .hero-bottom{grid-template-columns:1fr;gap:28px}
   .hero-bottom .actions{flex-wrap:wrap}
 }
-@media (max-width:640px){.hero .hatch{width:96px}.hero h1{margin:16px 0 28px}}
+@media (max-width:640px){.hero h1{margin:16px 0 28px}}
 .nf h1{font-size:clamp(40px,7vw,72px);line-height:1.02;letter-spacing:-0.03em;margin:12px 0 24px}
 
 /* sections */
@@ -112,10 +113,19 @@ nav{display:flex;align-items:center;gap:26px}
 .about-text p{font-size:19px;line-height:1.55;max-width:560px}
 
 /* contact */
-.contact{position:relative;overflow:hidden;background:var(--orange);padding:clamp(56px,8vw,96px) 0}
-.contact .hatch-dark{top:auto;bottom:0;right:0;transform:scaleY(-1)}
+.contact{--over:clamp(160px,18vw,280px);position:relative;overflow:hidden;overflow:clip visible;background:var(--orange);padding:clamp(56px,8vw,96px) 0}
+/* o "d" do ícone (meio hachurado, corte a 45°) enorme, cortado na borda direita e subindo
+   --over px para dentro da seção de cima. São duas cópias do mesmo desenho, cada uma recortada
+   de um lado da divisa: a de cima fica laranja (como o wallpaper), a de baixo grafite.
+   No claro isso põe laranja sobre off-white, que o manual evita (p.16); aqui é decorativo e foi escolha do Erick */
+.contact-d{position:absolute;top:calc(-1*var(--over));bottom:24px;right:-12%;aspect-ratio:700/840;pointer-events:none}
+.contact-d svg{position:absolute;inset:0;width:100%;height:100%}
+.contact-d-in{color:var(--graphite);clip-path:inset(calc(var(--over) - 1px) 0 0 0)}
+.contact-d-out{color:var(--orange);clip-path:inset(0 0 calc(100% - var(--over)) 0)}
+@media (max-width:1279px){.contact-d{display:none}}
 .contact .wrap{position:relative}
 .contact h2{margin-bottom:16px}
+.contact .lead{max-width:540px}
 .contact-list{list-style:none;margin:36px 0 0;padding:0;display:grid;gap:14px;max-width:460px}
 .contact-list li{display:flex;flex-direction:column;gap:2px;border-top:2px solid var(--fg);padding-top:12px}
 .contact-list a,.contact-list span:not(.label){font-size:22px;font-weight:700;letter-spacing:-0.02em}
@@ -135,12 +145,9 @@ nav{display:flex;align-items:center;gap:26px}
 }
 @media (max-width:640px){
   .wrap{padding:0 20px}
-  .nav-link{display:none}
   .grid-4,.grid-3,.steps{grid-template-columns:1fr}
   .logo{width:88px}
-  .hatch{width:84px}
   .hero{padding-top:104px}
-  .contact .hatch-dark{display:none}
   .btn{width:100%;text-align:center}
   .top .btn{width:auto}
 }
@@ -170,7 +177,7 @@ nav{display:flex;align-items:center;gap:26px}
 .case-orange h3{margin-top:auto}
 .case-orange .tag{color:var(--graphite)}
 .case-wide{grid-column:span 2}
-.cases .case:nth-child(3),.cases .case:nth-child(4){grid-column:span 2}
+.cases .case:nth-child(3),.cases .case:nth-child(4){grid-column:span 3}
 
 /* clients */
 .clients{overflow:hidden;margin-top:-28px;padding:44px 0 8px}
@@ -210,16 +217,8 @@ nav{display:flex;align-items:center;gap:26px}
 
 /* animação do hero (só para quem não pediu movimento reduzido) */
 @media (prefers-reduced-motion:no-preference){
-  .hatch g path{transform-box:fill-box}
-  .hero .hatch g path{animation:hatch-draw .8s cubic-bezier(.2,.7,.2,1) both,hatch-drift 5.5s ease-in-out infinite alternate;
-    animation-delay:calc(.15s + var(--i)*.09s),calc(1.4s + var(--i)*.32s)}
-  .hero .hatch>path:last-child{animation:tri-in .7s cubic-bezier(.2,.7,.2,1) .7s both;transform-origin:100% 100%}
-  .contact .hatch g path{animation:hatch-drift 5.5s ease-in-out infinite alternate;animation-delay:calc(var(--i)*.32s)}
   .rise{animation:rise .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(.1s + var(--d)*.12s)}
 }
-@keyframes hatch-draw{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
-@keyframes hatch-drift{from{transform:translate(0,0)}to{transform:translate(7px,7px)}}
-@keyframes tri-in{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
 /* retrato: foto sem borda, em quadro irregular (lateral em itálico como a logo, topo e base inclinados)
@@ -320,3 +319,48 @@ nav{display:flex;align-items:center;gap:26px}
     animation:logo-draft .45s cubic-bezier(.3,.6,.3,1) both;animation-delay:calc(var(--i)*55ms)}
 }
 @keyframes logo-draft{from{stroke-dashoffset:430}to{stroke-dashoffset:0}}
+/* serviços: card de sustentação em destaque, ocupa a linha inteira e inverte o tema
+   (off-white no escuro, grafite no claro; off-white no claro sumiria no fundo).
+   subgrid reusa as colunas da grade de cima: texto nas primeiras, o número na última */
+.card-wide{grid-column:1/-1;display:grid;grid-template-columns:subgrid;align-items:end;
+  background:var(--fg);color:var(--on-fg);--rule:color-mix(in srgb,currentColor 25%,transparent)}
+.card-wide-text{grid-column:1/-2}
+.card-wide-text p{max-width:560px}
+.card-wide-stat{grid-column:-2/-1;margin:0;padding-left:20px;border-left:1px solid var(--rule)}
+.card-wide-stat dt{color:var(--orange);font-size:clamp(40px,4.4vw,56px);font-weight:700;letter-spacing:-0.03em;line-height:1}
+/* laranja sobre off-white não passa no contraste (2,85:1, manual p.16): no escuro o número fica grafite */
+:root[data-theme="dark"] .card-wide-stat dt{color:inherit}
+.card-wide-stat dd{margin:8px 0 0;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;text-transform:uppercase;letter-spacing:.12em}
+@media (max-width:640px){.card-wide{display:block}.card-wide-stat{margin-top:24px;padding:20px 0 0;border-left:0;border-top:1px solid var(--rule)}}
+/* Judisys: produto da Draft. Texto à esquerda, prévia do painel (dados de exemplo) à direita */
+.judisys-in{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,5vw,64px);align-items:center}
+.judisys-logo{display:block;width:180px;height:auto}
+.judisys h2{margin-bottom:18px}
+.judisys-lead{font-size:clamp(17px,1.6vw,19px);line-height:1.55;opacity:.9}
+.judisys-mods{list-style:none;margin:clamp(48px,6vw,72px) 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:24px 32px}
+.judisys-mods li{display:flex;flex-direction:column;gap:6px;border-top:2px solid var(--orange);padding-top:18px}
+.judisys-mods .tag{margin:0;color:var(--orange)}
+.judisys-mods strong{font-size:19px}
+.judisys-mods span:last-child{font-size:16px;line-height:1.5;opacity:.8}
+.judisys-brand{display:flex;align-items:center;gap:18px;margin:20px 0 22px}
+.status-live{display:inline-flex;align-items:center;gap:8px;padding:6px 11px;border:1px solid rgba(244,241,234,.22);border-radius:6px;
+  font:500 12px/1 "JetBrains Mono",ui-monospace,monospace;text-transform:uppercase;letter-spacing:.14em}
+.status-live::before{content:"";width:7px;height:7px;border-radius:50%;background:#3DDC84;box-shadow:0 0 0 3px rgba(61,220,132,.18)}
+.judisys .actions{margin-top:24px}
+.judisys-shot{margin:0;border-radius:12px;overflow:hidden;background:#0A1F4D;box-shadow:0 24px 60px rgba(0,0,0,.35);border:1px solid rgba(244,241,234,.12)}
+.judisys-shot img{display:block;width:100%;height:auto}
+.browser-bar{display:flex;gap:7px;padding:11px 14px;background:#1b1e20}
+.browser-bar i{width:10px;height:10px;border-radius:50%;background:rgba(244,241,234,.22)}
+@media (max-width:960px){.judisys-in,.judisys-mods{grid-template-columns:1fr}}
+.judisys-stats{margin:clamp(40px,5vw,56px) 0 0;padding-top:28px;gap:20px 72px;border-top-color:rgba(244,241,234,.18)}
+.judisys-stats dt{color:var(--orange);font-size:clamp(30px,3.4vw,44px)}
+/* hero: digital grande no fundo, em laranja escuro, estourando as bordas por trás do conteúdo
+   (o .wrap vem depois no HTML e é position:relative, então fica por cima) */
+.hero-x{position:absolute;top:50%;right:-2%;width:clamp(400px,36vw,640px);height:auto;color:var(--orange-dark);
+  transform:translateY(-50%) rotate(-12deg);pointer-events:none}
+@media (max-width:640px){.hero-x{width:420px;right:-40%}}
+/* a digital se desenha do núcleo para fora ao abrir a página (as cristas vêm em ordem no SVG) */
+@media (prefers-reduced-motion:no-preference){
+  .hero-x path{stroke-dasharray:1 2;animation:fp-draw 1.2s cubic-bezier(.3,.6,.3,1) both;animation-delay:calc(.25s + var(--i)*.07s)}
+}
+@keyframes fp-draw{from{stroke-dashoffset:1.1;opacity:0}12%{opacity:1}to{stroke-dashoffset:0;opacity:1}}
