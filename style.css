@@ -77,7 +77,6 @@ nav{display:flex;align-items:center;gap:26px}
 .hero .wrap{position:relative}
 /* hero com título grande: o título ocupa o espaço, e uma linha separa o texto dos botões */
 .hero{padding:clamp(56px,7vw,96px) 0}
-.hero .hatch{width:clamp(140px,25vw,360px)}
 .hero h1{font-size:clamp(52px,8.5vw,124px);line-height:.95;letter-spacing:-0.04em;margin:18px 0 36px}
 .hero h1 span{display:block}
 .hero-bottom{display:grid;grid-template-columns:1fr auto;gap:48px;align-items:end;border-top:2px solid var(--fg);padding-top:28px}
@@ -87,7 +86,7 @@ nav{display:flex;align-items:center;gap:26px}
   .hero-bottom{grid-template-columns:1fr;gap:28px}
   .hero-bottom .actions{flex-wrap:wrap}
 }
-@media (max-width:640px){.hero .hatch{width:96px}.hero h1{margin:16px 0 28px}}
+@media (max-width:640px){.hero h1{margin:16px 0 28px}}
 .nf h1{font-size:clamp(40px,7vw,72px);line-height:1.02;letter-spacing:-0.03em;margin:12px 0 24px}
 
 /* sections */
@@ -220,10 +219,6 @@ nav{display:flex;align-items:center;gap:26px}
 /* animação do hero (só para quem não pediu movimento reduzido) */
 @media (prefers-reduced-motion:no-preference){
   .hatch g path{transform-box:fill-box}
-  .hero .hatch g path{animation:hatch-draw .8s cubic-bezier(.2,.7,.2,1) both,hatch-drift 5.5s ease-in-out infinite alternate;
-    animation-delay:calc(.15s + var(--i)*.09s),calc(1.4s + var(--i)*.32s)}
-  .hero .hatch>path:last-child{animation:tri-in .7s cubic-bezier(.2,.7,.2,1) .7s both;transform-origin:100% 100%}
-  .contact .hatch g path{animation:hatch-drift 5.5s ease-in-out infinite alternate;animation-delay:calc(var(--i)*.32s)}
   .rise{animation:rise .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(.1s + var(--d)*.12s)}
 }
 @keyframes hatch-draw{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
@@ -368,3 +363,13 @@ nav{display:flex;align-items:center;gap:26px}
 @media (max-width:1279px){.contact-d{display:none}}
 /* laranja sobre off-white não passa no contraste (2,85:1, manual p.16): no escuro o número fica grafite */
 :root[data-theme="dark"] .card-wide-stat dt{color:inherit}
+/* hero: digital grande no fundo, em laranja escuro, estourando as bordas por trás do conteúdo
+   (o .wrap vem depois no HTML e é position:relative, então fica por cima) */
+.hero-x{position:absolute;top:50%;right:-2%;width:clamp(400px,36vw,640px);height:auto;color:var(--orange-dark);
+  transform:translateY(-50%) rotate(-12deg);pointer-events:none}
+@media (max-width:640px){.hero-x{width:420px;right:-40%}}
+/* a digital se desenha do núcleo para fora ao abrir a página (as cristas vêm em ordem no SVG) */
+@media (prefers-reduced-motion:no-preference){
+  .hero-x path{stroke-dasharray:1 2;animation:fp-draw 1.2s cubic-bezier(.3,.6,.3,1) both;animation-delay:calc(.25s + var(--i)*.07s)}
+}
+@keyframes fp-draw{from{stroke-dashoffset:1.1;opacity:0}12%{opacity:1}to{stroke-dashoffset:0;opacity:1}}
