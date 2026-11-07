@@ -320,6 +320,17 @@ nav{display:flex;align-items:center;gap:26px}
     animation:logo-draft .45s cubic-bezier(.3,.6,.3,1) both;animation-delay:calc(var(--i)*55ms)}
 }
 @keyframes logo-draft{from{stroke-dashoffset:430}to{stroke-dashoffset:0}}
+/* serviços: card de sustentação em destaque, ocupa a linha inteira e inverte o tema
+   (off-white no escuro, grafite no claro; off-white no claro sumiria no fundo).
+   subgrid reusa as colunas da grade de cima: texto nas primeiras, o número na última */
+.card-wide{grid-column:1/-1;display:grid;grid-template-columns:subgrid;align-items:end;
+  background:var(--fg);color:var(--on-fg);--rule:color-mix(in srgb,currentColor 25%,transparent)}
+.card-wide-text{grid-column:1/-2}
+.card-wide-text p{max-width:560px}
+.card-wide-stat{grid-column:-2/-1;margin:0;padding-left:20px;border-left:1px solid var(--rule)}
+.card-wide-stat dt{color:var(--orange);font-size:clamp(40px,4.4vw,56px);font-weight:700;letter-spacing:-0.03em;line-height:1}
+.card-wide-stat dd{margin:8px 0 0;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;text-transform:uppercase;letter-spacing:.12em}
+@media (max-width:640px){.card-wide{display:block}.card-wide-stat{margin-top:24px;padding:20px 0 0;border-left:0;border-top:1px solid var(--rule)}}
 /* Judisys: produto da Draft. Texto à esquerda, prévia do painel (dados de exemplo) à direita */
 .judisys-in{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,5vw,64px);align-items:center}
 .judisys-logo{display:block;width:180px;height:auto;margin:20px 0 22px}
@@ -345,3 +356,5 @@ nav{display:flex;align-items:center;gap:26px}
 @media (max-width:960px){.judisys-in,.judisys-mods{grid-template-columns:1fr}}
 .judisys-stats{margin:clamp(40px,5vw,56px) 0 0;padding-top:28px;gap:20px 72px;border-top-color:rgba(244,241,234,.18)}
 .judisys-stats dt{color:var(--orange);font-size:clamp(30px,3.4vw,44px)}
+/* laranja sobre off-white não passa no contraste (2,85:1, manual p.16): no escuro o número fica grafite */
+:root[data-theme="dark"] .card-wide-stat dt{color:inherit}
