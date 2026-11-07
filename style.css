@@ -54,6 +54,9 @@ p{margin:0 0 14px}
 .logo svg{width:100%;height:auto;display:block}
 nav{display:flex;align-items:center;gap:26px}
 .nav-link{text-decoration:none;font-size:15px;padding:6px 0;border-bottom:2px solid transparent}
+/* com 4 links o menu não cabe abaixo de ~820px: os links somem e fica só o "Fale comigo" */
+.nav-link,.top .btn{white-space:nowrap}
+@media (max-width:820px){.nav-link{display:none}}
 .nav-link:hover{border-bottom-color:var(--orange-dark)}
 
 /* buttons */
@@ -110,7 +113,7 @@ nav{display:flex;align-items:center;gap:26px}
 .about-text p{font-size:19px;line-height:1.55;max-width:560px}
 
 /* contact */
-.contact{--over:clamp(160px,18vw,280px);position:relative;overflow:clip visible;background:var(--orange);padding:clamp(56px,8vw,96px) 0}
+.contact{--over:clamp(160px,18vw,280px);position:relative;overflow:hidden;overflow:clip visible;background:var(--orange);padding:clamp(56px,8vw,96px) 0}
 /* o "d" do ícone (meio hachurado, corte a 45°) enorme, cortado na borda direita e subindo
    --over px para dentro da seção de cima. São duas cópias do mesmo desenho, cada uma recortada
    de um lado da divisa: a de cima fica laranja (como o wallpaper), a de baixo grafite.
@@ -142,7 +145,6 @@ nav{display:flex;align-items:center;gap:26px}
 }
 @media (max-width:640px){
   .wrap{padding:0 20px}
-  .nav-link{display:none}
   .grid-4,.grid-3,.steps{grid-template-columns:1fr}
   .logo{width:88px}
   .hero{padding-top:104px}
