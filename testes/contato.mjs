@@ -3,7 +3,8 @@
 //
 // Local:  python3 -m http.server 8010 --bind 127.0.0.1   (na raiz, em outro terminal)
 //         node testes/contato.mjs                        (BASE=http://127.0.0.1:8010 por padrão)
-// Usa o Chrome instalado (channel "chrome") e o playwright-core do repo (CI) ou o cache da skill comparacao-visual.
+// Navegador: o Chrome instalado (local). No CI, PW_CANAL="" usa o Chromium da versão fixa do playwright-core.
+// playwright-core: o do repo (npm install --no-save playwright-core@1.64.1) ou o cache da skill comparacao-visual.
 import { createRequire } from "node:module";
 import { join } from "node:path";
 
@@ -11,16 +12,28 @@ const BASE = (process.env.BASE || "http://127.0.0.1:8010") + "/";
 const exigir = createRequire(import.meta.url);
 let pw;
 try { pw = exigir("playwright-core"); }
-catch { pw = createRequire(join(process.env.HOME, ".cache/comparacao-visual/package.json"))("playwright-core"); }
-const browser = await pw.chromium.launch({ channel: "chrome", headless: true });
+catch (e1) {
+  try { pw = createRequire(join(process.env.HOME || "", ".cache/comparacao-visual/package.json"))("playwright-core"); }
+  catch { console.error(`playwright-core não encontrado (${e1.message.split("\n")[0]}).\nInstale: npm install --no-save --no-package-lock playwright-core@1.64.1`); process.exit(2); }
+}
+const canal = process.env.PW_CANAL ?? "chrome";
+const browser = await pw.chromium.launch({ ...(canal ? { channel: canal } : {}), headless: true });
 
 const res = [];
 const ok = (nome, cond, extra = "") => res.push({ nome, cond: !!cond, extra });
+const abertos = [];
+async function bloco(nome, fn) {
+  try { await fn(); }
+  catch (e) { ok(`${nome}: terminou sem exceção`, false, e.message.split("\n")[0]); }
+  finally { for (const c of abertos.splice(0)) await c.close().catch(() => {}); }
+}
 const ENVIAR = "#form-contato button[type=submit]";
 const WA = /(wa\.me|whatsapp\.com).*5511999606775/;
 
 async function contexto(opts = {}) {
   const ctx = await browser.newContext({ viewport: { width: 1360, height: 900 }, locale: "pt-BR", reducedMotion: "reduce", ...opts });
+  abertos.push(ctx);
+  ctx.setDefaultTimeout(10000);
   // o WhatsApp abre numa aba nova; responde aqui para não depender da rede
   await ctx.route(/^https:\/\/(wa\.me|api\.whatsapp\.com)\//, (r) => r.fulfill({ status: 200, contentType: "text/html", body: "whatsapp" }));
   return ctx;
@@ -47,7 +60,7 @@ async function preencher(page, nome = "Fulano", email = "f@x.com", msg = "Precis
 }
 
 // ---------- formulário ----------
-{ const ctx = await contexto(); const { page, erros } = await pagina(ctx); await formspree(page, 200);
+await bloco("form vazio", async () => { const ctx = await contexto(); const { page, erros } = await pagina(ctx); await formspree(page, 200);
   await page.click(ENVIAR);
   const msgs = await page.$$eval(".field-error:not([hidden])", (es) => es.map((e) => e.textContent));
   ok("form vazio: os 3 erros, com o texto certo", JSON.stringify(msgs) === JSON.stringify(["Diz como podemos te chamar.", "Precisamos de um e-mail para responder.", "Conta em poucas linhas o que você precisa."]), JSON.stringify(msgs));
@@ -57,16 +70,16 @@ async function preencher(page, nome = "Fulano", email = "f@x.com", msg = "Precis
   await page.fill("#f-nome", "A");
   ok("digitar limpa o erro", (await page.isHidden("#e-nome")) && !(await page.getAttribute("#f-nome", "aria-invalid")));
   ok("form: sem erro de JS", erros.length === 0, erros.join());
-  await ctx.close(); }
+  await ctx.close(); });
 
-for (const email of ["fulano@", "joao@gmail"]) {
+for (const email of ["fulano@", "joao@gmail"]) await bloco(`e-mail ${email}`, async () => {
   const ctx = await contexto(); const { page } = await pagina(ctx); await formspree(page, 200);
   await preencher(page, "F", email, "oi"); await page.click(ENVIAR);
   ok(`e-mail "${email}" barrado`, (await page.textContent("#e-email")) === "Esse e-mail parece incompleto." && (await foco(page)) === "f-email");
   await ctx.close();
-}
+});
 
-for (const tipo of ["422", "rede"]) {
+for (const tipo of ["422", "rede"]) await bloco(`erro ${tipo}`, async () => {
   const ctx = await contexto(); const { page } = await pagina(ctx);
   if (tipo === "rede") await page.route("https://formspree.io/**", (r) => r.abort()); else await formspree(page, 422);
   await preencher(page); await page.click(ENVIAR);
@@ -75,25 +88,27 @@ for (const tipo of ["422", "rede"]) {
   ok(`erro ${tipo}: campos preservados`, (await page.inputValue("#f-mensagem")) === "Preciso de um sistema");
   ok(`erro ${tipo}: botão volta`, !(await page.isDisabled(ENVIAR)) && (await page.textContent(ENVIAR)) === "Enviar mensagem");
   await ctx.close();
-}
+});
 
-{ const ctx = await contexto(); const { page } = await pagina(ctx); await page.route("https://formspree.io/**", (r) => r.abort());
+await bloco("2ª falha", async () => { const ctx = await contexto(); const { page } = await pagina(ctx); await page.route("https://formspree.io/**", (r) => r.abort());
   await preencher(page);
-  await page.evaluate(() => { window.__m = 0; new MutationObserver(() => window.__m++).observe(document.getElementById("form-status"), { childList: true, characterData: true, subtree: true }); });
-  for (let i = 0; i < 2; i++) { await page.click(ENVIAR); await page.waitForSelector("#form-status:not([hidden])"); }
-  ok("2ª falha seguida reescreve o alerta", (await page.evaluate(() => window.__m)) === 3);
-  await ctx.close(); }
+  await page.click(ENVIAR); await page.waitForSelector("#form-status:not([hidden])");
+  await page.evaluate(() => { const s = document.getElementById("form-status"); window.__textos = []; new MutationObserver(() => window.__textos.push(s.textContent)).observe(s, { childList: true, characterData: true, subtree: true }); });
+  await page.click(ENVIAR); await page.waitForFunction(() => window.__textos.length && document.getElementById("form-status").textContent);
+  const t = await page.evaluate(() => window.__textos);
+  ok("2ª falha seguida esvazia e reescreve o alerta", t.includes("") && t.at(-1).includes("erick@draft.dev.br"), JSON.stringify(t));
+  await ctx.close(); });
 
-{ const ctx = await browser.newContext({ viewport: { width: 1360, height: 900 } }); const page = await ctx.newPage();
+await bloco("timeout", async () => { const ctx = await contexto(); const page = await ctx.newPage();
   await page.clock.install(); await page.goto(BASE);
   await page.route("https://formspree.io/**", () => {}); // nunca responde
   await preencher(page, "F", "f@x.com", "oi"); await page.click(ENVIAR);
   await page.clock.runFor(16000);
   await page.waitForSelector("#form-status:not([hidden])", { timeout: 5000 }).catch(() => {});
   ok("timeout de 15 s mostra erro e libera o botão", (await page.isVisible("#form-status")) && !(await page.isDisabled(ENVIAR)));
-  await ctx.close(); }
+  await ctx.close(); });
 
-{ const ctx = await contexto(); const { page } = await pagina(ctx); enviados.length = 0;
+await bloco("sucesso", async () => { const ctx = await contexto(); const { page } = await pagina(ctx); enviados.length = 0;
   let liberar; const segura = new Promise((r) => (liberar = r));
   await formspree(page, 200, segura);
   await page.focus("#f-nome"); await page.keyboard.type("Fulano de Tal");
@@ -112,9 +127,9 @@ for (const tipo of ["422", "rede"]) {
   ok("Accept: application/json", enviados[0].headers.accept === "application/json");
   ok("campos enviados", ["nome", "email", "whatsapp", "empresa", "mensagem", "_gotcha"].every((n) => b.includes(`name="${n}"`)));
   ok("WhatsApp enviado com máscara", b.includes("(11) 99999-0000"));
-  await ctx.close(); }
+  await ctx.close(); });
 
-{ const ctx = await contexto({ javaScriptEnabled: false }); const { page } = await pagina(ctx);
+await bloco("sem JS", async () => { const ctx = await contexto({ javaScriptEnabled: false }); const { page } = await pagina(ctx);
   let saiu = false; await page.route("https://formspree.io/**", (r) => { saiu = true; r.fulfill({ status: 200, body: "obrigado" }); });
   ok("sem JS: valor do contato é link", (await page.getAttribute(".contact-copy >> nth=0", "href")) === "mailto:erick@draft.dev.br");
   await page.click(ENVIAR); await page.waitForTimeout(500);
@@ -122,23 +137,24 @@ for (const tipo of ["422", "rede"]) {
   await preencher(page, "F", "f@x.com", "oi");
   await Promise.all([page.waitForURL(/formspree/), page.click(ENVIAR)]);
   ok("sem JS: posta direto no Formspree", saiu);
-  await ctx.close(); }
+  await ctx.close(); });
 
 // ---------- copiar ----------
-for (const [w, h] of [[1360, 900], [390, 844]]) {
+for (const [w, h] of [[1360, 900], [390, 844]]) await bloco(`copiar ${w}`, async () => {
   const ctx = await contexto({ viewport: { width: w, height: h }, permissions: ["clipboard-read", "clipboard-write"] });
   const { page, erros } = await pagina(ctx);
-  const ler = () => page.evaluate(() => navigator.clipboard.readText());
+  // writeText é assíncrono: espera o valor chegar, em vez de ler logo depois da tecla
+  const copiou = (valor) => page.waitForFunction(async (x) => (await navigator.clipboard.readText()) === x, valor, { timeout: 3000 }).then(() => true, () => false);
   await page.locator(".contact-direct").scrollIntoViewIfNeeded();
   await page.click(".contact-copy >> nth=0");
-  ok(`${w}: copia o e-mail`, (await ler()) === "erick@draft.dev.br");
+  ok(`${w}: copia o e-mail`, await copiou("erick@draft.dev.br"));
   ok(`${w}: aviso Copiado`, (await page.textContent(".contact-hint >> nth=0")) === "Copiado");
-  await page.waitForTimeout(2200);
-  ok(`${w}: aviso some`, (await page.textContent(".contact-hint >> nth=0")) === "");
+  const sumiu = await page.waitForFunction(() => document.querySelector(".contact-hint").textContent === "", null, { timeout: 4000 }).then(() => true, () => false);
+  ok(`${w}: aviso some`, sumiu);
   await page.focus(".contact-copy >> nth=1"); await page.keyboard.press("Enter");
-  ok(`${w}: Enter copia o número`, (await ler()) === "(11) 99960-6775");
+  ok(`${w}: Enter copia o número`, await copiou("(11) 99960-6775"));
   await page.focus(".contact-copy >> nth=0"); await page.keyboard.press("Space");
-  ok(`${w}: Espaço copia (role=button)`, (await ler()) === "erick@draft.dev.br" && (await page.getAttribute(".contact-copy >> nth=0", "role")) === "button");
+  ok(`${w}: Espaço copia (role=button)`, (await copiou("erick@draft.dev.br")) && (await page.getAttribute(".contact-copy >> nth=0", "role")) === "button");
   ok(`${w}: copiar não navega`, page.url() === BASE);
   ok(`${w}: setas`, (await page.getAttribute(".contact-go >> nth=0", "href")) === "mailto:erick@draft.dev.br" && (await page.getAttribute(".contact-go >> nth=1", "href")) === "https://wa.me/5511999606775");
   const bb = await page.locator(".contact-go >> nth=1").boundingBox();
@@ -148,23 +164,23 @@ for (const [w, h] of [[1360, 900], [390, 844]]) {
   ok(`${w}: Cmd/Ctrl+clique abre o WhatsApp`, WA.test(aba.url()), aba.url());
   ok(`${w}: copiar sem erro de JS`, erros.length === 0, erros.join());
   await ctx.close();
-}
+});
 
-{ const ctx = await contexto(); await ctx.addInitScript(() => { Object.defineProperty(Navigator.prototype, "clipboard", { get: () => undefined }); });
+await bloco("sem Clipboard API", async () => { const ctx = await contexto(); await ctx.addInitScript(() => { Object.defineProperty(Navigator.prototype, "clipboard", { get: () => undefined }); });
   const { page } = await pagina(ctx);
   ok("sem Clipboard API: sem papel de botão", (await page.getAttribute(".contact-copy >> nth=1", "role")) === null);
   const [aba] = await Promise.all([ctx.waitForEvent("page"), page.click(".contact-copy >> nth=1")]);
   ok("sem Clipboard API: o clique abre o WhatsApp", WA.test(aba.url()), aba.url());
-  await ctx.close(); }
+  await ctx.close(); });
 
-{ const ctx = await contexto(); await ctx.addInitScript(() => { navigator.clipboard.writeText = () => Promise.reject(new Error("negado")); });
+await bloco("cópia recusada", async () => { const ctx = await contexto(); await ctx.addInitScript(() => { navigator.clipboard.writeText = () => Promise.reject(new Error("negado")); });
   const { page } = await pagina(ctx);
   const [aba] = await Promise.all([ctx.waitForEvent("page"), page.click(".contact-copy >> nth=1")]);
   ok("cópia recusada abre o WhatsApp", WA.test(aba.url()), aba.url());
-  await ctx.close(); }
+  await ctx.close(); });
 
 // ---------- máscara do WhatsApp ----------
-{ const ctx = await contexto({ permissions: ["clipboard-read", "clipboard-write"] }); const { page, erros } = await pagina(ctx);
+await bloco("máscara", async () => { const ctx = await contexto({ permissions: ["clipboard-read", "clipboard-write"] }); const { page, erros } = await pagina(ctx);
   const v = () => page.inputValue("#f-whatsapp");
   const limpar = async () => { await page.fill("#f-whatsapp", ""); await page.click("#f-whatsapp"); };
   const cursor = (a, b = a) => page.evaluate(([x, y]) => document.querySelector("#f-whatsapp").setSelectionRange(x, y), [a, b]);
@@ -198,10 +214,10 @@ for (const [w, h] of [[1360, 900], [390, 844]]) {
   await preencher(page, "F", "f@x.com", "oi");
   await limpar(); await page.keyboard.type("1199"); await page.click(ENVIAR);
   ok("número incompleto barra o envio", (await page.textContent("#e-whatsapp")) === "Esse número parece incompleto." && (await foco(page)) === "f-whatsapp");
-  await page.fill("#f-whatsapp", ""); await page.click(ENVIAR); await page.waitForSelector("#form-ok:not([hidden])");
-  ok("WhatsApp vazio é opcional e envia", true);
+  await page.fill("#f-whatsapp", ""); await page.click(ENVIAR);
+  ok("WhatsApp vazio é opcional e envia", await page.waitForSelector("#form-ok:not([hidden])", { timeout: 5000 }).then(() => true, () => false));
   ok("máscara sem erro de JS", erros.length === 0, erros.join());
-  await ctx.close(); }
+  await ctx.close(); });
 
 await browser.close();
 let falhas = 0;

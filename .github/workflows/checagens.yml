@@ -1,4 +1,5 @@
-# Regra mecânica do site: cor só por token. Cor literal (hex, nome, rgb/hsl) só no :root de style.css.
+# Checagens do site: Stylelint (cor só por token; cor literal só no :root de style.css)
+# e testes e2e do #contato (testes/contato.mjs).
 name: Checagens
 on:
   pull_request:
@@ -18,13 +19,18 @@ jobs:
   # Testes e2e do #contato (form, copiar e máscara). Formspree e wa.me são simulados no próprio teste.
   e2e:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PW_CANAL: "" # Chromium da versão fixa do playwright-core, não o Chrome do runner
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
       - run: npm install --no-save --no-package-lock playwright-core@1.64.1
+      - run: npx playwright-core install --with-deps chromium
       - run: |
           python3 -m http.server 8010 --bind 127.0.0.1 >/dev/null 2>&1 &
           for i in $(seq 1 20); do curl -sf http://127.0.0.1:8010/ >/dev/null && break; sleep 0.5; done
+          curl -sf http://127.0.0.1:8010/ >/dev/null || { echo "http.server não subiu na 8010"; exit 1; }
           node testes/contato.mjs
