@@ -174,7 +174,6 @@ nav{display:flex;align-items:center;gap:28px}
   background:var(--areia);border-radius:12px;padding:12px 18px}
 /* logos em monocromático grafite: os PNGs têm fundo branco, que o multiply apaga sobre a areia */
 .client-tiles img{max-height:34px;width:auto;object-fit:contain;filter:grayscale(1) contrast(1.1);mix-blend-mode:multiply;opacity:.85}
-.client-tiles img.tall{max-height:46px}
 
 /* Judisys */
 .section-dark{background:var(--grafite);color:var(--creme)}
