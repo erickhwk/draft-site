@@ -2,20 +2,17 @@
 // Sem JS, o <form> posta direto no Formspree, com a validação nativa do navegador.
 (function () {
   var form = document.getElementById('form-contato');
-  if (!form || !window.fetch || !window.FormData) return;
+  if (!form) return;
 
   var ok = document.getElementById('form-ok');
   var status = document.getElementById('form-status');
   var botao = form.querySelector('button[type="submit"]');
   var textoBotao = botao.textContent;
-  var regras = [
-    ['nome', function (v) { return v ? '' : 'Diz como posso te chamar.'; }],
-    ['email', function (v, campo) {
-      if (!v) return 'Preciso de um e-mail para responder.';
-      return campo.validity.typeMismatch ? 'Esse e-mail parece incompleto.' : '';
-    }],
-    ['mensagem', function (v) { return v ? '' : 'Conta em poucas linhas o que você precisa.'; }]
-  ];
+  var vazio = {
+    nome: 'Diz como posso te chamar.',
+    email: 'Preciso de um e-mail para responder.',
+    mensagem: 'Conta em poucas linhas o que você precisa.'
+  };
 
   form.noValidate = true;
 
@@ -36,9 +33,10 @@
     status.hidden = true;
 
     var primeiro = null;
-    regras.forEach(function (r) {
-      var campo = form.elements[r[0]];
-      var msg = r[1](campo.value.trim(), campo);
+    Object.keys(vazio).forEach(function (nome) {
+      var campo = form.elements[nome];
+      var msg = !campo.value.trim() ? vazio[nome]
+        : campo.validity.typeMismatch ? 'Esse e-mail parece incompleto.' : '';
       marcar(campo, msg);
       if (msg && !primeiro) primeiro = campo;
     });

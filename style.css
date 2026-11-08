@@ -30,6 +30,7 @@
 /* stylelint-enable color-no-hex, function-disallowed-list */
 
 *,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none !important}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{margin:0;background:var(--off-white);color:var(--grafite);
@@ -39,6 +40,8 @@ a{color:inherit}
 /* foco grafite; laranja só sobre grafite (laranja sobre o claro não passa de 3:1) */
 :focus-visible{outline:3px solid var(--grafite);outline-offset:3px}
 .section-dark :focus-visible{outline-color:var(--laranja)}
+/* alvo de foco por JS (aviso, bloco de sucesso): recebe o foco para o leitor de tela, não é controle */
+[tabindex="-1"]:focus{outline:none}
 
 h1,h2,h3{font-weight:700;margin:0}
 h2{font-size:clamp(32px,4.4vw,52px);line-height:1.05;letter-spacing:-0.03em}
@@ -67,8 +70,6 @@ ul,ol{list-style:none}
 .btn-dark:hover{background:var(--preto)}
 .btn-orange{background:var(--laranja);color:var(--grafite)}
 .btn-orange:hover{background:var(--laranja-claro)}
-.btn-outline{border-color:var(--grafite);color:var(--grafite)}
-.btn-outline:hover{background:var(--grafite);color:var(--creme)}
 .actions{display:flex;flex-wrap:wrap;gap:12px}
 
 /* nav */
@@ -267,37 +268,35 @@ nav{display:flex;align-items:center;gap:28px}
 .contact h2{font-size:clamp(40px,5.6vw,72px);line-height:1;letter-spacing:-0.035em;margin:14px 0 24px}
 .contact-lead{font-size:17px;line-height:1.6;max-width:500px}
 .contact-links{margin-top:12px}
-.contact-links li{border-top:2px solid var(--grafite)}
-.contact-links li:last-child{border-bottom:2px solid var(--grafite)}
+.contact-links li,.form-ok{border-top:2px solid var(--grafite)}
+.contact-links li:last-child,.form-ok{border-bottom:2px solid var(--grafite)}
 .contact-links a{display:grid;grid-template-columns:1fr auto;align-items:center;column-gap:16px;padding:20px 0 18px;text-decoration:none}
-.contact-links .label{grid-column:1;font-size:11px}
-.contact-value{grid-column:1;font-size:24px;font-weight:700;line-height:1.3;letter-spacing:-0.01em;
-  text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px;overflow-wrap:anywhere}
+.contact-links .label,.contact-addr-label,.contact-alt-label,.contact-form .label{font-size:11px}
+.contact-links .label{grid-column:1}
+.contact-value,.form-ok-title{font-size:24px;font-weight:700;line-height:1.3;letter-spacing:-0.01em}
+.contact-value{grid-column:1;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px;overflow-wrap:anywhere}
 .contact-links .arrow{grid-column:2;grid-row:1 / span 2;font-size:24px}
-.contact-addr-label{margin-top:28px;font-size:11px}
-.contact-addr{margin:8px 0 0}
-/* formulário (FRM-01): só grafite sobre o laranja; o erro se marca pela borda e pelo texto, não pela cor */
+.contact-addr-label{margin-top:28px}
+.contact-addr{margin-top:8px}
+/* formulário (FRM-01): só grafite sobre o laranja; o erro se marca pela borda dupla e pelo texto, não pela cor */
 .contact-form{display:grid;gap:18px;margin-top:32px}
-.contact-form[hidden]{display:none}
-.contact-form label{display:block;margin-bottom:6px;font:600 11px/1.4 var(--mono);letter-spacing:.13em;text-transform:uppercase}
+.contact-form .label{display:block;margin-bottom:6px}
 .contact-form input,.contact-form textarea{display:block;width:100%;margin:0;padding:11px 14px;
-  border:2px solid var(--grafite);border-radius:10px;background:var(--off-white);color:var(--grafite);font:inherit;font-size:16px}
+  border:2px solid var(--grafite);border-radius:10px;background:var(--off-white);color:var(--grafite);font:inherit}
 .contact-form input{height:46px}
 .contact-form textarea{min-height:132px;resize:vertical;line-height:1.5}
-.contact-form [aria-invalid="true"]{border-width:3px;padding:10px 13px}
-.field-error{margin:6px 0 0;font-size:14px;font-weight:700}
+.contact-form [aria-invalid="true"]{box-shadow:inset 0 0 0 1px var(--grafite)}
+.field-error{margin-top:6px;font-size:14px;font-weight:700}
 .field-row{display:grid;gap:18px}
 @media (min-width:480px){.field-row{grid-template-columns:1fr 1fr}}
 .field-trap{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .contact-form .btn{justify-self:start}
 .contact-form .btn:disabled{cursor:progress}
-.form-note{margin:-6px 0 0;font-size:13px;line-height:1.5}
-.form-status{margin:0;padding-top:12px;border-top:2px solid var(--grafite);font-size:15px;font-weight:700;line-height:1.5}
-.form-ok{margin-top:32px;padding:22px 0 20px;border-top:2px solid var(--grafite);border-bottom:2px solid var(--grafite)}
-.form-ok:focus{outline:none} /* recebe o foco só para o leitor de tela anunciar; não é controle */
+.form-note{margin-top:-6px;font-size:13px;line-height:1.5}
+.form-status{padding-top:12px;border-top:2px solid var(--grafite);font-size:15px;font-weight:700;line-height:1.5}
+.form-ok{margin-top:32px;padding:22px 0 20px}
 .form-ok-title+p{margin-top:6px}
-.form-ok-title{font-size:24px;font-weight:700;line-height:1.3;letter-spacing:-0.01em}
-.contact-alt-label{margin-top:40px;font-size:11px}
+.contact-alt-label{margin-top:40px}
 
 /* rodapé */
 .foot{background:var(--grafite);color:var(--texto-suave-escuro);font-size:14px}
