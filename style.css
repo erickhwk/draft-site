@@ -3,7 +3,6 @@
 :root{
   --laranja:#FF5A36;          /* laranja da marca */
   --laranja-escuro:#B8420F;   /* texto laranja sobre fundo claro */
-  --tijolo:#C93216;           /* hachura do retrato: tom sobre tom no laranja, separa da foto escura */
   --laranja-digital:#E55227;  /* digital do hero, tom sobre tom */
   --laranja-digital-contato:#F05732; /* mais discreto: fica perto de texto */
   --grafite:#25282A;
@@ -247,22 +246,11 @@ nav{display:flex;align-items:center;gap:28px}
 .contact-digital{overflow:visible;width:400px;height:475px;right:32px;bottom:32px;color:var(--laranja-digital-contato)}
 @media (max-width:900px){.contact-digital{width:240px;height:285px;right:16px;bottom:16px}}
 @media (max-width:720px){.contact-digital{display:none}}
-.contact-in{display:flex;flex-wrap:wrap;gap:56px}
-.about{flex:1 1 360px;max-width:440px}
-.contact-main{flex:1 1 440px;max-width:520px}
-.portrait{--corte:110px;position:relative;margin-bottom:32px}
-.portrait-hatch{position:absolute;left:-18px;top:-18px;width:120px;height:120px;
-  background:repeating-linear-gradient(135deg,var(--tijolo) 0 6px,transparent 6px 15px)}
-/* P&B; no hover ganha cor (sem hover, no toque, fica colorida). Canto inferior direito cortado na diagonal */
-.portrait img{position:relative;width:100%;height:420px;object-fit:cover;object-position:center 25%;border-radius:4px;
-  clip-path:polygon(0 0,100% 0,100% calc(100% - var(--corte)),calc(100% - var(--corte)) 100%,0 100%);
-  filter:grayscale(1) contrast(1.05);transition:filter .5s ease}
-.portrait:hover img{filter:none}
-@media (hover:none){.portrait img{filter:none}}
-@media (max-width:480px){.portrait{--corte:72px}.portrait img{height:360px}.portrait-hatch{left:-10px;top:-10px;width:90px;height:90px}}
-.about-name{font-weight:700;font-size:28px;line-height:1.1;letter-spacing:-0.02em;margin:10px 0 16px}
-.about-name~p{line-height:1.6}
-.about-name~p+p{margin-top:12px}
+/* título na largura toda; embaixo, form à esquerda e contato direto à direita, começando na mesma altura */
+.contact-in{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);column-gap:80px}
+.contact-head{grid-column:1 / -1}
+.contact-main,.contact-direct{margin-top:32px}
+@media (max-width:900px){.contact-in{grid-template-columns:minmax(0,1fr)}.contact-direct{margin-top:56px}}
 .contact h2{font-size:clamp(40px,5.6vw,72px);line-height:1;letter-spacing:-0.035em;margin:14px 0 24px}
 .contact-lead{font-size:17px;line-height:1.6;max-width:500px}
 .contact-links{margin-top:12px}
@@ -277,7 +265,7 @@ nav{display:flex;align-items:center;gap:28px}
 .contact-addr-label{margin-top:28px}
 .contact-addr{margin-top:8px}
 /* formulário (FRM-01): só grafite sobre o laranja; o erro se marca pela borda dupla e pelo texto, não pela cor */
-.contact-form{display:grid;gap:18px;margin-top:32px}
+.contact-form{display:grid;gap:18px}
 .contact-form .label{display:block;margin-bottom:6px}
 .contact-form input,.contact-form textarea{display:block;width:100%;margin:0;padding:11px 14px;
   border:2px solid var(--grafite);border-radius:10px;background:var(--off-white);color:var(--grafite);font:inherit}
@@ -292,10 +280,9 @@ nav{display:flex;align-items:center;gap:28px}
 .contact-form .btn:disabled{cursor:progress}
 .form-note{margin-top:-6px;font-size:13px;line-height:1.5}
 .form-status{padding-top:12px;border-top:2px solid var(--grafite);font-size:15px;font-weight:700;line-height:1.5}
-.form-ok{margin-top:32px;padding:22px 0 20px}
+.form-ok{padding:22px 0 20px}
 .form-ok:focus{outline:none} /* recebe o foco por JS só para o leitor de tela anunciar; não é controle */
 .form-ok-title+p{margin-top:6px}
-.contact-alt-label{margin-top:40px}
 
 /* rodapé */
 .foot{background:var(--grafite);color:var(--texto-suave-escuro);font-size:14px}
