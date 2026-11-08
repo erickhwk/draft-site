@@ -3,7 +3,6 @@
 :root{
   --laranja:#FF5A36;          /* laranja da marca */
   --laranja-escuro:#B8420F;   /* texto laranja sobre fundo claro */
-  --tijolo:#C93216;           /* hachura do retrato: tom sobre tom no laranja, separa da foto escura */
   --laranja-digital:#E55227;  /* digital do hero, tom sobre tom */
   --laranja-digital-contato:#F05732; /* mais discreto: fica perto de texto */
   --grafite:#25282A;
@@ -15,6 +14,7 @@
   --verde:#1F7A4D;
   /* texto secundário e filetes: grafite sobre fundo claro, creme sobre fundo escuro */
   --texto-suave:rgba(37,40,42,.8);
+  --texto-placeholder:rgba(37,40,42,.66); /* exemplo no campo: mais claro que o texto digitado, ainda 4,5:1 sobre o off-white */
   --linha:rgba(37,40,42,.25);
   --linha-forte:rgba(37,40,42,.45);
   --texto-suave-escuro:rgba(244,241,234,.8);
@@ -30,6 +30,7 @@
 /* stylelint-enable color-no-hex, function-disallowed-list */
 
 *,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none !important}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{margin:0;background:var(--off-white);color:var(--grafite);
@@ -67,8 +68,6 @@ ul,ol{list-style:none}
 .btn-dark:hover{background:var(--preto)}
 .btn-orange{background:var(--laranja);color:var(--grafite)}
 .btn-orange:hover{background:var(--laranja-claro)}
-.btn-outline{border-color:var(--grafite);color:var(--grafite)}
-.btn-outline:hover{background:var(--grafite);color:var(--creme)}
 .actions{display:flex;flex-wrap:wrap;gap:12px}
 
 /* nav */
@@ -131,7 +130,7 @@ nav{display:flex;align-items:center;gap:28px}
 .audience strong{font-size:22px;line-height:1.2;letter-spacing:-0.02em}
 .audience-sub{font-size:15px;line-height:1.5}
 .arrow{font-size:28px;line-height:1;transition:transform .15s}
-.audience:hover .arrow,.contact-links a:hover .arrow{transform:translateX(4px)}
+.audience:hover .arrow,.contact-go:hover .arrow{transform:translateX(4px)}
 .audience-dark{background:var(--grafite);color:var(--creme)}
 .audience-dark .arrow{color:var(--laranja)}
 .audience-dark .audience-sub{color:var(--texto-suave-escuro)}
@@ -248,34 +247,47 @@ nav{display:flex;align-items:center;gap:28px}
 .contact-digital{overflow:visible;width:400px;height:475px;right:32px;bottom:32px;color:var(--laranja-digital-contato)}
 @media (max-width:900px){.contact-digital{width:240px;height:285px;right:16px;bottom:16px}}
 @media (max-width:720px){.contact-digital{display:none}}
-.contact-in{display:flex;flex-wrap:wrap;gap:56px}
-.about{flex:1 1 360px;max-width:440px}
-.contact-main{flex:1 1 440px;max-width:520px}
-.portrait{--corte:110px;position:relative;margin-bottom:32px}
-.portrait-hatch{position:absolute;left:-18px;top:-18px;width:120px;height:120px;
-  background:repeating-linear-gradient(135deg,var(--tijolo) 0 6px,transparent 6px 15px)}
-/* P&B; no hover ganha cor (sem hover, no toque, fica colorida). Canto inferior direito cortado na diagonal */
-.portrait img{position:relative;width:100%;height:420px;object-fit:cover;object-position:center 25%;border-radius:4px;
-  clip-path:polygon(0 0,100% 0,100% calc(100% - var(--corte)),calc(100% - var(--corte)) 100%,0 100%);
-  filter:grayscale(1) contrast(1.05);transition:filter .5s ease}
-.portrait:hover img{filter:none}
-@media (hover:none){.portrait img{filter:none}}
-@media (max-width:480px){.portrait{--corte:72px}.portrait img{height:360px}.portrait-hatch{left:-10px;top:-10px;width:90px;height:90px}}
-.about-name{font-weight:700;font-size:28px;line-height:1.1;letter-spacing:-0.02em;margin:10px 0 16px}
-.about-name~p{line-height:1.6}
-.about-name~p+p{margin-top:12px}
-.contact h2{font-size:clamp(40px,5.6vw,72px);line-height:1;letter-spacing:-0.035em;margin:14px 0 24px}
+/* título na largura toda; embaixo, form à esquerda e contato direto à direita, começando na mesma altura */
+.contact-in{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:32px 80px}
+.contact-head{grid-column:1 / -1}
+@media (max-width:900px){.contact-in{grid-template-columns:minmax(0,1fr)}.contact-direct{margin-top:24px}}
+.contact h2{font-size:clamp(40px,5.6vw,72px);line-height:1;letter-spacing:-0.035em;margin:14px 0 24px;text-wrap:balance}
 .contact-lead{font-size:17px;line-height:1.6;max-width:500px}
-.contact-links{margin-top:36px}
-.contact-links li{border-top:2px solid var(--grafite)}
-.contact-links li:last-child{border-bottom:2px solid var(--grafite)}
-.contact-links a{display:grid;grid-template-columns:1fr auto;align-items:center;column-gap:16px;padding:20px 0 18px;text-decoration:none}
-.contact-links .label{grid-column:1;font-size:11px}
-.contact-value{grid-column:1;font-size:24px;font-weight:700;line-height:1.3;letter-spacing:-0.01em;
-  text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px;overflow-wrap:anywhere}
-.contact-links .arrow{grid-column:2;grid-row:1 / span 2;font-size:24px}
-.contact-addr-label{margin-top:28px;font-size:11px}
-.contact-addr{margin:8px 0 28px}
+.contact-links{margin-top:12px}
+.contact-links li,.form-ok{border-top:2px solid var(--grafite)}
+.contact-links li:last-child,.form-ok{border-bottom:2px solid var(--grafite)}
+/* clicar no valor copia; a seta abre o e-mail ou o WhatsApp. O aviso "Copiado" ocupa a mesma célula do botão, no canto */
+.contact-links li{--respiro:20px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:16px}
+.contact-copy{grid-area:1 / 1;display:grid;justify-items:start;padding:var(--respiro) 0 18px;text-decoration:none}
+.contact-copy[data-copiavel]{cursor:copy}
+.contact-hint{grid-area:1 / 1;justify-self:end;align-self:start;margin-top:var(--respiro);pointer-events:none;font:600 11px/1.4 var(--mono);letter-spacing:.13em;text-transform:uppercase}
+.contact-go{grid-area:1 / 2;display:grid;place-items:center;width:44px;height:44px;margin-right:-10px;text-decoration:none}
+.contact-links .label,.contact-addr-label,.contact-alt-label,.contact-form .label{font-size:11px}
+.contact-value,.form-ok-title{font-size:24px;font-weight:700;line-height:1.3;letter-spacing:-0.01em}
+.contact-value{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px;overflow-wrap:anywhere}
+.contact-links .arrow{font-size:24px}
+.contact-addr-label{margin-top:28px}
+.contact-addr{margin-top:8px}
+/* formulário (FRM-01): só grafite sobre o laranja; o erro se marca pela borda dupla e pelo texto, não pela cor */
+.contact-form{display:grid;gap:18px}
+.contact-form .label{display:block;margin-bottom:6px}
+.contact-form input,.contact-form textarea{display:block;width:100%;margin:0;padding:11px 14px;
+  border:2px solid var(--grafite);border-radius:10px;background:var(--off-white);color:var(--grafite);font:inherit}
+.contact-form input{height:46px}
+.contact-form textarea{min-height:132px;resize:vertical;line-height:1.5}
+.contact-form ::placeholder{color:var(--texto-placeholder);opacity:1}
+.contact-form [aria-invalid="true"]{box-shadow:inset 0 0 0 1px var(--grafite)}
+.field-error{margin-top:6px;font-size:14px;font-weight:700}
+.field-row{display:grid;gap:18px}
+@media (min-width:480px){.field-row{grid-template-columns:1fr 1fr}}
+.field-trap{display:none} /* campo-isca: invisível também para o autofill, que não preenche campo oculto */
+.contact-form .btn{justify-self:start}
+.contact-form .btn:disabled{cursor:progress}
+.form-note{margin-top:-6px;font-size:13px;line-height:1.5}
+.form-status{padding-top:12px;border-top:2px solid var(--grafite);font-size:15px;font-weight:700;line-height:1.5}
+.form-ok{padding:22px 0 20px}
+.form-ok:focus{outline:none} /* recebe o foco por JS só para o leitor de tela anunciar; não é controle */
+.form-ok-title+p{margin-top:6px}
 
 /* rodapé */
 .foot{background:var(--grafite);color:var(--texto-suave-escuro);font-size:14px}
