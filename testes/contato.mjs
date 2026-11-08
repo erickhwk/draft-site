@@ -160,8 +160,11 @@ for (const [w, h] of [[1360, 900], [390, 844]]) await bloco(`copiar ${w}`, async
   const bb = await page.locator(".contact-go >> nth=1").boundingBox();
   ok(`${w}: seta com alvo de 44 px`, bb.width >= 44 && bb.height >= 44);
   ok(`${w}: sem rolagem horizontal`, (await page.evaluate(() => document.documentElement.scrollWidth)) <= w);
-  const [aba] = await Promise.all([ctx.waitForEvent("page"), page.click(".contact-copy >> nth=1", { modifiers: ["ControlOrMeta"] })]);
-  ok(`${w}: Cmd/Ctrl+clique abre o WhatsApp`, WA.test(aba.url()), aba.url());
+  // Cmd/Ctrl+clique fica com o navegador (aba nova): o contato.js não pode interceptar. Confere o defaultPrevented,
+  // porque o Chromium headless do CI não abre aba com Ctrl+clique.
+  await page.evaluate(() => document.addEventListener("click", (e) => { window.__interceptou = e.defaultPrevented; e.preventDefault(); }, { once: true }));
+  await page.click(".contact-copy >> nth=1", { modifiers: ["ControlOrMeta"] });
+  ok(`${w}: Cmd/Ctrl+clique fica com o navegador`, (await page.evaluate(() => window.__interceptou)) === false);
   ok(`${w}: copiar sem erro de JS`, erros.length === 0, erros.join());
   await ctx.close();
 });
