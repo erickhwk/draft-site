@@ -17,6 +17,11 @@
   --linha-forte:rgba(37,40,42,.45);
   --texto-suave-escuro:rgba(244,241,234,.8);
   --linha-escuro:rgba(244,241,234,.2);
+  --preto:#000;              /* hover do botão grafite */
+  --laranja-claro:#FF6E4E;   /* hover do botão laranja */
+  --branco:#FFF;
+  --ponto-janela:rgba(244,241,234,.35);
+  --print-vazio:rgba(46,50,54,.82); /* placeholder sobre a hachura: deixa ela aparecer atrás */
   --top-h:73px;
   --mono:"JetBrains Mono",ui-monospace,monospace;
   color-scheme:light;
@@ -56,9 +61,9 @@ ul,ol{list-style:none}
 .btn{display:inline-flex;align-items:center;height:46px;padding:0 22px;border-radius:10px;
   font:inherit;font-weight:700;line-height:1;text-decoration:none;white-space:nowrap;border:2px solid transparent}
 .btn-dark{background:var(--grafite);color:var(--creme)}
-.btn-dark:hover{background:#000}
+.btn-dark:hover{background:var(--preto)}
 .btn-orange{background:var(--laranja);color:var(--grafite)}
-.btn-orange:hover{background:#FF6E4E}
+.btn-orange:hover{background:var(--laranja-claro)}
 .btn-outline{border-color:var(--grafite);color:var(--grafite)}
 .btn-outline:hover{background:var(--grafite);color:var(--creme)}
 .actions{display:flex;flex-wrap:wrap;gap:12px}
@@ -93,7 +98,7 @@ nav{display:flex;align-items:center;gap:28px}
 @media (max-width:1100px){.hero-digital{display:none}}
 .label-tri{display:flex;align-items:center;gap:8px}
 .label-tri::before{content:"";width:8px;height:8px;background:currentColor;clip-path:polygon(100% 0,100% 100%,0 100%)}
-.hero h1{font-size:clamp(44px,7.4vw,96px);line-height:.98;letter-spacing:-0.035em;max-width:780px;margin:22px 0 28px}
+.hero h1{font-size:clamp(44px,7.4vw,96px);line-height:.98;letter-spacing:-0.035em;max-width:8.2em;margin:22px 0 28px}
 .hero-lead{font-size:18px;max-width:560px}
 
 .audiences{display:flex;flex-wrap:wrap;gap:16px;margin-top:52px}
@@ -136,7 +141,7 @@ nav{display:flex;align-items:center;gap:28px}
 /* placeholder de print (sai quando o print real entrar) */
 .shot{display:flex;align-items:center;justify-content:center;border:1px dashed var(--linha-forte);border-radius:12px;
   height:170px;text-align:center;padding:16px}
-.shot-feature{flex:1;height:auto;min-height:340px;background:rgba(46,50,54,.82);border-color:var(--linha-escuro);color:var(--texto-suave-escuro)}
+.shot-feature{flex:1;height:auto;min-height:340px;background:var(--print-vazio);border-color:var(--linha-escuro);color:var(--texto-suave-escuro)}
 /* com as colunas empilhadas, o print sobe para o topo e continua cobrindo o quadrado da hachura, longe do texto */
 @media (max-width:943px){.feature-shot{order:-1;padding-bottom:0}.feature-text{padding-top:32px}.shot-feature{min-height:260px}}
 @media (max-width:480px){.feature-text{padding:28px 24px 32px}.feature-shot{padding:24px 24px 0}.shot-feature{min-height:200px}
@@ -174,12 +179,14 @@ nav{display:flex;align-items:center;gap:28px}
 .judisys-text{flex:1 1 440px}
 .judisys-brand{display:flex;align-items:center;gap:14px;margin:14px 0 22px}
 .judisys-word{font-size:40px;font-weight:700;line-height:1;letter-spacing:-0.03em;color:var(--ouro)}
-.pill{background:var(--verde);color:#fff;font-size:14px;font-weight:700;line-height:1;padding:8px 14px;border-radius:999px}
+.pill{background:var(--verde);color:var(--branco);font-size:14px;font-weight:700;line-height:1;padding:8px 14px;border-radius:999px}
 .judisys-lead{font-size:17px;line-height:1.6;max-width:520px;color:var(--texto-suave-escuro);margin:24px 0 32px}
 .window{flex:1 1 440px;border:1px solid var(--linha-escuro);border-radius:16px;overflow:hidden;background:var(--grafite-2);align-self:center}
 .window-bar{display:flex;gap:6px;padding:12px 16px;border-bottom:1px solid var(--linha-escuro)}
-.window-bar i{width:9px;height:9px;border-radius:50%;background:rgba(244,241,234,.35)}
+.window-bar i{width:9px;height:9px;border-radius:50%;background:var(--ponto-janela)}
 .window img{width:100%;height:320px;object-fit:cover;object-position:top left}
+/* na janela estreita, altura fixa cortaria o painel pela direita: o print fica inteiro */
+@media (max-width:720px){.window img{height:auto}}
 
 .benefits{display:flex;flex-wrap:wrap;gap:32px;margin-top:72px}
 .benefits li{flex:1 1 260px;border-top:2px solid var(--laranja);padding-top:26px}
@@ -215,9 +222,9 @@ nav{display:flex;align-items:center;gap:28px}
   background:repeating-linear-gradient(135deg,var(--grafite) 0 6px,transparent 6px 15px)}
 .portrait img{position:relative;width:100%;height:420px;object-fit:cover;object-position:center 25%;border-radius:4px;filter:grayscale(1)}
 @media (max-width:480px){.portrait img{height:360px}.portrait-hatch{left:-10px;top:-10px;width:90px;height:90px}}
-.about-name{font-size:28px;line-height:1.1;letter-spacing:-0.02em;margin:10px 0 16px}
-.about p:not(.label){line-height:1.6}
-.about p+p:not(.label){margin-top:12px}
+.about-name{font-weight:700;font-size:28px;line-height:1.1;letter-spacing:-0.02em;margin:10px 0 16px}
+.about-name~p{line-height:1.6}
+.about-name~p+p{margin-top:12px}
 .contact h2{font-size:clamp(40px,5.6vw,72px);line-height:1;letter-spacing:-0.035em;margin:14px 0 24px}
 .contact-lead{font-size:17px;line-height:1.6;max-width:500px}
 .contact-links{margin-top:36px}
@@ -239,5 +246,5 @@ nav{display:flex;align-items:center;gap:28px}
 @media (max-width:720px){.foot-in{flex-direction:column;align-items:flex-start;justify-content:center;gap:10px}}
 
 /* 404 */
-.nf{min-height:calc(100svh - var(--top-h));display:flex;align-items:center;padding:72px 0}
+.nf{min-height:calc(100vh - var(--top-h));min-height:calc(100svh - var(--top-h));display:flex;align-items:center;padding:72px 0}
 .nf .actions{margin-top:36px}
