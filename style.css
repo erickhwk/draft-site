@@ -247,10 +247,9 @@ nav{display:flex;align-items:center;gap:28px}
 @media (max-width:900px){.contact-digital{width:240px;height:285px;right:16px;bottom:16px}}
 @media (max-width:720px){.contact-digital{display:none}}
 /* título na largura toda; embaixo, form à esquerda e contato direto à direita, começando na mesma altura */
-.contact-in{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);column-gap:80px}
+.contact-in{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:32px 80px}
 .contact-head{grid-column:1 / -1}
-.contact-main,.contact-direct{margin-top:32px}
-@media (max-width:900px){.contact-in{grid-template-columns:minmax(0,1fr)}.contact-direct{margin-top:56px}}
+@media (max-width:900px){.contact-in{grid-template-columns:minmax(0,1fr)}.contact-direct{margin-top:24px}}
 .contact h2{font-size:clamp(40px,5.6vw,72px);line-height:1;letter-spacing:-0.035em;margin:14px 0 24px}
 .contact-lead{font-size:17px;line-height:1.6;max-width:500px}
 .contact-links{margin-top:12px}
