@@ -157,7 +157,7 @@ nav{display:flex;align-items:center;gap:28px}
 .feature-text>p:not(.label){line-height:1.6;max-width:480px;color:var(--texto-suave-escuro)}
 .feature-stats{gap:40px;margin-top:32px;padding-top:28px;border-top:1px solid var(--linha-escuro);max-width:480px}
 .feature-stats dt{font-size:48px;color:var(--laranja)}
-.feature-stats dd{margin-top:10px;color:var(--texto-suave-escuro)}
+.feature-stats dd{margin-top:10px;color:var(--texto-suave-escuro);text-wrap:balance}
 .feature-shot{flex:1 1 440px;position:relative;padding:32px;display:flex}
 
 /* prints: recorte do topo da tela; o do card em destaque cobre o quadrado da hachura */
