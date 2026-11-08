@@ -2,6 +2,7 @@
 :root{
   --laranja:#FF5A36;          /* laranja da marca */
   --laranja-escuro:#B8420F;   /* texto laranja sobre fundo claro */
+  --tijolo:#C93216;           /* hachura do retrato: tom sobre tom no laranja, separa da foto escura */
   --laranja-digital:#E55227;  /* digital do hero, tom sobre tom */
   --laranja-digital-contato:#F05732; /* mais discreto: fica perto de texto */
   --grafite:#25282A;
@@ -246,7 +247,7 @@ nav{display:flex;align-items:center;gap:28px}
 .contact-main{flex:1 1 440px;max-width:520px}
 .portrait{--corte:110px;position:relative;margin-bottom:32px}
 .portrait-hatch{position:absolute;left:-18px;top:-18px;width:120px;height:120px;
-  background:repeating-linear-gradient(135deg,var(--grafite) 0 6px,transparent 6px 15px)}
+  background:repeating-linear-gradient(135deg,var(--tijolo) 0 6px,transparent 6px 15px)}
 /* P&B; no hover ganha cor (sem hover, no toque, fica colorida). Canto inferior direito cortado na diagonal */
 .portrait img{position:relative;width:100%;height:420px;object-fit:cover;object-position:center 25%;border-radius:4px;
   clip-path:polygon(0 0,100% 0,100% calc(100% - var(--corte)),calc(100% - var(--corte)) 100%,0 100%);
