@@ -256,9 +256,10 @@ nav{display:flex;align-items:center;gap:28px}
 .contact-links li,.form-ok{border-top:2px solid var(--grafite)}
 .contact-links li:last-child,.form-ok{border-bottom:2px solid var(--grafite)}
 /* clicar no valor copia; a seta abre o e-mail ou o WhatsApp. O aviso "Copiado" ocupa a mesma célula do botão, no canto */
-.contact-links li{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:16px}
-.contact-copy{grid-area:1 / 1;display:grid;justify-items:start;padding:20px 0 18px;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:copy}
-.contact-hint{grid-area:1 / 1;justify-self:end;align-self:start;margin-top:20px;pointer-events:none;font:600 11px/1.4 var(--mono);letter-spacing:.13em;text-transform:uppercase}
+.contact-links li{--respiro:20px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:16px}
+.contact-copy{grid-area:1 / 1;display:grid;justify-items:start;padding:var(--respiro) 0 18px;text-decoration:none}
+.contact-copy[data-copiavel]{cursor:copy}
+.contact-hint{grid-area:1 / 1;justify-self:end;align-self:start;margin-top:var(--respiro);pointer-events:none;font:600 11px/1.4 var(--mono);letter-spacing:.13em;text-transform:uppercase}
 .contact-go{grid-area:1 / 2;display:grid;place-items:center;width:44px;height:44px;margin-right:-10px;text-decoration:none}
 .contact-links .label,.contact-addr-label,.contact-alt-label,.contact-form .label{font-size:11px}
 .contact-value,.form-ok-title{font-size:24px;font-weight:700;line-height:1.3;letter-spacing:-0.01em}
