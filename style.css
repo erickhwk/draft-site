@@ -203,7 +203,10 @@ nav{display:flex;align-items:center;gap:28px}
 .judisys-word{font-size:40px;font-weight:700;line-height:1;letter-spacing:-0.03em;color:var(--ouro)}
 .pill{background:var(--verde);color:var(--branco);font-size:14px;font-weight:700;line-height:1;padding:8px 14px;border-radius:999px}
 /* "Entregue": projeto que a Draft entregou e não mantém mais; só contorno, na cor do texto do card */
-.pill-entregue{background:none;color:inherit;border:1.5px solid currentColor;font-size:13px;padding:5px 10px}
+.pill-entregue{background:none;color:inherit}
+/* nos cards de projeto as etiquetas (No ar, Entregue) ficam menores que a do Judisys e do mesmo tamanho entre si */
+.card-meta .pill{font-size:13px;padding:5px 10px;border:1.5px solid transparent}
+.card-meta .pill-entregue{border-color:currentColor}
 .judisys-lead{font-size:17px;line-height:1.6;max-width:520px;color:var(--texto-suave-escuro);margin:24px 0 32px}
 .window{flex:1 1 440px;border:1px solid var(--linha-escuro);border-radius:16px;overflow:hidden;background:var(--grafite-2);align-self:center}
 .window-bar{display:flex;gap:6px;padding:12px 16px;border-bottom:1px solid var(--linha-escuro)}
