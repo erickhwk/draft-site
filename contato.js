@@ -1,4 +1,24 @@
-// Formulário de contato (FRM-01): valida em português e envia ao Formspree sem sair da página.
+// Contato (FRM-01): copiar e-mail e WhatsApp ao clicar, e o formulário que envia ao Formspree.
+
+// Clicar no e-mail ou no número copia o valor e avisa "Copiado" (role=status) por 2 s; a seta ao lado abre o app.
+(function () {
+  document.querySelectorAll('.contact-copy').forEach(function (botao) {
+    var aviso = botao.parentNode.querySelector('.contact-hint');
+    var prazo;
+    function avisar(texto) {
+      clearTimeout(prazo);
+      aviso.textContent = texto;
+      prazo = setTimeout(function () { aviso.textContent = ''; }, 2000);
+    }
+    botao.addEventListener('click', function () {
+      if (!navigator.clipboard) { avisar('Não deu para copiar'); return; }
+      navigator.clipboard.writeText(botao.dataset.copiar)
+        .then(function () { avisar('Copiado'); }, function () { avisar('Não deu para copiar'); });
+    });
+  });
+})();
+
+// Formulário: valida em português e envia ao Formspree sem sair da página.
 // Sem JS, o <form> posta direto no Formspree, com a validação nativa do navegador.
 (function () {
   var form = document.getElementById('form-contato');
