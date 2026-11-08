@@ -85,7 +85,7 @@
       .catch(function () {
         clearTimeout(prazo);
         status.hidden = false;
-        status.textContent = 'Não consegui enviar agora. Me escreve em erick@draft.dev.br ou no WhatsApp (11) 99960-6775.';
+        status.textContent = 'Não conseguimos enviar agora. Escreve pra gente em erick@draft.dev.br ou no WhatsApp (11) 99960-6775.';
         botao.disabled = false;
         botao.textContent = textoBotao;
       });
