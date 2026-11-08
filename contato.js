@@ -49,13 +49,13 @@
 
   form.noValidate = true;
 
-  // Máscara do WhatsApp: (11) 91234-5678, ou (11) 1234-5678 com 10 dígitos. Colar "+55 …" descarta o 55.
+  // Máscara do WhatsApp: (11) 91234-5678, ou (11) 1234-5678 com 10 dígitos.
+  // Número com "+" fica como digitado (estrangeiro), exceto +55 completo, que vira o formato brasileiro.
+  // O 55 só cai como código de país ("+55" ou colado com 12-13 dígitos): digitado, pode ser o DDD de Santa Maria.
   var tel = form.elements.whatsapp;
-  function digitos(v) {
-    var d = v.replace(/\D/g, '');
-    if (d.length > 11 && d.indexOf('55') === 0) d = d.slice(2);
-    return d.slice(0, 11);
-  }
+  var telAnterior = '';
+  var comSelecao = false;
+  function internacional(v) { return /^\s*\+/.test(v); }
   function mascara(d) {
     if (!d) return '';
     if (d.length <= 2) return '(' + d;
@@ -63,15 +63,20 @@
     var meio = d.slice(2, corte), fim = d.slice(corte);
     return '(' + d.slice(0, 2) + ') ' + meio + (fim ? '-' + fim : '');
   }
-  var telAnterior = '';
+  tel.addEventListener('beforeinput', function () { comSelecao = tel.selectionStart !== tel.selectionEnd; });
   tel.addEventListener('input', function (e) {
+    var v = tel.value;
+    var d = v.replace(/\D/g, '');
+    var codigoPais = d.length >= 12 && d.indexOf('55') === 0 && (internacional(v) || e.inputType === 'insertFromPaste');
+    if (internacional(v) && !codigoPais) { telAnterior = ''; return; }
     // mantém o cursor depois do mesmo número de dígitos
-    var antes = tel.value.slice(0, tel.selectionStart).replace(/\D/g, '').length;
-    var d = digitos(tel.value);
-    // Backspace sobre ")", " " ou "-" não muda os dígitos: apaga o dígito anterior, senão o cursor trava
-    if (e.inputType === 'deleteContentBackward' && d === telAnterior && antes > 0) {
-      d = d.slice(0, antes - 1) + d.slice(antes);
-      antes--;
+    var antes = v.slice(0, tel.selectionStart).replace(/\D/g, '').length;
+    if (codigoPais) { d = d.slice(2); antes = Math.max(0, antes - 2); }
+    d = d.slice(0, 11);
+    // Backspace/Delete sobre ")", " " ou "-" não muda os dígitos: apaga o dígito vizinho, senão o cursor trava
+    if (!comSelecao && d === telAnterior) {
+      if (e.inputType === 'deleteContentBackward' && antes > 0) { d = d.slice(0, antes - 1) + d.slice(antes); antes--; }
+      else if (e.inputType === 'deleteContentForward') d = d.slice(0, antes) + d.slice(antes + 1);
     }
     telAnterior = d;
     tel.value = mascara(d);
@@ -105,8 +110,8 @@
       marcar(campo, msg);
       if (msg && !primeiro) primeiro = campo;
     });
-    var nTel = digitos(tel.value).length;
-    var msgTel = nTel && nTel < 10 ? 'Esse número parece incompleto.' : '';
+    var nTel = tel.value.replace(/\D/g, '').length;
+    var msgTel = nTel && nTel < (internacional(tel.value) ? 8 : 10) ? 'Esse número parece incompleto.' : '';
     marcar(tel, msgTel);
     if (msgTel && !primeiro) primeiro = tel;
     if (primeiro) { primeiro.focus(); return; }

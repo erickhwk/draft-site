@@ -14,6 +14,7 @@
   --verde:#1F7A4D;
   /* texto secundário e filetes: grafite sobre fundo claro, creme sobre fundo escuro */
   --texto-suave:rgba(37,40,42,.8);
+  --texto-placeholder:rgba(37,40,42,.66); /* exemplo no campo: mais claro que o texto digitado, ainda 4,5:1 sobre o off-white */
   --linha:rgba(37,40,42,.25);
   --linha-forte:rgba(37,40,42,.45);
   --texto-suave-escuro:rgba(244,241,234,.8);
@@ -274,7 +275,7 @@ nav{display:flex;align-items:center;gap:28px}
   border:2px solid var(--grafite);border-radius:10px;background:var(--off-white);color:var(--grafite);font:inherit}
 .contact-form input{height:46px}
 .contact-form textarea{min-height:132px;resize:vertical;line-height:1.5}
-.contact-form ::placeholder{color:var(--texto-suave);opacity:1}
+.contact-form ::placeholder{color:var(--texto-placeholder);opacity:1}
 .contact-form [aria-invalid="true"]{box-shadow:inset 0 0 0 1px var(--grafite)}
 .field-error{margin-top:6px;font-size:14px;font-weight:700}
 .field-row{display:grid;gap:18px}
