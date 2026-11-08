@@ -111,8 +111,8 @@ nav{display:flex;align-items:center;gap:28px}
 .audience-light .audience-sub{color:var(--texto-suave)}
 @media (max-width:480px){.audience{padding:24px;flex-basis:100%}}
 
-.hero-stats{margin-top:56px;border-top:2px solid var(--grafite);padding-top:28px;row-gap:24px}
-.hero-stats>div{flex:1 1 200px}
+.hero-stats{margin-top:56px;border-top:2px solid var(--grafite);padding-top:28px;gap:24px}
+.hero-stats>div{flex:1 1 150px}
 .hero-stats dt{font-size:44px}
 .hero-stats dd{font-size:15px;margin-top:8px}
 @media (max-width:480px){.hero-stats>div{flex-basis:45%}.hero-stats dt{font-size:36px}}
