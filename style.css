@@ -40,8 +40,6 @@ a{color:inherit}
 /* foco grafite; laranja só sobre grafite (laranja sobre o claro não passa de 3:1) */
 :focus-visible{outline:3px solid var(--grafite);outline-offset:3px}
 .section-dark :focus-visible{outline-color:var(--laranja)}
-/* alvo de foco por JS (aviso, bloco de sucesso): recebe o foco para o leitor de tela, não é controle */
-[tabindex="-1"]:focus{outline:none}
 
 h1,h2,h3{font-weight:700;margin:0}
 h2{font-size:clamp(32px,4.4vw,52px);line-height:1.05;letter-spacing:-0.03em}
@@ -289,12 +287,13 @@ nav{display:flex;align-items:center;gap:28px}
 .field-error{margin-top:6px;font-size:14px;font-weight:700}
 .field-row{display:grid;gap:18px}
 @media (min-width:480px){.field-row{grid-template-columns:1fr 1fr}}
-.field-trap{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.field-trap{display:none} /* campo-isca: invisível também para o autofill, que não preenche campo oculto */
 .contact-form .btn{justify-self:start}
 .contact-form .btn:disabled{cursor:progress}
 .form-note{margin-top:-6px;font-size:13px;line-height:1.5}
 .form-status{padding-top:12px;border-top:2px solid var(--grafite);font-size:15px;font-weight:700;line-height:1.5}
 .form-ok{margin-top:32px;padding:22px 0 20px}
+.form-ok:focus{outline:none} /* recebe o foco por JS só para o leitor de tela anunciar; não é controle */
 .form-ok-title+p{margin-top:6px}
 .contact-alt-label{margin-top:40px}
 

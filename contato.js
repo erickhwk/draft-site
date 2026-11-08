@@ -31,12 +31,13 @@
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     status.hidden = true;
+    status.textContent = ''; // texto novo a cada falha, para o role=alert anunciar de novo
 
     var primeiro = null;
     Object.keys(vazio).forEach(function (nome) {
       var campo = form.elements[nome];
       var msg = !campo.value.trim() ? vazio[nome]
-        : campo.validity.typeMismatch ? 'Esse e-mail parece incompleto.' : '';
+        : nome === 'email' && !/@[^@\s]+\.[^@\s]+$/.test(campo.value.trim()) ? 'Esse e-mail parece incompleto.' : '';
       marcar(campo, msg);
       if (msg && !primeiro) primeiro = campo;
     });
@@ -46,19 +47,21 @@
     botao.disabled = true;
     botao.textContent = 'Enviando…';
 
-    var opcoes = { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } };
-    if (window.AbortSignal && AbortSignal.timeout) opcoes.signal = AbortSignal.timeout(15000);
+    var controle = new AbortController();
+    var prazo = setTimeout(function () { controle.abort(); }, 15000);
 
-    fetch(form.action, opcoes)
+    fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' }, signal: controle.signal })
       .then(function (resp) {
+        clearTimeout(prazo);
         if (!resp.ok) throw new Error('HTTP ' + resp.status);
         form.hidden = true;
         ok.hidden = false;
         ok.focus();
       })
       .catch(function () {
-        status.textContent = 'Não consegui enviar agora. Me escreve em erick@draft.dev.br ou no WhatsApp (11) 99960-6775.';
+        clearTimeout(prazo);
         status.hidden = false;
+        status.textContent = 'Não consegui enviar agora. Me escreve em erick@draft.dev.br ou no WhatsApp (11) 99960-6775.';
         botao.disabled = false;
         botao.textContent = textoBotao;
       });
