@@ -197,8 +197,8 @@ nav{display:flex;align-items:center;gap:28px}
 .client-tiles{display:flex;flex-wrap:wrap;gap:16px;margin-top:20px}
 .client-tiles li{flex:1 1 130px;height:72px;display:flex;align-items:center;justify-content:center;
   background:var(--areia);border-radius:12px;padding:12px 18px}
-/* logos em monocromático grafite: os PNGs têm fundo branco, que o multiply apaga sobre a areia */
-.client-tiles img{max-height:34px;width:auto;object-fit:contain;filter:grayscale(1) contrast(1.1);mix-blend-mode:multiply;opacity:.85}
+/* logos em monocromático grafite; os PNGs têm fundo transparente (AJ-03: o multiply deixava o fundo quase branco à vista no iPhone) */
+.client-tiles img{max-height:34px;width:auto;object-fit:contain;filter:grayscale(1) contrast(1.1);opacity:.85}
 
 /* Judisys */
 .section-dark{background:var(--grafite);color:var(--creme)}
