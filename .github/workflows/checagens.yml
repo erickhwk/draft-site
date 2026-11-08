@@ -4,6 +4,8 @@ on:
   pull_request:
   push:
     branches: [main]
+permissions:
+  contents: read
 jobs:
   css:
     runs-on: ubuntu-latest
@@ -12,4 +14,4 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npx --yes stylelint@16 "*.css"
+      - run: npx --yes stylelint@16.26.1 "*.css"
