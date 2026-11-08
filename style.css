@@ -251,7 +251,7 @@ nav{display:flex;align-items:center;gap:28px}
 .contact-in{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:32px 80px}
 .contact-head{grid-column:1 / -1}
 @media (max-width:900px){.contact-in{grid-template-columns:minmax(0,1fr)}.contact-direct{margin-top:24px}}
-.contact h2{font-size:clamp(40px,5.6vw,72px);line-height:1;letter-spacing:-0.035em;margin:14px 0 24px}
+.contact h2{font-size:clamp(40px,5.6vw,72px);line-height:1;letter-spacing:-0.035em;margin:14px 0 24px;text-wrap:balance}
 .contact-lead{font-size:17px;line-height:1.6;max-width:500px}
 .contact-links{margin-top:12px}
 .contact-links li,.form-ok{border-top:2px solid var(--grafite)}
