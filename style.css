@@ -106,6 +106,8 @@ nav{display:flex;align-items:center;gap:28px}
 .hero{padding:72px 0 44px}
 .hero-digital{width:660px;height:760px;right:-150px;top:-30px;color:var(--laranja-digital)}
 @media (max-width:1100px){.hero-digital{display:none}}
+/* tracejado de cada anel em --d/--g (no HTML), única fonte do padrão; --p = --d + --g */
+.hero-digital ellipse{stroke-dasharray:var(--d) var(--g)}
 /* a digital se desenha ao abrir a página, do anel de dentro para o de fora: cada traço cresce de 0
    até o tamanho final mantendo o período (--p = --d + --g, já somado no HTML: calc() na lista não interpola), então os vãos terminam onde o guia manda */
 @media (prefers-reduced-motion:no-preference){
@@ -161,6 +163,8 @@ nav{display:flex;align-items:center;gap:28px}
 /* prints: recorte do topo da tela; o do card em destaque cobre o quadrado da hachura */
 .print{display:block;width:100%;height:170px;object-fit:cover;object-position:top left;border-radius:12px;border:1px solid var(--linha)}
 /* contain:size: a altura vem da coluna de texto, não da proporção da imagem */
+/* print de app: celular centralizado na imagem; num card largo o recorte pega a tela, não só a barra de status */
+.print-app{object-position:center 40%}
 .feature-shot .print{flex:1;height:auto;min-height:340px;contain:size;border-color:var(--linha-escuro)}
 
 /* rótulo do card com etiqueta ao lado */
