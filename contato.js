@@ -13,11 +13,20 @@
       prazo = setTimeout(function () { aviso.textContent = ''; }, 2000);
     }
     link.setAttribute('data-copiavel', '');
+    link.setAttribute('role', 'button');
     link.setAttribute('aria-label', 'Copiar ' + link.querySelector('.label').textContent + ' ' + link.dataset.copiar);
     link.addEventListener('click', function (e) {
+      // Cmd/Ctrl/Shift/Alt + clique ou botão do meio: abre o link, como qualquer link
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
       e.preventDefault();
-      navigator.clipboard.writeText(link.dataset.copiar)
-        .then(function () { avisar('Copiado'); }, function () { avisar('Não deu para copiar'); });
+      navigator.clipboard.writeText(link.dataset.copiar).then(
+        function () { avisar('Copiado'); },
+        // cópia recusada (permissão, iframe): segue o link, que é a alternativa
+        function () { if (link.target === '_blank') window.open(link.href, '_blank', 'noopener'); else location.href = link.href; }
+      );
+    });
+    link.addEventListener('keydown', function (e) {
+      if (e.key === ' ') { e.preventDefault(); link.click(); } // role=button responde ao Espaço
     });
   });
 })();
@@ -33,8 +42,8 @@
   var botao = form.querySelector('button[type="submit"]');
   var textoBotao = botao.textContent;
   var vazio = {
-    nome: 'Diz como posso te chamar.',
-    email: 'Preciso de um e-mail para responder.',
+    nome: 'Diz como podemos te chamar.',
+    email: 'Precisamos de um e-mail para responder.',
     mensagem: 'Conta em poucas linhas o que você precisa.'
   };
 
