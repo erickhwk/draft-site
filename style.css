@@ -88,7 +88,9 @@ nav{display:flex;align-items:center;gap:26px}
   .hero-bottom{grid-template-columns:1fr;gap:28px}
   .hero-bottom .actions{flex-wrap:wrap}
 }
-@media (max-width:640px){.hero h1{margin:16px 0 28px;font-size:clamp(38px,11.5vw,48px)}}
+@media (max-width:640px){.hero h1{margin:16px 0 28px;font-size:clamp(38px,11.5vw,52px)}}
+/* fundo laranja sólido: a digital do hero passa por trás do botão e prejudicava a leitura */
+.hero .btn-outline:not(:hover){background:var(--orange)}
 .nf h1{font-size:clamp(40px,7vw,72px);line-height:1.02;letter-spacing:-0.03em;margin:12px 0 24px}
 
 /* sections */
@@ -159,9 +161,7 @@ nav{display:flex;align-items:center;gap:26px}
 .section-dark .steps li{border-top-color:var(--orange)}
 .section-dark .num{color:var(--orange)}
 .section-dark :focus-visible{outline-color:var(--orange)}
-/* fundo laranja sólido: a digital do hero passa por trás do botão e prejudicava a leitura */
-.hero .btn-outline{background:var(--orange)}
-.hero .btn-outline:hover{background:var(--fg);color:var(--orange)}
+.hero .btn-outline:hover{color:var(--orange)}
 
 /* cases */
 .cases{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
