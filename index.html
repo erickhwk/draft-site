@@ -231,17 +231,53 @@
     <div class="contact-main">
       <p class="label">Contato</p>
       <h2 id="h-contato">Me conta o que você precisa</h2>
-      <p class="contact-lead">Um e-mail ou uma mensagem já basta. Eu respondo em até um dia útil, com perguntas sobre o seu processo e, se fizer sentido, uma proposta por escrito.</p>
+      <p class="contact-lead">Conta em poucas linhas o que você precisa. Eu respondo em até um dia útil, com perguntas sobre o seu processo e, se fizer sentido, uma proposta por escrito.</p>
+      <form class="contact-form" id="form-contato" action="https://formspree.io/f/xdeeroap" method="POST">
+        <input type="hidden" name="_subject" value="Contato pelo site">
+        <div class="field-trap" aria-hidden="true">
+          <label for="f-gotcha">Não preencha este campo</label>
+          <input id="f-gotcha" type="text" name="_gotcha" tabindex="-1" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="f-nome">Nome</label>
+          <input id="f-nome" name="nome" type="text" autocomplete="name" required aria-describedby="e-nome">
+          <p class="field-error" id="e-nome" hidden></p>
+        </div>
+        <div class="field">
+          <label for="f-email">E-mail</label>
+          <input id="f-email" name="email" type="email" autocomplete="email" required aria-describedby="e-email">
+          <p class="field-error" id="e-email" hidden></p>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="f-whatsapp">WhatsApp (opcional)</label>
+            <input id="f-whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel">
+          </div>
+          <div class="field">
+            <label for="f-empresa">Empresa (opcional)</label>
+            <input id="f-empresa" name="empresa" type="text" autocomplete="organization">
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-mensagem">O que você precisa</label>
+          <textarea id="f-mensagem" name="mensagem" rows="5" required aria-describedby="e-mensagem"></textarea>
+          <p class="field-error" id="e-mensagem" hidden></p>
+        </div>
+        <button class="btn btn-dark" type="submit">Enviar mensagem</button>
+        <p class="form-note">Uso seus dados só para responder este contato. O envio passa pelo Formspree.</p>
+        <p class="form-status" id="form-status" role="alert" hidden></p>
+      </form>
+      <div class="form-ok" id="form-ok" tabindex="-1" hidden>
+        <p class="form-ok-title">Recebi sua mensagem.</p>
+        <p>Respondo em até um dia útil.</p>
+      </div>
+      <p class="label contact-alt-label">Prefere direto?</p>
       <ul class="contact-links">
         <li><a href="mailto:erick@draft.dev.br"><span class="label">E-mail</span><span class="contact-value">erick@draft.dev.br</span><span class="arrow" aria-hidden="true">→</span></a></li>
         <li><a href="https://wa.me/5511999606775" target="_blank" rel="noopener"><span class="label">WhatsApp</span><span class="contact-value">(11) 99960-6775</span><span class="arrow" aria-hidden="true">→</span></a></li>
       </ul>
       <p class="label contact-addr-label">Endereço</p>
       <p class="contact-addr">Rua Sansão Alves dos Santos, 237<br>Cidade das Monções, São Paulo, SP</p>
-      <div class="actions">
-        <a class="btn btn-dark" href="mailto:erick@draft.dev.br">Enviar e-mail</a>
-        <a class="btn btn-outline" href="https://wa.me/5511999606775" target="_blank" rel="noopener">Chamar no WhatsApp</a>
-      </div>
     </div>
   </div>
 </section>
@@ -257,5 +293,6 @@
   </div>
 </footer>
 <script>document.getElementById('ano').textContent = new Date().getFullYear();</script>
+<script src="contato.js" defer></script>
 </body>
 </html>
