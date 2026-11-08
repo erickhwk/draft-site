@@ -49,6 +49,37 @@
 
   form.noValidate = true;
 
+  // Máscara do WhatsApp: (11) 91234-5678, ou (11) 1234-5678 com 10 dígitos. Colar "+55 …" descarta o 55.
+  var tel = form.elements.whatsapp;
+  function digitos(v) {
+    var d = v.replace(/\D/g, '');
+    if (d.length > 11 && d.indexOf('55') === 0) d = d.slice(2);
+    return d.slice(0, 11);
+  }
+  function mascara(d) {
+    if (!d) return '';
+    if (d.length <= 2) return '(' + d;
+    var corte = d.length === 11 ? 7 : 6;
+    var meio = d.slice(2, corte), fim = d.slice(corte);
+    return '(' + d.slice(0, 2) + ') ' + meio + (fim ? '-' + fim : '');
+  }
+  var telAnterior = '';
+  tel.addEventListener('input', function (e) {
+    // mantém o cursor depois do mesmo número de dígitos
+    var antes = tel.value.slice(0, tel.selectionStart).replace(/\D/g, '').length;
+    var d = digitos(tel.value);
+    // Backspace sobre ")", " " ou "-" não muda os dígitos: apaga o dígito anterior, senão o cursor trava
+    if (e.inputType === 'deleteContentBackward' && d === telAnterior && antes > 0) {
+      d = d.slice(0, antes - 1) + d.slice(antes);
+      antes--;
+    }
+    telAnterior = d;
+    tel.value = mascara(d);
+    var pos = 0;
+    for (var n = 0; pos < tel.value.length && n < antes; pos++) if (/\d/.test(tel.value[pos])) n++;
+    tel.setSelectionRange(pos, pos);
+  });
+
   function marcar(campo, msg) {
     var erro = document.getElementById(campo.getAttribute('aria-describedby'));
     erro.textContent = msg;
@@ -74,6 +105,10 @@
       marcar(campo, msg);
       if (msg && !primeiro) primeiro = campo;
     });
+    var nTel = digitos(tel.value).length;
+    var msgTel = nTel && nTel < 10 ? 'Esse número parece incompleto.' : '';
+    marcar(tel, msgTel);
+    if (msgTel && !primeiro) primeiro = tel;
     if (primeiro) { primeiro.focus(); return; }
 
     form.elements._subject.value = 'Contato pelo site: ' + form.elements.nome.value.trim();
