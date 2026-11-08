@@ -1,5 +1,5 @@
 # Checagens do site: Stylelint (cor só por token; cor literal só no :root de style.css)
-# e testes e2e do #contato (testes/contato.mjs).
+# e testes no navegador: #contato (testes/contato.mjs) e logos de clientes sem fundo (testes/logos.mjs).
 name: Checagens
 on:
   pull_request:
@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: 22
       - run: npx --yes stylelint@16.26.1 "*.css"
-  # Testes e2e do #contato (form, copiar e máscara). Formspree e wa.me são simulados no próprio teste.
+  # Testes no navegador: #contato (form, copiar e máscara; Formspree e wa.me simulados) e logos de clientes.
   e2e:
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -33,4 +33,6 @@ jobs:
           python3 -m http.server 8010 --bind 127.0.0.1 >/dev/null 2>&1 &
           for i in $(seq 1 20); do curl -sf http://127.0.0.1:8010/ >/dev/null && break; sleep 0.5; done
           curl -sf http://127.0.0.1:8010/ >/dev/null || { echo "http.server não subiu na 8010"; exit 1; }
-          node testes/contato.mjs
+          node testes/contato.mjs; contato=$?
+          node testes/logos.mjs; logos=$?
+          exit $(( contato || logos ))
