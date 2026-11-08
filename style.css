@@ -1,4 +1,5 @@
 /* Draft · site institucional. Só tema claro; o sistema é chapado (sem sombra, gradiente decorativo ou ícone). */
+/* stylelint-disable color-no-hex, function-disallowed-list -- o :root é o único lugar com cor literal; fora dele, só var(--token) */
 :root{
   --laranja:#FF5A36;          /* laranja da marca */
   --laranja-escuro:#C93216;   /* texto laranja sobre fundo claro */
@@ -26,6 +27,7 @@
   --mono:"JetBrains Mono",ui-monospace,monospace;
   color-scheme:light;
 }
+/* stylelint-enable color-no-hex, function-disallowed-list */
 
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth}

@@ -1,0 +1,15 @@
+# Regra mecânica do site: cor só por token. Cor literal (hex, nome, rgb/hsl) só no :root de style.css.
+name: Checagens
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  css:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npx --yes stylelint@16 "*.css"
