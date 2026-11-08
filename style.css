@@ -78,6 +78,15 @@ nav{display:flex;align-items:center;gap:28px}
 .nav-link{font-size:15px;text-decoration:none;padding:6px 0;border-bottom:2px solid transparent;white-space:nowrap}
 .nav-link:hover{border-bottom-color:var(--laranja-escuro)}
 @media (max-width:760px){.nav-link{display:none}}
+/* logo: no hover a hachura do "a" é redesenhada traço a traço, de cima para baixo, como um rascunho.
+   Tracejado em unidades do viewBox (o traço mais longo tem ~396): todos andam na mesma velocidade,
+   e o início em 430 deixa a ponta arredondada fora do traço enquanto ele espera a vez.
+   O logo do nav fica inline: dentro de um <use> o :hover do link não alcança os traços. */
+@media (hover:hover) and (prefers-reduced-motion:no-preference){
+  .logo:hover .logo-hatch path,.logo:focus-visible .logo-hatch path{stroke-dasharray:400 500;
+    animation:logo-draft .45s cubic-bezier(.3,.6,.3,1) both;animation-delay:calc(var(--i)*55ms)}
+}
+@keyframes logo-draft{from{stroke-dashoffset:430}to{stroke-dashoffset:0}}
 @media (max-width:380px){.logo{width:92px}.top .btn{padding:0 16px;font-size:15px}}
 
 /* stats (números grandes) */
@@ -96,6 +105,16 @@ nav{display:flex;align-items:center;gap:28px}
 .hero{padding:72px 0 44px}
 .hero-digital{width:660px;height:760px;right:-150px;top:-30px;color:var(--laranja-digital)}
 @media (max-width:1100px){.hero-digital{display:none}}
+/* a digital se desenha ao abrir a página, do anel de dentro para o de fora: cada traço cresce de 0
+   até o tamanho final mantendo o período (--p = --d + --g, já somado no HTML: calc() na lista não interpola), então os vãos terminam onde o guia manda */
+@media (prefers-reduced-motion:no-preference){
+  .hero-digital ellipse{animation:digital-desenha 1.3s cubic-bezier(.3,.6,.3,1) both;animation-delay:calc(.2s + var(--i)*90ms)}
+}
+@keyframes digital-desenha{
+  from{stroke-dasharray:0 var(--p);opacity:0}
+  15%{opacity:1}
+  to{stroke-dasharray:var(--d) var(--g);opacity:1}
+}
 .label-tri{display:flex;align-items:center;gap:8px}
 .label-tri::before{content:"";width:8px;height:8px;background:currentColor;clip-path:polygon(100% 0,100% 100%,0 100%)}
 .hero h1{font-size:clamp(44px,7.4vw,96px);line-height:.98;letter-spacing:-0.035em;max-width:8.2em;margin:22px 0 28px}
