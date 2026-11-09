@@ -260,12 +260,13 @@ nav{display:flex;align-items:center;gap:28px}
 .depois li+li{margin-top:6px}
 /* clicar no valor copia ("Copiado" aparece ao lado); a seta abre o e-mail ou o WhatsApp */
 .contact-links{margin-top:28px}
-.contact-links li{display:flex;flex-wrap:wrap;align-items:center;column-gap:6px}
+.contact-links li{position:relative;display:flex;flex-wrap:wrap;align-items:center;column-gap:4px}
 .contact-copy{font-size:18px;font-weight:700;line-height:1.4;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px;overflow-wrap:anywhere}
 .contact-copy[data-copiavel]{cursor:copy}
-.contact-go{display:grid;place-items:center;width:40px;height:40px;text-decoration:none}
+.contact-go{display:grid;place-items:center;width:44px;height:44px;text-decoration:none}
 .contact-links .arrow{font-size:20px}
-.contact-hint{font-size:13px;font-weight:700}
+/* o aviso "Copiado" fica sobreposto acima da linha, à direita: aparecer e sumir não mexe no layout */
+.contact-hint{position:absolute;right:0;top:-8px;font-size:13px;font-weight:700;pointer-events:none}
 .form-ok-title{font-size:24px;font-weight:700;line-height:1.3;letter-spacing:-0.01em}
 /* formulário (FRM-01): só grafite sobre o laranja; o erro se marca pela borda dupla e pelo texto, não pela cor */
 .contact-form{display:grid;gap:18px}

@@ -145,7 +145,8 @@ for (const [w, h] of [[1360, 900], [390, 844]]) await bloco(`copiar ${w}`, async
   const { page, erros } = await pagina(ctx);
   // writeText é assíncrono: espera o valor chegar, em vez de ler logo depois da tecla
   const copiou = (valor) => page.waitForFunction(async (x) => (await navigator.clipboard.readText()) === x, valor, { timeout: 3000 }).then(() => true, () => false);
-  await page.locator(".contact-direct").scrollIntoViewIfNeeded();
+  await page.locator(".contact-links").scrollIntoViewIfNeeded();
+  ok(`${w}: nome acessível começa pelo texto visível`, (await page.$$eval(".contact-copy", (ls) => ls.every((l) => l.getAttribute("aria-label") === "Copiar " + l.textContent.trim()))));
   await page.click(".contact-copy >> nth=0");
   ok(`${w}: copia o e-mail`, await copiou("erick@draft.dev.br"));
   ok(`${w}: aviso Copiado`, (await page.textContent(".contact-hint >> nth=0")) === "Copiado");
