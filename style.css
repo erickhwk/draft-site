@@ -308,3 +308,14 @@ nav{display:flex;align-items:center;gap:28px}
 /* 404 */
 .nf{min-height:calc(100vh - var(--top-h));min-height:calc(100svh - var(--top-h));display:flex;align-items:center;padding:72px 0}
 .nf .actions{margin-top:36px}
+/* política de privacidade: coluna de leitura no creme */
+.doc{background:var(--creme);padding:72px 0 96px}
+.doc-in{max-width:680px}
+.doc h1{font-size:clamp(36px,5vw,56px);line-height:1.02;letter-spacing:-.035em}
+.doc-data{margin:16px 0 0;color:var(--texto-suave);font-size:15px}
+.doc-lead{margin:32px 0 0;font-size:19px;line-height:1.5}
+.doc h2{margin:40px 0 0;font-size:22px;line-height:1.2;letter-spacing:-.02em}
+.doc h2 + p{margin-top:10px}
+.doc p{margin:12px 0 0;font-size:17px;line-height:1.6}
+.doc a{text-underline-offset:3px}
+.foot a{text-underline-offset:3px}
