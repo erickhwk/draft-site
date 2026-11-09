@@ -149,7 +149,8 @@
   </div>
 </section>
 
-<section class="section dados" id="dados" aria-labelledby="h-dados">
+<section class="section dados com-divisa" id="dados" aria-labelledby="h-dados">
+  <svg class="divisa divisa-grafite divisa-inv" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M0 0H1440V22C1150 22 1010 96 740 84C470 72 330 6 0 40Z"/></svg>
   <div class="wrap duas-colunas">
     <div class="coluna-titulo">
       <h2 id="h-dados">Dado de processo é <span class="destaque">coisa séria.</span></h2>
@@ -166,7 +167,8 @@
   </div>
 </section>
 
-<section class="section section-dark" id="ia" aria-labelledby="h-ia">
+<section class="section section-dark com-divisa" id="ia" aria-labelledby="h-ia">
+  <svg class="divisa divisa-creme divisa-inv" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M0 0H1440V22C1150 22 1010 96 740 84C470 72 330 6 0 40Z"/></svg>
   <div class="wrap">
     <div class="ia-head">
       <h2 id="h-ia">IA para acelerar, com você <span class="destaque">no comando.</span></h2>
@@ -209,9 +211,26 @@
   <svg class="contact-digital" viewBox="120 0 565 625" fill="none" stroke="currentColor" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="assets/impressao-digital-b.svg#d"/></svg>
   <div class="wrap contact-in">
     <div class="contact-head">
-      <p class="label">Contato</p>
-      <h2 id="h-contato">Conta pra gente o que você precisa</h2>
-      <p class="contact-lead">Poucas linhas já bastam. Respondemos em até um dia útil, com perguntas sobre o seu processo e, se fizer sentido, uma proposta por escrito.</p>
+      <h2 id="h-contato">Conta pra gente o que você precisa.</h2>
+      <p class="contact-lead">Poucas linhas já bastam. Quem lê é gente técnica, não um funil de vendas.</p>
+      <h3 class="depois-titulo">O que acontece depois</h3>
+      <ol class="depois">
+        <li>Quem lê a sua mensagem responde em até um dia útil.</li>
+        <li>A gente marca uma conversa rápida para entender a sua operação e o que está em jogo.</li>
+        <li>Você recebe um caminho e uma estimativa por escrito, sem compromisso.</li>
+      </ol>
+      <ul class="contact-links">
+        <li>
+          <a class="contact-copy" href="mailto:erick@draft.dev.br" data-copiar="erick@draft.dev.br" data-nome="e-mail">erick@draft.dev.br</a>
+          <a class="contact-go" href="mailto:erick@draft.dev.br" aria-label="Escrever para erick@draft.dev.br"><span class="arrow" aria-hidden="true">→</span></a>
+          <span class="contact-hint" role="status"></span>
+        </li>
+        <li>
+          <a class="contact-copy" href="https://wa.me/5511999606775" target="_blank" rel="noopener" data-copiar="(11) 99960-6775" data-nome="WhatsApp">(11) 99960-6775 · WhatsApp</a>
+          <a class="contact-go" href="https://wa.me/5511999606775" target="_blank" rel="noopener" aria-label="Abrir conversa no WhatsApp"><span class="arrow" aria-hidden="true">→</span></a>
+          <span class="contact-hint" role="status"></span>
+        </li>
+      </ul>
     </div>
     <div class="contact-main">
       <form class="contact-form" id="form-contato" action="https://formspree.io/f/xdeeroap" method="POST">
@@ -221,56 +240,39 @@
           <input id="f-gotcha" type="text" name="_gotcha" tabindex="-1" autocomplete="off">
         </div>
         <div class="field">
-          <label class="label" for="f-nome">Nome</label>
+          <label class="campo-rotulo" for="f-nome">Nome</label>
           <input id="f-nome" name="nome" type="text" autocomplete="name" required aria-describedby="e-nome">
           <p class="field-error" id="e-nome" hidden></p>
         </div>
         <div class="field">
-          <label class="label" for="f-email">E-mail</label>
+          <label class="campo-rotulo" for="f-email">E-mail</label>
           <input id="f-email" name="email" type="email" autocomplete="email" required aria-describedby="e-email">
           <p class="field-error" id="e-email" hidden></p>
         </div>
         <div class="field-row">
           <div class="field">
-            <label class="label" for="f-whatsapp">WhatsApp (opcional)</label>
+            <label class="campo-rotulo" for="f-whatsapp">WhatsApp (opcional)</label>
             <input id="f-whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="(00) 00000-0000" aria-describedby="e-whatsapp">
             <p class="field-error" id="e-whatsapp" hidden></p>
           </div>
           <div class="field">
-            <label class="label" for="f-empresa">Empresa (opcional)</label>
+            <label class="campo-rotulo" for="f-empresa">Empresa (opcional)</label>
             <input id="f-empresa" name="empresa" type="text" autocomplete="organization">
           </div>
         </div>
         <div class="field">
-          <label class="label" for="f-mensagem">O que você precisa</label>
+          <label class="campo-rotulo" for="f-mensagem">O que você precisa</label>
           <textarea id="f-mensagem" name="mensagem" rows="5" required aria-describedby="e-mensagem"></textarea>
           <p class="field-error" id="e-mensagem" hidden></p>
         </div>
         <button class="btn btn-dark" type="submit">Enviar mensagem</button>
-        <p class="form-note">Usamos seus dados só para responder este contato. O envio passa pelo Formspree.</p>
+        <p class="form-note">Seus dados servem só para responder este contato e passam pelo Formspree. Veja a <a href="/privacidade.html">política de privacidade</a>.</p>
         <p class="form-status" id="form-status" role="alert" hidden></p>
       </form>
       <div class="form-ok" id="form-ok" tabindex="-1" hidden>
         <p class="form-ok-title">Recebemos sua mensagem.</p>
         <p>Respondemos em até um dia útil.</p>
       </div>
-    </div>
-    <div class="contact-direct">
-      <p class="label contact-alt-label">Prefere direto?</p>
-      <ul class="contact-links">
-        <li>
-          <a class="contact-copy" href="mailto:erick@draft.dev.br" data-copiar="erick@draft.dev.br"><span class="label">E-mail</span><span class="contact-value">erick@draft.dev.br</span></a>
-          <span class="contact-hint" role="status"></span>
-          <a class="contact-go" href="mailto:erick@draft.dev.br" aria-label="Escrever para erick@draft.dev.br"><span class="arrow" aria-hidden="true">→</span></a>
-        </li>
-        <li>
-          <a class="contact-copy" href="https://wa.me/5511999606775" target="_blank" rel="noopener" data-copiar="(11) 99960-6775"><span class="label">WhatsApp</span><span class="contact-value">(11) 99960-6775</span></a>
-          <span class="contact-hint" role="status"></span>
-          <a class="contact-go" href="https://wa.me/5511999606775" target="_blank" rel="noopener" aria-label="Abrir conversa no WhatsApp"><span class="arrow" aria-hidden="true">→</span></a>
-        </li>
-      </ul>
-      <p class="label contact-addr-label">Endereço</p>
-      <p class="contact-addr">Rua Sansão Alves dos Santos, 237<br>Cidade das Monções, São Paulo, SP</p>
     </div>
   </div>
 </section>
@@ -280,9 +282,8 @@
 <footer class="foot">
   <div class="wrap foot-in">
     <span class="foot-logo"><svg viewBox="-27 -760 2455 820" fill="currentColor" aria-hidden="true" focusable="false"><use href="#logo-draft"/></svg></span>
-    <p>Draft Tecnologia Ltda · CNPJ 24.288.593/0001-00</p>
-    <p>Rua Sansão Alves dos Santos, 237 · Cidade das Monções, São Paulo, SP</p>
-    <p class="mono">© <span id="ano">2026</span></p>
+    <p class="foot-dados">Draft Tecnologia Ltda · CNPJ 24.288.593/0001-00 · Rua Sansão Alves dos Santos, 237 · Cidade das Monções, São Paulo, SP · <span class="sem-quebra">© <span id="ano">2026</span></span></p>
+    <a class="foot-link" href="/privacidade.html">Política de privacidade</a>
   </div>
 </footer>
 <script>document.getElementById('ano').textContent = new Date().getFullYear();</script>

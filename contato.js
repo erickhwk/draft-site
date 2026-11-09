@@ -14,7 +14,7 @@
     }
     link.setAttribute('data-copiavel', '');
     link.setAttribute('role', 'button');
-    link.setAttribute('aria-label', 'Copiar ' + link.querySelector('.label').textContent + ' ' + link.dataset.copiar);
+    link.setAttribute('aria-label', 'Copiar ' + link.dataset.nome + ' ' + link.dataset.copiar);
     link.addEventListener('click', function (e) {
       // Cmd/Ctrl/Shift/Alt + clique ou botão do meio: abre o link, como qualquer link
       if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;

@@ -1,11 +1,10 @@
 /* Draft · site institucional. Só tema claro; o sistema é chapado (sem sombra, gradiente decorativo ou ícone). */
-/* fontes servidas pelo próprio site (RED-04): nenhum terceiro recebe o IP de quem visita. Subsets latin e latin-ext (só da Space Grotesk, que aparece nos campos do formulário), licença OFL em assets/fontes/ */
+/* fontes servidas pelo próprio site (RED-04): nenhum terceiro recebe o IP de quem visita. Space Grotesk (subsets latin e latin-ext, este para nomes digitados no formulário) e Fraunces só com "problema."; licença OFL em assets/fontes/ */
 @font-face{font-family:"Space Grotesk";font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fontes/space-grotesk-500.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:"Space Grotesk";font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fontes/space-grotesk-ext-500.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 @font-face{font-family:"Space Grotesk";font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fontes/space-grotesk-700.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:"Space Grotesk";font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fontes/space-grotesk-ext-700.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 @font-face{font-family:"Fraunces";font-style:italic;font-weight:800;font-display:swap;src:url(/assets/fontes/fraunces-problema.woff2) format("woff2");unicode-range:U+2E,U+61-62,U+65,U+6C-6D,U+6F-70,U+72} /* só "problema." do H1 (ver CLAUDE.md) */
-@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:600;font-display:swap;src:url(/assets/fontes/jetbrains-mono-600.woff2) format("woff2")}
 /* stylelint-disable color-no-hex, function-disallowed-list -- o :root é o único lugar com cor literal; fora dele, só var(--token) */
 :root{
   --laranja:#FF5A36;          /* laranja da marca */
@@ -28,7 +27,6 @@
   --laranja-claro:#FF6E4E;   /* hover do botão laranja */
   --ponto-janela:rgba(244,241,234,.35);
   --top-h:73px;
-  --mono:"JetBrains Mono",ui-monospace,monospace;
   /* acento de texto (destaque de título, rótulo, número): cada superfície redefine; ver .section-dark, .hero, .contact, .top-hero */
   --acento:var(--laranja-escuro);
   --foco:var(--grafite);       /* contorno de foco; a superfície escura troca para laranja */
@@ -63,9 +61,6 @@ ul,ol{list-style:none}
   padding:10px 16px;border-radius:10px}
 .skip:focus{left:8px}
 
-/* rótulo mono */
-.label{font:600 12px/1.4 var(--mono);letter-spacing:.13em;text-transform:uppercase;color:var(--acento)}
-.mono{font-family:var(--mono)}
 
 /* botões: um laranja por tela, os demais grafite */
 .btn{display:inline-flex;align-items:center;height:46px;padding:0 22px;border-radius:10px;
@@ -177,12 +172,14 @@ nav{display:flex;align-items:center;gap:28px}
 /* superfície escura: Judisys e IA. Redefine os tokens que os componentes leem (acento, texto suave, filete) */
 .section-dark{background:var(--grafite);color:var(--creme);--acento:var(--laranja);--foco:var(--laranja);--texto-suave:var(--texto-suave-escuro);--linha:var(--linha-escuro)}
 
-/* divisas curvas (só duas, ver CLAUDE.md): a cor da seção de cima entra na de baixo numa curva em S, a da peça "onda" do kit */
+/* divisas curvas (só as quatro do meio da página, ver CLAUDE.md): a cor da seção de cima entra na de baixo numa curva em S, a da peça "onda" do kit */
 /* a curva ocupa o topo da seção e sobe metade da altura sobre o respiro da seção de cima (mesma cor); o respiro do conteúdo é o da seção, um terço menor */
 .com-divisa{position:relative;--divisa-h:clamp(44px,7.5vw,108px);margin-top:calc(var(--divisa-h) * -0.5);padding-top:calc(var(--respiro-secao) * 2 / 3 + var(--divisa-h))}
 .divisa{position:absolute;top:-1px;left:0;width:100%;height:var(--divisa-h);display:block}
 .divisa-creme{fill:var(--creme)}
 .divisa-grafite{fill:var(--grafite)}
+/* as divisas alternam o sentido da onda, para a sequência Judisys → dados → IA não repetir a mesma curva */
+.divisa-inv{transform:scaleX(-1)}
 
 /* Judisys */
 .judisys-in{display:flex;flex-wrap:wrap;gap:48px 64px;align-items:center}
@@ -244,37 +241,34 @@ nav{display:flex;align-items:center;gap:28px}
 .faq-lista details p{padding:0 0 22px 20px;font-size:16px;line-height:1.6;max-width:40em;color:var(--texto-suave)}
 
 /* contato */
-.contact{padding:96px 0 116px}
-/* impressao-digital-b do kit v1.1: grande, sangra pelo canto e pode passar por baixo do texto */
-/* o recorte do canto é proporcional ao tamanho (translate em %), então cada quebra só troca a largura e a altura;
+.contact{padding:var(--respiro-secao) 0 calc(var(--respiro-secao) + 20px)}
+/* impressao-digital-b do kit v1.1: grande, sangra pelo canto inferior esquerdo e pode passar por baixo do texto (Erick).
+   O recorte do canto é proporcional ao tamanho (translate em %), então cada quebra só troca a largura e a altura;
    o traço compensa a escala para ficar com ~16px nas duas */
-.contact-digital{width:990px;height:1095px;right:0;bottom:0;transform:translate(28.3%,51.6%);stroke-width:9;color:var(--laranja-digital-contato)}
+.contact-digital{width:990px;height:1095px;left:0;bottom:0;transform:translate(-36%,51.6%);stroke-width:9;color:var(--laranja-digital-contato)}
 @media (max-width:900px){.contact-digital{width:640px;height:708px;stroke-width:14}}
 @media (max-width:720px){.contact-digital{display:none}}
-/* título na largura toda; embaixo, form à esquerda e contato direto à direita, começando na mesma altura */
-.contact-in{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:32px 80px}
-.contact-head{grid-column:1 / -1}
-@media (max-width:900px){.contact-in{grid-template-columns:minmax(0,1fr)}.contact-direct{margin-top:24px}}
-.contact h2{font-size:clamp(40px,5.6vw,72px);line-height:1;letter-spacing:-0.035em;margin:14px 0 24px;text-wrap:balance}
-.contact-lead{font-size:17px;line-height:1.6;max-width:500px}
-.contact-links{margin-top:12px}
-.contact-links li,.form-ok{border-top:2px solid var(--grafite)}
-.contact-links li:last-child,.form-ok{border-bottom:2px solid var(--grafite)}
-/* clicar no valor copia; a seta abre o e-mail ou o WhatsApp. O aviso "Copiado" ocupa a mesma célula do botão, no canto */
-.contact-links li{--respiro:20px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:16px}
-.contact-copy{grid-area:1 / 1;display:grid;justify-items:start;padding:var(--respiro) 0 18px;text-decoration:none}
+/* texto à esquerda, formulário à direita */
+.contact-in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:48px 80px;align-items:start}
+@media (max-width:900px){.contact-in{grid-template-columns:minmax(0,1fr)}}
+.contact h2{font-size:clamp(40px,5.2vw,68px);line-height:1;letter-spacing:-0.035em;text-wrap:balance}
+.contact-lead{font-size:17px;line-height:1.6;max-width:30em;margin-top:22px}
+.depois-titulo{margin-top:32px;padding-top:20px;border-top:2px solid var(--grafite);font-size:16px;line-height:1.3}
+.depois{list-style:decimal;padding-left:1.3em;margin-top:12px;font-size:15px;line-height:1.5;max-width:30em}
+.depois li+li{margin-top:6px}
+/* clicar no valor copia ("Copiado" aparece ao lado); a seta abre o e-mail ou o WhatsApp */
+.contact-links{margin-top:28px}
+.contact-links li{display:flex;flex-wrap:wrap;align-items:center;column-gap:6px}
+.contact-copy{font-size:18px;font-weight:700;line-height:1.4;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px;overflow-wrap:anywhere}
 .contact-copy[data-copiavel]{cursor:copy}
-.contact-hint{grid-area:1 / 1;justify-self:end;align-self:start;margin-top:var(--respiro);pointer-events:none;font:600 11px/1.4 var(--mono);letter-spacing:.13em;text-transform:uppercase}
-.contact-go{grid-area:1 / 2;display:grid;place-items:center;width:44px;height:44px;margin-right:-10px;text-decoration:none}
-.contact-links .label,.contact-addr-label,.contact-alt-label,.contact-form .label{font-size:11px}
-.contact-value,.form-ok-title{font-size:24px;font-weight:700;line-height:1.3;letter-spacing:-0.01em}
-.contact-value{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px;overflow-wrap:anywhere}
-.contact-links .arrow{font-size:24px}
-.contact-addr-label{margin-top:28px}
-.contact-addr{margin-top:8px}
+.contact-go{display:grid;place-items:center;width:40px;height:40px;text-decoration:none}
+.contact-links .arrow{font-size:20px}
+.contact-hint{font-size:13px;font-weight:700}
+.form-ok-title{font-size:24px;font-weight:700;line-height:1.3;letter-spacing:-0.01em}
+.form-ok{border-top:2px solid var(--grafite);border-bottom:2px solid var(--grafite)}
 /* formulário (FRM-01): só grafite sobre o laranja; o erro se marca pela borda dupla e pelo texto, não pela cor */
 .contact-form{display:grid;gap:18px}
-.contact-form .label{display:block;margin-bottom:6px}
+.campo-rotulo{display:block;margin-bottom:6px;font-size:13px;font-weight:700;line-height:1.3}
 .contact-form input,.contact-form textarea{display:block;width:100%;margin:0;padding:11px 14px;
   border:2px solid var(--grafite);border-radius:10px;background:var(--off-white);color:var(--grafite);font:inherit}
 .contact-form input{height:46px}
@@ -288,22 +282,24 @@ nav{display:flex;align-items:center;gap:28px}
 .contact-form .btn{justify-self:start}
 .contact-form .btn:disabled{cursor:progress}
 .form-note{margin-top:-6px;font-size:13px;line-height:1.5}
+.form-note a{text-underline-offset:3px}
 .form-status{padding-top:12px;border-top:2px solid var(--grafite);font-size:15px;font-weight:700;line-height:1.5}
 .form-ok{padding:22px 0 20px}
 .form-ok:focus{outline:none} /* recebe o foco por JS só para o leitor de tela anunciar; não é controle */
 .form-ok-title+p{margin-top:6px}
 
-/* rodapé */
-.foot{background:var(--grafite);color:var(--texto-suave-escuro);font-size:14px}
-.foot-in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 40px;min-height:96px;padding-top:24px;padding-bottom:24px}
-.foot-logo{width:120px;color:var(--laranja)}
-.foot .mono{font-size:12px;font-weight:600;letter-spacing:.13em}
-@media (max-width:720px){.foot-in{flex-direction:column;align-items:flex-start;justify-content:center;gap:10px}}
+/* rodapé: superfície escura (foco laranja, texto suave claro) */
+.foot{background:var(--grafite);color:var(--texto-suave-escuro);font-size:13px;line-height:1.5;--foco:var(--laranja)}
+.foot-in{display:flex;flex-wrap:wrap;align-items:center;gap:12px 40px;min-height:96px;padding-top:24px;padding-bottom:24px}
+.foot-logo{width:110px;color:var(--laranja)}
+.foot-dados{flex:1 1 420px}
+.foot-link{text-underline-offset:3px}
+.sem-quebra{white-space:nowrap}
+@media (max-width:720px){.foot-in{flex-direction:column;align-items:flex-start;justify-content:center;gap:10px}.foot-dados{flex-basis:auto}}
 
-/* 404 */
-.label-tri{display:flex;align-items:center;gap:8px}
-.label-tri::before{content:"";width:8px;height:8px;background:currentColor;clip-path:polygon(100% 0,100% 100%,0 100%)}
-.nf{min-height:calc(100vh - var(--top-h));min-height:calc(100svh - var(--top-h));display:flex;align-items:center;padding:72px 0}
+/* 404: bloco laranja por baixo do nav transparente, como o hero */
+.nf{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding-bottom:72px}
+.nf>.wrap{width:100%} /* item de flex: sem isso encolhe e centraliza, desalinhado do logo */
 .nf .actions{margin-top:36px}
 /* política de privacidade: coluna de leitura no creme */
 .doc{background:var(--creme);padding:72px 0 96px}
