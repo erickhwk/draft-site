@@ -178,8 +178,8 @@ nav{display:flex;align-items:center;gap:28px}
 .section-dark{background:var(--grafite);color:var(--creme);--acento:var(--laranja);--foco:var(--laranja);--texto-suave:var(--texto-suave-escuro);--linha:var(--linha-escuro)}
 
 /* divisas curvas (só duas, ver CLAUDE.md): a cor da seção de cima entra na de baixo numa curva em S, a da peça "onda" do kit */
-/* a curva ocupa o topo da seção; o respiro do conteúdo é o da seção, um terço menor */
-.com-divisa{position:relative;--divisa-h:clamp(44px,7.5vw,108px);padding-top:calc(var(--respiro-secao) * 2 / 3 + var(--divisa-h))}
+/* a curva ocupa o topo da seção e sobe metade da altura sobre o respiro da seção de cima (mesma cor); o respiro do conteúdo é o da seção, um terço menor */
+.com-divisa{position:relative;--divisa-h:clamp(44px,7.5vw,108px);margin-top:calc(var(--divisa-h) * -0.5);padding-top:calc(var(--respiro-secao) * 2 / 3 + var(--divisa-h))}
 .divisa{position:absolute;top:-1px;left:0;width:100%;height:var(--divisa-h);display:block}
 .divisa-creme{fill:var(--creme)}
 .divisa-grafite{fill:var(--grafite)}
@@ -235,10 +235,12 @@ nav{display:flex;align-items:center;gap:28px}
 /* FAQ */
 .faq-lista{border-top:1px solid var(--linha)}
 .faq-lista details{border-bottom:1px solid var(--linha)}
-.faq-lista summary{display:flex;gap:12px;align-items:baseline;padding:20px 0;font-size:18px;font-weight:700;line-height:1.35;cursor:pointer;list-style:none}
+/* sem display:flex no <summary> (Safari antigo ignora e mostra o marcador nativo junto): a seta é posicionada */
+.faq-lista summary{position:relative;display:block;padding:20px 0 20px 20px;font-size:18px;font-weight:700;line-height:1.35;cursor:pointer;list-style:none}
 .faq-lista summary::-webkit-details-marker{display:none}
-.faq-lista summary::before{content:"";flex:none;width:0;height:0;border-style:solid;border-width:5px 0 5px 8px;border-color:transparent transparent transparent currentColor;transition:rotate .15s;transform:translateY(-2px)}
+.faq-lista summary::before{content:"";position:absolute;left:0;top:calc(20px + .675em - 5px);width:0;height:0;border-style:solid;border-width:5px 0 5px 8px;border-color:transparent transparent transparent currentColor}
 .faq-lista details[open] summary::before{rotate:90deg}
+@media (prefers-reduced-motion:no-preference){.faq-lista summary::before{transition:rotate .15s}}
 .faq-lista details p{padding:0 0 22px 20px;font-size:16px;line-height:1.6;max-width:40em;color:var(--texto-suave)}
 
 /* contato */
