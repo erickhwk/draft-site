@@ -1,4 +1,8 @@
 /* Draft · site institucional. Só tema claro; o sistema é chapado (sem sombra, gradiente decorativo ou ícone). */
+/* fontes servidas pelo próprio site (RED-04): nenhum terceiro recebe o IP de quem visita. Subset latin, licença OFL em assets/fontes/ */
+@font-face{font-family:"Space Grotesk";font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fontes/space-grotesk-500.woff2) format("woff2")}
+@font-face{font-family:"Space Grotesk";font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fontes/space-grotesk-700.woff2) format("woff2")}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:600;font-display:swap;src:url(/assets/fontes/jetbrains-mono-600.woff2) format("woff2")}
 /* stylelint-disable color-no-hex, function-disallowed-list -- o :root é o único lugar com cor literal; fora dele, só var(--token) */
 :root{
   --laranja:#FF5A36;          /* laranja da marca */
