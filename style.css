@@ -158,13 +158,14 @@ nav{display:flex;align-items:center;gap:28px}
    laranja escuro no canto de cima da OABRJ, grafite no canto de baixo do Judisys */
 .janela-com-hachura{position:relative;isolation:isolate;flex:1 1 420px;display:flex}
 .janela-com-hachura .janela{flex:1}
-.hachura{position:absolute;z-index:-1;top:-28px;right:-28px;width:190px;height:190px;
+.hachura{--hachura-recuo:-28px;--hachura-cor:var(--laranja-escuro);position:absolute;z-index:-1;top:var(--hachura-recuo);right:var(--hachura-recuo);width:190px;height:190px;
   background:linear-gradient(to bottom right,transparent 50%,var(--hachura-cor) 50%),
     repeating-linear-gradient(135deg,var(--hachura-cor) 0 6px,transparent 6px 15px)}
-.hachura-escura{--hachura-cor:var(--laranja-escuro)}
 .hachura-grafite{--hachura-cor:var(--grafite)}
-.hachura-baixo{top:auto;right:auto;bottom:-28px;left:-28px}
-@media (max-width:480px){.hachura{width:120px;height:120px;top:-14px;right:-12px}.hachura-baixo{top:auto;right:auto;bottom:-14px;left:-12px}}
+.hachura-baixo{top:auto;right:auto;bottom:var(--hachura-recuo);left:var(--hachura-recuo)}
+/* janela escura sobre quadrado grafite: um contorno creme separa os dois, senão o chapado se funde com a janela */
+.janela-com-hachura .janela-escura{box-shadow:0 0 0 4px var(--creme)}
+@media (max-width:480px){.hachura{--hachura-recuo:-14px;width:120px;height:120px}}
 /* print de app: o celular fica no meio da imagem */
 .janela-app{object-position:center 40%}
 @media (max-width:480px){.caso{padding:44px 0;gap:28px}.casos-lista{margin-top:40px}}
