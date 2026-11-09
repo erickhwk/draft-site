@@ -153,6 +153,14 @@ nav{display:flex;align-items:center;gap:28px}
 .janela-clara{background:var(--areia)}
 .janela-clara .janela-bar i{background:var(--linha-forte)}
 .janela-print{width:100%;aspect-ratio:16 / 10;height:auto;object-fit:cover;object-position:top left}
+/* quadrado meio hachura, meio chapado (vem do card OABRJ da v1), atrás do canto de uma janela só:
+   hachura a 45° subindo para a direita no triângulo de cima, laranja chapado no de baixo; um padrão por peça */
+.janela-com-hachura{position:relative;isolation:isolate;flex:1 1 420px;display:flex}
+.janela-com-hachura .janela{flex:1}
+.hachura{position:absolute;z-index:-1;top:-28px;right:-28px;width:190px;height:190px;
+  background:linear-gradient(to bottom right,transparent 50%,var(--laranja) 50%),
+    repeating-linear-gradient(135deg,var(--laranja) 0 6px,transparent 6px 15px)}
+@media (max-width:480px){.hachura{width:120px;height:120px;top:-14px;right:-12px}}
 /* print de app: o celular fica no meio da imagem */
 .janela-app{object-position:center 40%}
 @media (max-width:480px){.caso{padding:44px 0;gap:28px}.casos-lista{margin-top:40px}}
