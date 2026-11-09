@@ -165,11 +165,15 @@ nav{display:flex;align-items:center;gap:28px}
 .janela-app{object-position:center 40%}
 @media (max-width:480px){.caso{padding:44px 0;gap:28px}.casos-lista{margin-top:40px}}
 
-.clientes{display:flex;flex-wrap:wrap;align-items:center;gap:20px 40px;margin-top:24px;padding-top:40px;border-top:1px solid var(--linha)}
+.clientes{margin-top:24px;padding-top:40px;border-top:1px solid var(--linha)}
 .clientes-titulo{font-size:15px;font-weight:700}
-.clientes-logos{display:flex;flex-wrap:wrap;align-items:center;gap:24px 40px;flex:1}
-/* logos em monocromático grafite; os PNGs têm fundo transparente (AJ-03: o multiply deixava o fundo quase branco à vista no iPhone) */
-.clientes-logos img{max-height:30px;width:auto;object-fit:contain;filter:grayscale(1) contrast(1.1);opacity:.85}
+.clientes-logos{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:28px 40px;margin-top:28px}
+/* logos com o mesmo peso visual: largura em --w, no HTML, pela mesma área (√(3000 × proporção)) com ajuste
+   ótico por logo (OABRJ e K2 são pesados, Scopus e MCAA finos); todos na mesma tinta (PNGs de fundo transparente, AJ-03) */
+.clientes-logos img{width:var(--w);height:auto;filter:brightness(0);opacity:.72}
+/* o selo da MCAA tem as iniciais claras dentro do hexágono: escurece sem virar silhueta */
+.clientes-logos .logo-com-miolo{filter:grayscale(1) brightness(.42);opacity:.9}
+@media (max-width:720px){.clientes-logos{justify-content:center;gap:24px 32px}.clientes-logos img{width:calc(var(--w) * .82)}}
 
 /* Judisys */
 .section-dark{background:var(--grafite);color:var(--creme)}
