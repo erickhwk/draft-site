@@ -244,8 +244,11 @@ nav{display:flex;align-items:center;gap:28px}
 
 /* contato */
 .contact{padding:96px 0 116px}
-.contact-digital{overflow:visible;width:400px;height:475px;right:32px;bottom:32px;color:var(--laranja-digital-contato)}
-@media (max-width:900px){.contact-digital{width:240px;height:285px;right:16px;bottom:16px}}
+/* impressao-digital-b do kit v1.1: grande, sangra pelo canto e pode passar por baixo do texto */
+/* o recorte do canto é proporcional ao tamanho (translate em %), então cada quebra só troca a largura e a altura;
+   o traço compensa a escala para ficar com ~16px nas duas */
+.contact-digital{width:990px;height:1095px;right:0;bottom:0;transform:translate(28.3%,51.6%);stroke-width:9;color:var(--laranja-digital-contato)}
+@media (max-width:900px){.contact-digital{width:640px;height:708px;stroke-width:14}}
 @media (max-width:720px){.contact-digital{display:none}}
 /* título na largura toda; embaixo, form à esquerda e contato direto à direita, começando na mesma altura */
 .contact-in{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:32px 80px}
