@@ -66,7 +66,7 @@ ul,ol{list-style:none}
 .skip:focus{left:8px}
 
 /* rótulo mono (também nas legendas dos números) */
-.label,.judisys-stats dd{font:600 12px/1.4 var(--mono);letter-spacing:.13em;text-transform:uppercase}
+.label{font:600 12px/1.4 var(--mono);letter-spacing:.13em;text-transform:uppercase}
 .label{color:var(--acento)}
 .mono{font-family:var(--mono)}
 
@@ -100,10 +100,6 @@ nav{display:flex;align-items:center;gap:28px}
 }
 @keyframes logo-draft{from{stroke-dashoffset:430}to{stroke-dashoffset:0}}
 @media (max-width:380px){.logo{width:92px}.top .btn{padding:0 16px;font-size:15px}}
-
-/* stats (números grandes) */
-.stats{display:flex;flex-wrap:wrap}
-.stats dt{font-weight:700;line-height:1;letter-spacing:-0.03em}
 
 /* digital: textura tom sobre tom, sempre atrás do conteúdo */
 .hero-digital,.contact-digital{position:absolute;pointer-events:none;z-index:0}
@@ -139,10 +135,12 @@ nav{display:flex;align-items:center;gap:28px}
 .audience-dark .audience-for{color:var(--texto-suave-escuro)}
 @media (max-width:480px){.sob-nav{--respiro-topo:56px}.hero{padding-bottom:80px}.audience{padding:22px 24px;flex-basis:100%}}
 
+/* parágrafo de abertura de seção, nas superfícies clara e escura */
+.lead{font-size:17px;line-height:1.6;max-width:34em;margin-top:16px;color:var(--texto-suave)}
+
 /* quando a gente é chamado: linhas editoriais alternadas, texto e tela do sistema */
 .casos{background:var(--creme)}
 .destaque{color:var(--acento)}
-.secao-lead{font-size:17px;line-height:1.55;margin-top:14px;color:var(--texto-suave)}
 .casos-lista{margin-top:56px}
 .caso{display:flex;flex-wrap:wrap;align-items:center;gap:40px 64px;padding:56px 0}
 .caso+.caso{border-top:1px solid var(--linha)}
@@ -179,42 +177,74 @@ nav{display:flex;align-items:center;gap:28px}
 .clientes-logos .logo-com-miolo{filter:grayscale(1) brightness(.42);opacity:.9}
 @media (max-width:720px){.clientes-logos{gap:24px 32px}.clientes-logos img{width:calc(var(--w) * .82)}}
 
+/* superfície escura: Judisys e IA. Redefine os tokens que os componentes leem (acento, texto suave, filete) */
+.section-dark{background:var(--grafite);color:var(--creme);--acento:var(--laranja);--texto-suave:var(--texto-suave-escuro);--linha:var(--linha-escuro)}
+
+/* divisas curvas (só duas, ver CLAUDE.md): a cor da seção de cima entra na de baixo numa curva em S, a da peça "onda" do kit */
+.com-divisa{position:relative;--divisa-h:clamp(44px,7.5vw,108px);padding-top:calc(64px + var(--divisa-h))}
+@media (max-width:720px){.com-divisa{padding-top:calc(48px + var(--divisa-h))}}
+.divisa{position:absolute;top:-1px;left:0;width:100%;height:var(--divisa-h);display:block}
+.divisa-creme{fill:var(--creme)}
+.divisa-grafite{fill:var(--grafite)}
+
 /* Judisys */
-.section-dark{background:var(--grafite);color:var(--creme)}
-.section-dark{--acento:var(--laranja)}
-.judisys-in{display:flex;flex-wrap:wrap;gap:56px;align-items:flex-start}
-.judisys-text{flex:1 1 440px}
-.judisys-brand{display:flex;align-items:center;gap:14px;margin:14px 0 22px}
-.judisys-word{font-size:40px;font-weight:700;line-height:1;letter-spacing:-0.03em;color:var(--ouro)}
-.pill{background:var(--verde);color:var(--branco);font-size:14px;font-weight:700;line-height:1;padding:8px 14px;border-radius:999px}
-.judisys-lead{font-size:17px;line-height:1.6;max-width:520px;color:var(--texto-suave-escuro);margin:24px 0 32px}
-.window{flex:1 1 440px;border:1px solid var(--linha-escuro);border-radius:16px;overflow:hidden;background:var(--grafite-2);align-self:center}
-.window-bar{display:flex;gap:6px;padding:12px 16px;border-bottom:1px solid var(--linha-escuro)}
-.window-bar i{width:9px;height:9px;border-radius:50%;background:var(--ponto-janela)}
-.window img{width:100%;height:320px;object-fit:cover;object-position:top left}
-/* na janela estreita, altura fixa cortaria o painel pela direita: o print fica inteiro */
-@media (max-width:720px){.window img{height:auto}}
+.judisys-in{display:flex;flex-wrap:wrap;gap:48px 64px;align-items:center}
+.judisys-text{flex:1 1 400px}
+.judisys-nome{font-size:24px;font-weight:700;letter-spacing:-0.02em;color:var(--ouro);margin-bottom:12px}
+.judisys-text .lead{margin-bottom:32px}
+.diferenciais{display:flex;flex-wrap:wrap;gap:32px 48px;margin-top:80px}
+.diferenciais li{flex:1 1 260px}
+.diferenciais h3,.compromissos h3{font-size:20px;line-height:1.25;letter-spacing:-0.015em}
+.diferenciais p,.compromissos p,.passos li>p:last-child{font-size:15px;line-height:1.6;margin-top:8px;color:var(--texto-suave)}
+.judisys-hoje{margin-top:72px;font-size:clamp(22px,2.4vw,30px);line-height:1.35;letter-spacing:-0.015em;max-width:24em}
+.judisys-hoje strong{color:var(--acento)}
 
-.benefits{display:flex;flex-wrap:wrap;gap:32px;margin-top:72px}
-.benefits li{flex:1 1 260px;border-top:2px solid var(--laranja);padding-top:26px}
-.benefits h3{font-size:22px;line-height:1.2;letter-spacing:-0.02em;margin:12px 0 10px}
-.benefits p{font-size:15px;line-height:1.6;color:var(--texto-suave-escuro)}
+/* título à esquerda, conteúdo à direita: dados e FAQ */
+.dados,.faq{background:var(--creme)}
+.duas-colunas{display:flex;flex-wrap:wrap;gap:40px 72px;align-items:flex-start}
+.coluna-titulo{flex:1 1 300px}
+.duas-colunas>:not(.coluna-titulo){flex:2 1 480px}
+.dados h2,.faq h2{font-size:clamp(36px,4.6vw,56px);line-height:1.02;letter-spacing:-0.035em}
 
-.judisys-stats{gap:24px 48px;margin-top:64px;padding-top:56px;border-top:1px solid var(--linha-escuro)}
-.judisys-stats dt{font-size:52px;color:var(--laranja)}
-.judisys-stats dd{margin-top:14px;color:var(--texto-suave-escuro)}
-@media (max-width:480px){.judisys-stats dt{font-size:44px}}
+/* compromissos de dados: numeral pelo contador do <ol> */
+.compromissos{counter-reset:compromisso;border-top:1px solid var(--linha)}
+.compromissos li{counter-increment:compromisso;display:grid;grid-template-columns:44px minmax(0,1fr);column-gap:20px;padding:24px 0;border-bottom:1px solid var(--linha)}
+.compromissos li::before{content:counter(compromisso);grid-row:1 / span 2;font-size:30px;font-weight:700;line-height:1;letter-spacing:-0.03em;color:var(--acento)}
 
-/* o que a gente faz / como a gente trabalha */
-.two-lists{display:flex;flex-wrap:wrap;gap:56px 64px}
-.two-lists>div{flex:1 1 440px}
-.two-lists h2{font-size:clamp(32px,4.4vw,44px);margin:16px 0 32px}
-.list li{padding:22px 0;border-top:1px solid var(--linha)}
-.list:not(.list-steps) li:last-child{border-bottom:1px solid var(--linha)}
-.list h3{font-size:20px;line-height:1.25;letter-spacing:-0.01em;margin-bottom:8px}
-.list p{font-size:15px;color:var(--texto-suave)}
-.list-steps li{border-top:2px solid var(--grafite)}
-.num{display:block;font:600 12px/1 var(--mono);letter-spacing:.13em;color:var(--laranja-escuro);margin-bottom:12px}
+/* IA */
+.ia-head{display:flex;flex-wrap:wrap;gap:24px 72px;align-items:flex-start}
+.ia-head h2{flex:1 1 420px}
+.ia-head .lead{flex:1 1 360px;margin-top:6px}
+.regras{display:flex;flex-wrap:wrap;gap:40px 32px;margin-top:64px}
+.regras li{flex:1 1 260px;border-top:4px solid var(--laranja);padding-top:24px}
+.regras h3{font-size:clamp(22px,2.2vw,26px);line-height:1.2;letter-spacing:-0.02em}
+.regras p{font-size:15px;line-height:1.6;margin-top:12px;color:var(--texto-suave)}
+
+/* processo: linha do tempo reta; no celular vira vertical */
+.como{background:var(--areia)}
+.passos{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px;margin-top:56px}
+.passos li{position:relative;padding-top:36px}
+.passos li::before{content:"";position:absolute;top:6px;left:0;right:-32px;border-top:2px solid var(--grafite)}
+.passos li:last-child::before{right:0}
+.passos li::after{content:"";position:absolute;top:0;left:0;width:14px;height:14px;border-radius:50%;background:var(--laranja)}
+.passo-n{font-size:14px;font-weight:700;color:var(--acento)}
+.passos h3{font-size:20px;line-height:1.25;letter-spacing:-0.015em;margin-top:6px}
+@media (max-width:860px){
+  .passos{grid-template-columns:minmax(0,1fr);gap:0}
+  .passos li{padding:0 0 32px 36px}
+  .passos li::before{top:7px;bottom:-7px;left:6px;right:auto;border-top:0;border-left:2px solid var(--grafite)}
+  .passos li:last-child::before{display:none}
+  .passos li::after{top:0}
+}
+
+/* FAQ */
+.faq-lista{border-top:1px solid var(--linha)}
+.faq-lista details{border-bottom:1px solid var(--linha)}
+.faq-lista summary{display:flex;gap:12px;align-items:baseline;padding:20px 0;font-size:18px;font-weight:700;line-height:1.35;cursor:pointer;list-style:none}
+.faq-lista summary::-webkit-details-marker{display:none}
+.faq-lista summary::before{content:"";flex:none;width:0;height:0;border-style:solid;border-width:5px 0 5px 8px;border-color:transparent transparent transparent currentColor;transition:transform .15s;transform:translateY(-2px)}
+.faq-lista details[open] summary::before{transform:translateY(-2px) rotate(90deg)}
+.faq-lista details p{padding:0 0 22px 20px;font-size:16px;line-height:1.6;max-width:40em;color:var(--texto-suave)}
 
 /* contato */
 .contact{padding:96px 0 116px}
