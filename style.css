@@ -13,12 +13,10 @@
   --laranja-digital:#E55227;  /* digital do hero, tom sobre tom */
   --laranja-digital-contato:#F05732; /* mais discreto: fica perto de texto */
   --grafite:#25282A;
-  --grafite-2:#2E3236;
   --off-white:#F7F5EF;
   --creme:#F4F1EA;
   --areia:#ECE8DC;
   --ouro:#E0A93B;             /* cor do Judisys, não da Draft */
-  --verde:#1F7A4D;
   /* texto secundário e filetes: grafite sobre fundo claro, creme sobre fundo escuro */
   --texto-suave:rgba(37,40,42,.8);
   --texto-placeholder:rgba(37,40,42,.66); /* exemplo no campo: mais claro que o texto digitado, ainda 4,5:1 sobre o off-white */
@@ -28,12 +26,13 @@
   --linha-escuro:rgba(244,241,234,.2);
   --preto:#000;              /* hover do botão grafite */
   --laranja-claro:#FF6E4E;   /* hover do botão laranja */
-  --branco:#FFF;
   --ponto-janela:rgba(244,241,234,.35);
   --top-h:73px;
   --mono:"JetBrains Mono",ui-monospace,monospace;
   /* acento de texto (destaque de título, rótulo, número): cada superfície redefine; ver .section-dark, .hero, .contact, .top-hero */
   --acento:var(--laranja-escuro);
+  --foco:var(--grafite);       /* contorno de foco; a superfície escura troca para laranja */
+  --respiro-secao:96px;
   color-scheme:light;
 }
 /* stylelint-enable color-no-hex, function-disallowed-list */
@@ -47,8 +46,7 @@ body{margin:0;background:var(--off-white);color:var(--grafite);
 img{max-width:100%;display:block}
 a{color:inherit}
 /* foco grafite; laranja só sobre grafite (laranja sobre o claro não passa de 3:1) */
-:focus-visible{outline:3px solid var(--grafite);outline-offset:3px}
-.section-dark :focus-visible{outline-color:var(--laranja)}
+:focus-visible{outline:3px solid var(--foco);outline-offset:3px}
 
 h1,h2,h3{font-weight:700;margin:0}
 h2{font-size:clamp(32px,4.4vw,52px);line-height:1.05;letter-spacing:-0.03em}
@@ -58,16 +56,15 @@ ul,ol{list-style:none}
 
 .wrap{max-width:1200px;margin:0 auto;padding:0 32px}
 @media (max-width:480px){.wrap{padding:0 16px}}
-.section{padding:96px 0}
-@media (max-width:720px){.section{padding:72px 0}}
+.section{padding:var(--respiro-secao) 0}
+@media (max-width:720px){:root{--respiro-secao:72px}}
 
 .skip{position:absolute;left:-999px;top:8px;z-index:30;background:var(--grafite);color:var(--creme);
   padding:10px 16px;border-radius:10px}
 .skip:focus{left:8px}
 
-/* rótulo mono (também nas legendas dos números) */
-.label{font:600 12px/1.4 var(--mono);letter-spacing:.13em;text-transform:uppercase}
-.label{color:var(--acento)}
+/* rótulo mono */
+.label{font:600 12px/1.4 var(--mono);letter-spacing:.13em;text-transform:uppercase;color:var(--acento)}
 .mono{font-family:var(--mono)}
 
 /* botões: um laranja por tela, os demais grafite */
@@ -139,7 +136,7 @@ nav{display:flex;align-items:center;gap:28px}
 .lead{font-size:17px;line-height:1.6;max-width:34em;margin-top:16px;color:var(--texto-suave)}
 
 /* quando a gente é chamado: linhas editoriais alternadas, texto e tela do sistema */
-.casos{background:var(--creme)}
+.casos,.dados,.faq{background:var(--creme)}
 .destaque{color:var(--acento)}
 .casos-lista{margin-top:56px}
 .caso{display:flex;flex-wrap:wrap;align-items:center;gap:40px 64px;padding:56px 0}
@@ -178,11 +175,11 @@ nav{display:flex;align-items:center;gap:28px}
 @media (max-width:720px){.clientes-logos{gap:24px 32px}.clientes-logos img{width:calc(var(--w) * .82)}}
 
 /* superfície escura: Judisys e IA. Redefine os tokens que os componentes leem (acento, texto suave, filete) */
-.section-dark{background:var(--grafite);color:var(--creme);--acento:var(--laranja);--texto-suave:var(--texto-suave-escuro);--linha:var(--linha-escuro)}
+.section-dark{background:var(--grafite);color:var(--creme);--acento:var(--laranja);--foco:var(--laranja);--texto-suave:var(--texto-suave-escuro);--linha:var(--linha-escuro)}
 
 /* divisas curvas (só duas, ver CLAUDE.md): a cor da seção de cima entra na de baixo numa curva em S, a da peça "onda" do kit */
-.com-divisa{position:relative;--divisa-h:clamp(44px,7.5vw,108px);padding-top:calc(64px + var(--divisa-h))}
-@media (max-width:720px){.com-divisa{padding-top:calc(48px + var(--divisa-h))}}
+/* a curva ocupa o topo da seção; o respiro do conteúdo é o da seção, um terço menor */
+.com-divisa{position:relative;--divisa-h:clamp(44px,7.5vw,108px);padding-top:calc(var(--respiro-secao) * 2 / 3 + var(--divisa-h))}
 .divisa{position:absolute;top:-1px;left:0;width:100%;height:var(--divisa-h);display:block}
 .divisa-creme{fill:var(--creme)}
 .divisa-grafite{fill:var(--grafite)}
@@ -192,19 +189,18 @@ nav{display:flex;align-items:center;gap:28px}
 .judisys-text{flex:1 1 400px}
 .judisys-nome{font-size:24px;font-weight:700;letter-spacing:-0.02em;color:var(--ouro);margin-bottom:12px}
 .judisys-text .lead{margin-bottom:32px}
-.diferenciais{display:flex;flex-wrap:wrap;gap:32px 48px;margin-top:80px}
-.diferenciais li{flex:1 1 260px}
-.diferenciais h3,.compromissos h3{font-size:20px;line-height:1.25;letter-spacing:-0.015em}
-.diferenciais p,.compromissos p,.passos li>p:last-child{font-size:15px;line-height:1.6;margin-top:8px;color:var(--texto-suave)}
+.diferenciais,.regras{display:flex;flex-wrap:wrap}
+.diferenciais li,.regras li{flex:1 1 260px}
+.diferenciais{gap:32px 48px;margin-top:80px}
+.diferenciais h3,.compromissos h3,.passos h3{font-size:20px;line-height:1.25;letter-spacing:-0.015em}
+.diferenciais p,.compromissos p,.passos h3+p,.regras p{font-size:15px;line-height:1.6;margin-top:8px;color:var(--texto-suave)}
 .judisys-hoje{margin-top:72px;font-size:clamp(22px,2.4vw,30px);line-height:1.35;letter-spacing:-0.015em;max-width:24em}
-.judisys-hoje strong{color:var(--acento)}
 
 /* título à esquerda, conteúdo à direita: dados e FAQ */
-.dados,.faq{background:var(--creme)}
 .duas-colunas{display:flex;flex-wrap:wrap;gap:40px 72px;align-items:flex-start}
 .coluna-titulo{flex:1 1 300px}
 .duas-colunas>:not(.coluna-titulo){flex:2 1 480px}
-.dados h2,.faq h2{font-size:clamp(36px,4.6vw,56px);line-height:1.02;letter-spacing:-0.035em}
+.duas-colunas h2{font-size:clamp(36px,4.6vw,56px);line-height:1.02;letter-spacing:-0.035em}
 
 /* compromissos de dados: numeral pelo contador do <ol> */
 .compromissos{counter-reset:compromisso;border-top:1px solid var(--linha)}
@@ -215,26 +211,25 @@ nav{display:flex;align-items:center;gap:28px}
 .ia-head{display:flex;flex-wrap:wrap;gap:24px 72px;align-items:flex-start}
 .ia-head h2{flex:1 1 420px}
 .ia-head .lead{flex:1 1 360px;margin-top:6px}
-.regras{display:flex;flex-wrap:wrap;gap:40px 32px;margin-top:64px}
-.regras li{flex:1 1 260px;border-top:4px solid var(--laranja);padding-top:24px}
+.regras{gap:40px 32px;margin-top:64px}
+.regras li{border-top:4px solid var(--laranja);padding-top:24px}
 .regras h3{font-size:clamp(22px,2.2vw,26px);line-height:1.2;letter-spacing:-0.02em}
-.regras p{font-size:15px;line-height:1.6;margin-top:12px;color:var(--texto-suave)}
+.regras p{margin-top:12px}
 
 /* processo: linha do tempo reta; no celular vira vertical */
 .como{background:var(--areia)}
-.passos{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px;margin-top:56px}
+.passos{--passos-gap:32px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--passos-gap);margin-top:56px}
 .passos li{position:relative;padding-top:36px}
-.passos li::before{content:"";position:absolute;top:6px;left:0;right:-32px;border-top:2px solid var(--grafite)}
+.passos li::before{content:"";position:absolute;top:6px;left:0;right:calc(-1 * var(--passos-gap));border-top:2px solid currentColor}
 .passos li:last-child::before{right:0}
 .passos li::after{content:"";position:absolute;top:0;left:0;width:14px;height:14px;border-radius:50%;background:var(--laranja)}
 .passo-n{font-size:14px;font-weight:700;color:var(--acento)}
-.passos h3{font-size:20px;line-height:1.25;letter-spacing:-0.015em;margin-top:6px}
+.passos h3{margin-top:6px}
 @media (max-width:860px){
   .passos{grid-template-columns:minmax(0,1fr);gap:0}
   .passos li{padding:0 0 32px 36px}
-  .passos li::before{top:7px;bottom:-7px;left:6px;right:auto;border-top:0;border-left:2px solid var(--grafite)}
+  .passos li::before{top:7px;bottom:-7px;left:6px;right:auto;border-top:0;border-left:2px solid currentColor}
   .passos li:last-child::before{display:none}
-  .passos li::after{top:0}
 }
 
 /* FAQ */
@@ -242,8 +237,8 @@ nav{display:flex;align-items:center;gap:28px}
 .faq-lista details{border-bottom:1px solid var(--linha)}
 .faq-lista summary{display:flex;gap:12px;align-items:baseline;padding:20px 0;font-size:18px;font-weight:700;line-height:1.35;cursor:pointer;list-style:none}
 .faq-lista summary::-webkit-details-marker{display:none}
-.faq-lista summary::before{content:"";flex:none;width:0;height:0;border-style:solid;border-width:5px 0 5px 8px;border-color:transparent transparent transparent currentColor;transition:transform .15s;transform:translateY(-2px)}
-.faq-lista details[open] summary::before{transform:translateY(-2px) rotate(90deg)}
+.faq-lista summary::before{content:"";flex:none;width:0;height:0;border-style:solid;border-width:5px 0 5px 8px;border-color:transparent transparent transparent currentColor;transition:rotate .15s;transform:translateY(-2px)}
+.faq-lista details[open] summary::before{rotate:90deg}
 .faq-lista details p{padding:0 0 22px 20px;font-size:16px;line-height:1.6;max-width:40em;color:var(--texto-suave)}
 
 /* contato */
