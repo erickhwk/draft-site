@@ -118,8 +118,9 @@ nav{display:flex;align-items:center;gap:28px}
 /* bloco que passa por baixo do nav transparente (.top-hero): sobe a altura do nav e devolve no padding */
 .sob-nav{--respiro-topo:88px;margin-top:calc(-1 * var(--top-h));padding-top:calc(var(--top-h) + var(--respiro-topo))}
 /* impressao-digital-a do kit v1.1, sangrando pela direita e pelo topo; o traço compensa a escala (~5px na tela) */
-.hero-digital{width:800px;height:811px;right:-90px;top:-150px;stroke-width:3.6;color:var(--laranja-digital)}
-@media (max-width:1100px){.hero-digital{display:none}}
+/* escala com a tela para não encostar no H1 nem nos cards; abaixo de 1180px some (o manual não quer o gesto atrás do texto) */
+.hero-digital{width:min(800px,55vw);height:auto;aspect-ratio:583 / 591;right:-6vw;top:-150px;stroke-width:3.6;color:var(--laranja-digital)}
+@media (max-width:1180px){.hero-digital{display:none}}
 .hero h1{font-size:clamp(44px,7.4vw,96px);line-height:.98;letter-spacing:-0.035em;max-width:8.2em;margin:0 0 28px}
 /* Fraunces itálica só aqui (woff2 recortado com "problema."); o resto do site é Space Grotesk */
 .hero .serif{font-family:Fraunces,Georgia,serif;font-style:italic;font-weight:800;letter-spacing:-0.02em;color:var(--creme)}
