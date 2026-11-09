@@ -124,7 +124,7 @@ nav{display:flex;align-items:center;gap:28px}
 @media (max-width:1180px){.hero-digital{display:none}}
 .hero h1{font-size:clamp(44px,7.4vw,96px);line-height:.98;letter-spacing:-0.035em;max-width:8.2em;margin:0 0 28px}
 /* Fraunces itálica só aqui (woff2 recortado com "problema."); o resto do site é Space Grotesk */
-.hero .serif{font-family:Fraunces,Georgia,serif;font-style:italic;font-weight:800;letter-spacing:-0.02em;color:var(--creme)}
+.hero .serif{font-family:Fraunces,Georgia,serif;font-style:italic;font-weight:800;letter-spacing:-0.02em} /* grafite como o resto do H1: creme sobre o laranja dá 2,75:1 (Erick, 2026-11-09) */
 .hero-lead{font-size:18px;max-width:560px}
 
 .audiences{display:flex;flex-wrap:wrap;gap:16px;margin-top:44px;max-width:780px}
