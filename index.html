@@ -27,9 +27,8 @@
 <meta name="twitter:description" content="Software house em São Paulo. Sistemas para o jurídico, o financeiro e a logística, e o Judisys, para administração judicial.">
 <meta name="twitter:image" content="https://draft.dev.br/og-image.png">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link rel="preload" href="/assets/fontes/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fontes/fraunces-problema.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/style.css">
 
 <script type="application/ld+json">
@@ -39,175 +38,171 @@
 <body id="topo">
 <a class="skip" href="#conteudo">Ir para o conteúdo</a>
 
-<header class="top">
+<header class="top top-hero">
   <div class="wrap top-in">
     <a class="logo" href="#topo" aria-label="Draft, início"><svg viewBox="-27 -760 2455 820" fill="currentColor" aria-hidden="true" focusable="false"><g id="logo-draft"><path transform="translate(0 0)" d="M512 -149Q507 -122 507 -107Q507 -86 519.0 -71.0Q531 -56 554 -54Q543 -18 506.0 1.0Q469 20 427 20Q392 20 364.5 5.5Q337 -9 327 -37Q302 -10 261.5 5.0Q221 20 173 20Q88 20 50.5 -30.0Q13 -80 13 -177Q13 -278 50.0 -358.0Q87 -438 157.5 -484.0Q228 -530 326 -530Q363 -530 390 -523L422 -700L620 -720ZM321 -470Q294 -470 274.5 -449.0Q255 -428 240.0 -378.5Q225 -329 212 -242Q200 -160 200 -107Q200 -76 207.5 -60.0Q215 -44 238 -44Q274 -44 294.5 -81.5Q315 -119 324 -169L374 -452Q364 -461 349.0 -465.5Q334 -470 321 -470Z"/><path transform="translate(599 0)" d="M400 -530Q460 -530 492.0 -500.0Q524 -470 524 -414Q524 -350 485.5 -309.5Q447 -269 388 -269Q369 -269 352.5 -273.5Q336 -278 328 -288Q345 -311 357.0 -346.5Q369 -382 369 -411Q369 -453 338 -453Q309 -453 286.0 -412.5Q263 -372 250 -294L202 0L-4 20L98 -510L262 -530L247 -432Q292 -530 400 -530Z"/><g transform="translate(1088 0)"><defs><clipPath id="draft-a-clip"><polygon points="943,-900 1000,-900 1000,200 -157,200"/></clipPath></defs><g clip-path="url(#draft-a-clip)"><path d="M512 -149Q507 -122 507 -107Q507 -86 519.0 -71.0Q531 -56 554 -54Q543 -18 506.0 1.0Q469 20 427 20Q392 20 364.5 5.5Q337 -9 327 -37Q302 -10 261.5 5.0Q221 20 173 20Q88 20 50.5 -30.0Q13 -80 13 -177Q13 -278 50.0 -358.5Q87 -439 157.5 -484.5Q228 -530 326 -530Q388 -530 427 -511L584 -530ZM321 -470Q294 -470 274.5 -449.0Q255 -428 240.0 -378.5Q225 -329 212 -242Q200 -160 200 -107Q200 -76 207.5 -60.0Q215 -44 238 -44Q274 -44 294.5 -81.5Q315 -119 324 -169L374 -452Q364 -461 349.0 -465.5Q334 -470 321 -470Z"/></g><g class="logo-hatch" fill="none" stroke="currentColor" stroke-width="22" stroke-linecap="round"><path style="--i:0" d="M193.1 -501.6Q129.8 -434.3 56.3 -364.8"/><path style="--i:1" d="M298.0 -531.5Q162.8 -390.1 18.2 -251.7"/><path style="--i:2" d="M365.9 -532.7Q336.4 -498.2 301.9 -468.7"/><path style="--i:3" d="M262.7 -429.5Q141.6 -303.4 15.6 -182.4"/><path style="--i:4" d="M414.9 -515.1Q390.8 -488.2 366.2 -466.4"/><path style="--i:5" d="M226.3 -326.5Q124.8 -222.2 22.7 -122.9"/><path style="--i:6" d="M497.1 -522.4Q426.7 -457.4 366.3 -391.5"/><path style="--i:7" d="M214.5 -239.8Q120.9 -151.6 37.3 -62.6"/><path style="--i:8" d="M564.0 -522.3Q457.6 -414.9 352.7 -311.0"/><path style="--i:9" d="M196.4 -154.8Q129.9 -87.2 64.7 -23.0"/></g></g><path transform="translate(1687 0)" d="M369 -720Q442 -720 494.5 -702.0Q547 -684 547 -637Q547 -603 518.0 -585.5Q489 -568 449 -568Q415 -568 391 -580Q397 -591 401.0 -609.0Q405 -627 405 -641Q405 -676 376 -676Q350 -676 335.0 -650.5Q320 -625 312 -578L300 -510H391L385 -465H291L208 0L2 20L96 -465H25L34 -510H104L119 -569Q140 -654 206.5 -687.0Q273 -720 369 -720Z"/><path transform="translate(2007 0)" d="M303 -510H381L372 -465H295L235 -149Q230 -122 230 -107Q230 -86 242.0 -71.0Q254 -56 277 -54Q266 -18 229.5 1.0Q193 20 148 20Q96 20 64.5 -6.5Q33 -33 33 -83Q33 -131 65 -291L70 -316L99 -465H40L44 -495Q164 -531 280 -619H327Z"/></g></svg></a>
     <nav aria-label="Principal">
       <a class="nav-link" href="#projetos">Projetos</a>
       <a class="nav-link" href="#judisys">Judisys</a>
-      <a class="nav-link" href="#como">Como a gente trabalha</a>
+      <a class="nav-link" href="#dados">Dados e IA</a>
+      <a class="nav-link" href="#como">Como trabalhamos</a>
       <a class="btn btn-dark" href="#contato">Pedir uma conversa</a>
     </nav>
   </div>
 </header>
 
 <main id="conteudo">
+<!-- curva das quatro divisas: S com a curvatura da peça "onda" do kit; a cor da seção de cima entra na de baixo -->
+<svg class="defs" aria-hidden="true" focusable="false"><symbol id="onda" viewBox="0 0 1440 100" preserveAspectRatio="none"><path d="M0 0H1440V22C1150 22 1010 96 740 84C470 72 330 6 0 40Z"/></symbol></svg>
 
-<section class="hero" aria-labelledby="h-hero">
-  <svg class="hero-digital" viewBox="0 0 640 760" fill="none" stroke="currentColor" stroke-width="24" stroke-linecap="round" aria-hidden="true" focusable="false"><ellipse style="--i:0;--d:320;--g:90;--p:410" cx="380" cy="340" rx="44" ry="70"/><ellipse style="--i:1;--d:620;--g:120;--p:740" cx="380" cy="340" rx="92" ry="128" transform="rotate(12 380 340)"/><ellipse style="--i:2;--d:820;--g:160;--p:980" cx="380" cy="340" rx="140" ry="188" transform="rotate(-8 380 340)"/><ellipse style="--i:3;--d:1000;--g:140;--p:1140" cx="380" cy="340" rx="188" ry="248" transform="rotate(20 380 340)"/><ellipse style="--i:4;--d:1240;--g:180;--p:1420" cx="380" cy="340" rx="236" ry="308" transform="rotate(-14 380 340)"/><ellipse style="--i:5;--d:1500;--g:200;--p:1700" cx="380" cy="340" rx="284" ry="368" transform="rotate(8 380 340)"/><ellipse style="--i:6;--d:1800;--g:220;--p:2020" cx="380" cy="340" rx="332" ry="428" transform="rotate(-22 380 340)"/></svg>
+<section class="hero sob-nav" aria-labelledby="h-hero">
+  <svg class="hero-digital" viewBox="110 19 583 591" fill="none" stroke="currentColor" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="/assets/impressao-digital-a.svg#d"/></svg>
   <div class="wrap">
-    <p class="label label-tri">Software sob medida · São Paulo</p>
-    <h1 id="h-hero">Software desenhado a partir do seu problema</h1>
+    <h1 id="h-hero">Software desenhado a partir do seu <em class="serif">problema.</em></h1>
     <p class="hero-lead">A gente constrói e mantém sistemas para o jurídico, o financeiro e a logística. E tem um produto próprio para quem faz administração judicial.</p>
 
     <div class="audiences">
-      <a class="audience audience-dark" href="#projetos">
-        <span class="audience-text">
-          <span class="label">01 · Para empresas</span>
-          <strong>Tenho um processo que precisa de sistema</strong>
-          <span class="audience-sub">Do processo no papel ao sistema no ar, e a gente segue cuidando depois.</span>
-        </span>
-        <span class="arrow" aria-hidden="true">→</span>
+      <a class="audience audience-light" href="#projetos">
+        <span class="audience-for">Empresas e escritórios</span>
+        <strong>Minha operação precisa de um sistema <span class="arrow" aria-hidden="true">→</span></strong>
       </a>
-      <a class="audience audience-light" href="#judisys">
-        <span class="audience-text">
-          <span class="label">02 · Para administradores judiciais</span>
-          <strong>Judisys: recuperação judicial e falência</strong>
-          <span class="audience-sub">Um sistema só, ajustado ao seu escritório, com site para credores incluso.</span>
-        </span>
-        <span class="arrow" aria-hidden="true">→</span>
+      <a class="audience audience-dark" href="#judisys">
+        <span class="audience-for">Administradores judiciais</span>
+        <strong>Conhecer o Judisys <span class="arrow" aria-hidden="true">→</span></strong>
       </a>
     </div>
-
-    <dl class="stats hero-stats">
-      <div><dt>7+ anos</dt><dd>de longas parcerias</dd></div>
-      <div><dt>1,5 mi</dt><dd>transações/mês no Meu Pamcard</dd></div>
-      <div><dt>150 mil+</dt><dd>acessos/mês no portal da Varig</dd></div>
-      <div><dt>150+</dt><dd>processos no Judisys</dd></div>
-    </dl>
   </div>
 </section>
 
-<section class="section" id="projetos" aria-labelledby="h-proj">
+<section class="section casos" id="projetos" aria-labelledby="h-proj">
   <div class="wrap">
-    <p class="label">Projetos</p>
-    <h2 id="h-proj" class="h2-proj">Sistemas no ar há anos, usados por milhares de pessoas</h2>
+    <h2 id="h-proj">Quando a gente é <span class="destaque">chamado.</span></h2>
+    <p class="lead">Quatro situações que a Draft já resolveu, e o que está no ar hoje.</p>
 
-    <article class="feature">
-      <span class="feature-hatch" aria-hidden="true"></span>
-      <div class="feature-text">
-        <div class="card-meta"><p class="label">Setor jurídico · OABRJ</p><span class="pill pill-entregue">Entregue</span></div>
-        <h3>Portal da Transparência da OABRJ</h3>
-        <p>A OAB fluminense queria prestar contas a qualquer pessoa. A gente construiu o portal do zero: relatórios da Seccional e das subseções, número de inscritos e endereços das sedes, tudo aberto.</p>
-        <dl class="stats feature-stats">
-          <div><dt>150 mil+</dt><dd>advogados atendidos pelo portal no RJ</dd></div>
-        </dl>
-      </div>
-      <div class="feature-shot">
-        <img class="print" src="/print-oabrj.jpg" alt="Página inicial do Portal da Transparência da OABRJ como a Draft entregou: contas do exercício para baixar e os caminhos para demonstrações financeiras, prestação de contas e o mapa das subseções" width="1000" height="900" loading="lazy">
-      </div>
-    </article>
+    <ol class="casos-lista">
+      <li class="caso">
+        <div class="caso-texto">
+          <h3>O escritório controla recuperações judiciais em planilha e e-mail.</h3>
+          <p>Judisys: processos, empresas, relatórios e publicações num só sistema, ajustado ao jeito do escritório.</p>
+        </div>
+        <div class="janela-com-hachura"><span class="hachura hachura-grafite hachura-baixo" aria-hidden="true"></span><figure class="janela janela-escura"><div class="janela-bar" aria-hidden="true"><i></i><i></i><i></i></div><img class="janela-print" src="/print-judisys-login.jpg" alt="Tela de entrada do Judisys na versão do escritório: formulário de e-mail e senha à esquerda e, à direita, o painel de controle com processos, empresas e os últimos informes publicados" width="1280" height="800" loading="lazy"></figure></div>
+      </li>
+      <li class="caso caso-inv">
+        <div class="caso-texto">
+          <h3>Milhares de credores ligam para perguntar o que já está decidido.</h3>
+          <p>Portal dos credores da Varig: peças, andamentos, pagamentos e rateios num lugar só, no lugar de um site desorganizado.</p>
+          <p class="caso-numero"><strong>150 mil+</strong> acessos por mês, num processo de mais de 15 anos.</p>
+        </div>
+        <figure class="janela janela-clara"><div class="janela-bar" aria-hidden="true"><i></i><i></i><i></i></div><img class="janela-print" src="/print-varig.jpg" alt="Portal das massas falidas da Varig no ar: título Massas Falidas sobre a foto de um avião, com o menu de ativos, credores, documentos, informes e dúvidas embaixo" width="1280" height="660" loading="lazy"></figure>
+      </li>
+      <li class="caso">
+        <div class="caso-texto">
+          <h3>Um superapp precisa continuar de pé enquanto evolui.</h3>
+          <p>Meu Pamcard: sustentação e modernização de um app de gestão logística e pagamentos.</p>
+          <p class="caso-numero"><strong>1,5 mi</strong> de transações por mês passando por ele.</p>
+        </div>
+        <figure class="janela janela-escura"><div class="janela-bar" aria-hidden="true"><i></i><i></i><i></i></div><img class="janela-print janela-app" src="/print-pamcard.jpg" alt="Tela inicial do app Meu Pamcard: cartão de saldo com acesso ao extrato e os destaques da conta (dados do titular ocultados)" width="1280" height="704" loading="lazy"></figure>
+      </li>
+      <li class="caso caso-inv">
+        <div class="caso-texto">
+          <h3>Uma instituição precisa prestar contas ao público.</h3>
+          <p>Portal da Transparência da OABRJ, construído do zero.</p>
+          <p class="caso-numero"><strong>5 anos</strong> no ar, usado por mais de 150 mil advogados.</p>
+        </div>
+        <div class="janela-com-hachura"><span class="hachura" aria-hidden="true"></span><figure class="janela janela-clara"><div class="janela-bar" aria-hidden="true"><i></i><i></i><i></i></div><img class="janela-print" src="/print-oabrj.jpg" alt="Página inicial do Portal da Transparência da OABRJ como a Draft entregou: contas do exercício para baixar e os caminhos para demonstrações financeiras, prestação de contas e o mapa das subseções" width="1000" height="900" loading="lazy"></figure></div>
+      </li>
+    </ol>
 
-    <div class="projects">
-      <article class="project project-orange">
-        <img class="print" src="/print-varig.jpg" alt="Portal das massas falidas da Varig no ar: título Massas Falidas sobre a foto de um avião, com o menu de ativos, credores, documentos, informes e dúvidas embaixo" width="1280" height="660" loading="lazy">
-        <div class="card-meta"><p class="label">Falência · Varig</p><span class="pill pill-entregue">Entregue</span></div>
-        <h3>Portal dos credores da Varig</h3>
-        <p>Peças, andamentos, pagamentos e rateios num só lugar, abertos a qualquer credor. Deu origem ao Judisys.</p>
-        <dl class="project-foot">
-          <div><dt>150 mil+</dt><dd>acessos por mês</dd></div>
-        </dl>
-      </article>
-      <article class="project">
-        <img class="print" src="/print-mcaa.jpg" alt="Página inicial do site da Matuch de Carvalho Advogados Associados" width="1280" height="704" loading="lazy">
-        <div class="card-meta"><p class="label">Sites institucionais · MCAA</p><span class="pill">No ar</span></div>
-        <h3>Site da Matuch de Carvalho Advogados</h3>
-        <p>O site do escritório, integrado ao Judisys: o que a equipe publica no sistema chega aos credores pelo site.</p>
-        <dl class="project-foot">
-          <div><dt>150+</dt><dd>processos em andamento</dd></div>
-        </dl>
-      </article>
-      <article class="project">
-        <img class="print print-app" src="/print-pamcard.jpg" alt="Tela inicial do app Meu Pamcard: cartão de saldo com acesso ao extrato e os destaques da conta (dados do titular ocultados)" width="1280" height="704" loading="lazy">
-        <div class="card-meta"><p class="label">Fintech · Mobile · Roadcard</p><span class="pill">No ar</span></div>
-        <h3>Meu Pamcard</h3>
-        <p>Sustentação e modernização de um superapp de gestão logística e pagamentos com contas digitais aos clientes.</p>
-        <dl class="project-foot">
-          <div><dt>1,5 mi</dt><dd>transações por mês</dd></div>
-        </dl>
-      </article>
-    </div>
-
-    <div class="clients">
-      <p class="label label-muted" id="h-cli">Quem a gente já atendeu</p>
-      <ul class="client-tiles" aria-labelledby="h-cli">
-        <li><img src="clientes/oabrj.png" alt="OABRJ" width="400" height="81" loading="lazy"></li>
-        <li><img src="clientes/mcaa.png" alt="Matuch de Carvalho Advogados Associados" width="376" height="120" loading="lazy"></li>
-        <li><img src="clientes/scopus.png" alt="Instituto Scopus" width="400" height="96" loading="lazy"></li>
-        <li><img src="clientes/gaudio.png" alt="Gaudio Advocacia" width="291" height="120" loading="lazy"></li>
-        <li><img src="clientes/meu-pamcard.png" alt="Meu Pamcard" width="268" height="80" loading="lazy"></li>
-        <li><img src="clientes/nogueira-fernandes.png" alt="Nogueira Fernandes Advogados Associados" width="400" height="46" loading="lazy"></li>
-        <li><img src="clientes/k2.png" alt="K2 Consultoria Econômica" width="399" height="120" loading="lazy"></li>
+    <div class="clientes">
+      <p class="clientes-titulo" id="h-cli">Quem já confiou</p>
+      <ul class="clientes-logos" aria-labelledby="h-cli">
+        <li><img style="--w:105px" src="clientes/oabrj.png" alt="OABRJ" width="400" height="81" loading="lazy"></li>
+        <li><img style="--w:109px" class="logo-com-miolo" src="clientes/mcaa.png" alt="Matuch de Carvalho Advogados Associados" width="376" height="120" loading="lazy"></li>
+        <li><img style="--w:123px" src="clientes/scopus.png" alt="Instituto Scopus" width="400" height="96" loading="lazy"></li>
+        <li><img style="--w:89px" src="clientes/gaudio.png" alt="Gaudio Advocacia" width="291" height="120" loading="lazy"></li>
+        <li><img style="--w:100px" src="clientes/meu-pamcard.png" alt="Meu Pamcard" width="268" height="80" loading="lazy"></li>
+        <li><img style="--w:162px" src="clientes/nogueira-fernandes.png" alt="Nogueira Fernandes Advogados Associados" width="400" height="46" loading="lazy"></li>
+        <li><img style="--w:92px" src="clientes/k2.png" alt="K2 Consultoria Econômica" width="399" height="120" loading="lazy"></li>
       </ul>
     </div>
   </div>
 </section>
 
-<section class="section section-dark" id="judisys" aria-labelledby="h-jud">
+<section class="section section-dark com-divisa" id="judisys" aria-labelledby="h-jud">
+  <svg class="divisa divisa-creme" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><use href="#onda"/></svg>
   <div class="wrap">
     <div class="judisys-in">
       <div class="judisys-text">
-        <p class="label">Produto</p>
-        <div class="judisys-brand">
-          <span class="judisys-word">Judisys</span>
-          <span class="pill">No ar</span>
-        </div>
-        <h2 id="h-jud">Recuperação judicial e falência, num só sistema</h2>
-        <p class="judisys-lead">O Judisys é feito para administradores judiciais, e só para isso. E não é sistema de prateleira: cada escritório recebe o seu, ajustado no detalhe da rotina da equipe.</p>
+        <p class="judisys-nome">Judisys</p>
+        <h2 id="h-jud">Recuperação judicial e falência, num só <span class="destaque">sistema.</span></h2>
+        <p class="lead">O Judisys é feito para administradores judiciais, e só para eles. E não é sistema de prateleira: cada escritório recebe o seu, ajustado ao detalhe da rotina.</p>
         <a class="btn btn-orange" href="https://judisys-demo.draft.dev.br" target="_blank" rel="noopener">Quero testar o Judisys</a>
       </div>
-      <figure class="window">
-        <div class="window-bar" aria-hidden="true"><i></i><i></i><i></i></div>
-        <img src="/judisys-painel.jpg" alt="Tela inicial do Judisys, com os processos da carteira por fase da recuperação judicial e da falência e o passivo sob administração em cada processo (dados de exemplo)" width="1200" height="750" loading="lazy">
-      </figure>
+      <figure class="janela janela-clara"><div class="janela-bar" aria-hidden="true"><i></i><i></i><i></i></div><img class="janela-print" src="/judisys-painel.jpg" alt="Tela inicial do Judisys, com os processos da carteira por fase da recuperação judicial e da falência e o passivo sob administração em cada processo (dados de exemplo)" width="1200" height="750" loading="lazy"></figure>
     </div>
 
-    <ul class="benefits">
-      <li><span class="label">Sob medida</span><h3>Do jeito do seu escritório</h3><p>Os termos, as etapas e os relatórios são os que a sua equipe já usa. Ninguém precisa reaprender o próprio trabalho para caber no sistema.</p></li>
-      <li><span class="label">Para a equipe</span><h3>Painel do escritório</h3><p>Cada processo de recuperação ou falência com suas empresas, informes e documentos, e o histórico de tudo o que foi publicado.</p></li>
-      <li><span class="label">Para os credores</span><h3>No site do seu escritório</h3><p>O que a equipe publica no Judisys vai direto para o site do escritório, que em geral a gente também constrói. O credor acompanha o processo ali, sem precisar ligar.</p></li>
+    <ul class="diferenciais">
+      <li><h3>Do jeito do seu escritório</h3><p>Os termos, as etapas e os relatórios são os que a sua equipe já usa. Quem se adapta é o sistema, não a sua equipe.</p></li>
+      <li><h3>Painel da equipe</h3><p>Cada processo de recuperação ou falência com suas empresas, informes e documentos, e o histórico de tudo que foi publicado.</p></li>
+      <li><h3>No site, para os credores</h3><p>O que a equipe publica vai direto para o site do escritório. O credor acompanha o processo sem precisar ligar.</p></li>
     </ul>
 
-    <dl class="stats judisys-stats">
-      <div><dt>150+</dt><dd>processos de falência e recuperação</dd></div>
-      <div><dt>200+</dt><dd>empresas acompanhadas</dd></div>
-      <div><dt>Quase 3 mil</dt><dd>informes publicados</dd></div>
-    </dl>
+    <p class="judisys-hoje">Hoje: <strong class="destaque">150+</strong> processos, <strong class="destaque">200+</strong> empresas acompanhadas e quase <strong class="destaque">3 mil</strong> informes publicados.</p>
   </div>
 </section>
 
-<section class="section" id="como" aria-label="O que a gente faz e como a gente trabalha">
-  <div class="wrap two-lists">
-    <div>
-      <p class="label">O que a gente faz</p>
-      <h2>Pra operações que não podem parar</h2>
-      <ul class="list">
-        <li><h3>Sistemas sob medida</h3><p>Para operações críticas, quando planilha e sistema pronto já não dão conta.</p></li>
-        <li><h3>Aplicativos e portais</h3><p>Web e mobile, para o seu público ou para a sua equipe.</p></li>
-        <li><h3>Integrações e automação</h3><p>Ligamos os sistemas que você já usa e tiramos o trabalho manual do meio.</p></li>
-        <li><h3>Fintech e pagamentos</h3><p>Fluxos financeiros com regra de negócio complexa e pouca margem para erro.</p></li>
-        <li><h3>Sustentação e evolução</h3><p>Para sistemas que já estão no ar, feitos pela Draft ou não: correções, monitoramento e as melhorias que o negócio pedir.</p></li>
-      </ul>
+<section class="section dados com-divisa" id="dados" aria-labelledby="h-dados">
+  <svg class="divisa divisa-grafite divisa-inv" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><use href="#onda"/></svg>
+  <div class="wrap duas-colunas">
+    <div class="coluna-titulo">
+      <h2 id="h-dados">Dado de processo é <span class="destaque">coisa séria.</span></h2>
+      <p class="lead">Os sistemas da Draft guardam processos, partes, credores e valores. Esse dado é do seu escritório e dos seus clientes, e a Draft só o usa para o que você precisa.</p>
     </div>
-    <div>
-      <p class="label">Como a gente trabalha</p>
-      <h2>Do jeito mais direto possível</h2>
-      <ol class="list list-steps">
-        <li><span class="num">01</span><h3>Entender o negócio</h3><p>Antes do código, uma conversa sobre como o processo funciona hoje.</p></li>
-        <li><span class="num">02</span><h3>Desenhar o que falta</h3><p>Você vê o que vai ser construído, e o que fica de fora, antes de começar.</p></li>
-        <li><span class="num">03</span><h3>Primeira versão em semanas</h3><p>Algo funcionando cedo, para testar com gente de verdade.</p></li>
-        <li><span class="num">04</span><h3>Evoluir por módulos</h3><p>Cada parte nova entra sem derrubar o que já funciona.</p></li>
-      </ol>
+    <ol class="compromissos">
+      <li><h3>Papel claro</h3><p>O escritório decide o que fazer com os dados. A Draft trata só conforme essas instruções, como operadora, e isso fica no contrato.</p></li>
+      <li><h3>Acesso mínimo</h3><p>Cada pessoa do time vê só o que precisa. Dado real não vai para ambiente de teste sem acordo, e quando vai, vai anonimizado.</p></li>
+      <li><h3>Registro e segurança</h3><p>Registro de quem trata o quê, acesso por perfil, backup e criptografia dos campos mais sensíveis.</p></li>
+      <li><h3>Incidente tem prazo</h3><p>Se houver um incidente com os dados, a Draft avisa o escritório no prazo combinado em contrato, para ele cumprir o que a lei exige.</p></li>
+      <li><h3>No fim, o dado volta ou some</h3><p>Ao encerrar o projeto, devolvemos ou eliminamos os dados, conforme o combinado, e confirmamos por escrito.</p></li>
+      <li><h3>IA e dado de processo</h3><p>Nenhum dado pessoal ou de processo vai para ferramenta de IA sem acordo. Ferramenta que processa dado fora do Brasil entra na conversa antes.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section section-dark" id="ia" aria-labelledby="h-ia">
+  <div class="wrap">
+    <div class="ia-head">
+      <h2 id="h-ia">IA para acelerar, com você <span class="destaque">no comando.</span></h2>
+      <p class="lead">Usamos IA no desenvolvimento porque ela poupa tempo. Mas sabemos o que ela pode custar: dado do cliente indo para onde não devia, código que ninguém consegue explicar. Por isso, três regras.</p>
+    </div>
+    <ul class="regras">
+      <li><h3>Você sabe onde a IA entra.</h3><p>Nada de ferramenta escondida no seu projeto. Combinamos antes onde ela ajuda e onde não entra.</p></li>
+      <li><h3>Toda saída passa por uma pessoa.</h3><p>O que a IA escreve é lido, testado e entendido por alguém do time antes de ir para produção.</p></li>
+      <li><h3>Seus dados ficam sob o seu controle.</h3><p>Definimos com você o que pode e o que não pode ser enviado a uma ferramenta de IA.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section como" id="como" aria-labelledby="h-como">
+  <div class="wrap">
+    <h2 id="h-como">Primeiro a conversa, depois o <span class="destaque">código.</span></h2>
+    <ol class="passos">
+      <li><p class="passo-n">Passo 1</p><h3>Entender o negócio</h3><p>Antes do código, uma conversa sobre como a sua operação funciona hoje. Se software pronto resolver, dizemos.</p></li>
+      <li><p class="passo-n">Passo 2</p><h3>Desenhar o que falta</h3><p>Você vê o que vai ser construído, e o que fica de fora, antes de começar.</p></li>
+      <li><p class="passo-n">Passo 3</p><h3>Primeira versão em semanas</h3><p>Algo funcionando cedo, para testar com gente de verdade.</p></li>
+      <li><p class="passo-n">Passo 4</p><h3>Evoluir por módulos</h3><p>Cada parte nova entra sem derrubar o que já funciona.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section faq" aria-labelledby="h-faq">
+  <div class="wrap duas-colunas">
+    <h2 id="h-faq" class="coluna-titulo">O que costumam <span class="destaque">perguntar.</span></h2>
+    <div class="faq-lista">
+      <details><summary>Vocês mexem em sistemas que não podem parar?</summary><p>Sim. Mantemos o Meu Pamcard, com 1,5 milhão de transações por mês, e portais públicos como o da OABRJ, no ar há 5 anos.</p></details>
+      <details><summary>Quanto tempo até ver algo funcionando?</summary><p>Em semanas, uma primeira versão para testar com gente de verdade. O prazo exato sai da conversa inicial.</p></details>
+      <details><summary>Vocês indicam software pronto quando ele resolve?</summary><p>Indicamos. Se existir algo pronto que sirva, avisamos antes de propor um sistema novo.</p></details>
+      <details><summary>Quem trabalha no meu projeto?</summary><p>Um time da Draft, com o Erick acompanhando cada projeto de perto.</p></details>
     </div>
   </div>
 </section>
@@ -216,9 +211,26 @@
   <svg class="contact-digital" viewBox="120 0 565 625" fill="none" stroke="currentColor" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="assets/impressao-digital-b.svg#d"/></svg>
   <div class="wrap contact-in">
     <div class="contact-head">
-      <p class="label">Contato</p>
-      <h2 id="h-contato">Conta pra gente o que você precisa</h2>
-      <p class="contact-lead">Poucas linhas já bastam. Respondemos em até um dia útil, com perguntas sobre o seu processo e, se fizer sentido, uma proposta por escrito.</p>
+      <h2 id="h-contato">Conta pra gente o que você precisa.</h2>
+      <p class="contact-lead">Poucas linhas já bastam. Quem lê é gente técnica, não um funil de vendas.</p>
+      <h3 class="depois-titulo">O que acontece depois</h3>
+      <ol class="depois">
+        <li>Quem lê a sua mensagem responde em até um dia útil.</li>
+        <li>Marcamos uma conversa rápida para entender a sua operação e o que está em jogo.</li>
+        <li>Você recebe um caminho e uma estimativa por escrito, sem compromisso.</li>
+      </ol>
+      <ul class="contact-links">
+        <li>
+          <a class="contact-copy" href="mailto:erick@draft.dev.br" data-copiar="erick@draft.dev.br">erick@draft.dev.br</a>
+          <a class="contact-go" href="mailto:erick@draft.dev.br" aria-label="Escrever para erick@draft.dev.br"><span class="arrow" aria-hidden="true">→</span></a>
+          <span class="contact-hint" role="status"></span>
+        </li>
+        <li>
+          <a class="contact-copy" href="https://wa.me/5511999606775" target="_blank" rel="noopener" data-copiar="(11) 99960-6775">(11) 99960-6775 · WhatsApp</a>
+          <a class="contact-go" href="https://wa.me/5511999606775" target="_blank" rel="noopener" aria-label="Abrir conversa no WhatsApp"><span class="arrow" aria-hidden="true">→</span></a>
+          <span class="contact-hint" role="status"></span>
+        </li>
+      </ul>
     </div>
     <div class="contact-main">
       <form class="contact-form" id="form-contato" action="https://formspree.io/f/xdeeroap" method="POST">
@@ -228,56 +240,39 @@
           <input id="f-gotcha" type="text" name="_gotcha" tabindex="-1" autocomplete="off">
         </div>
         <div class="field">
-          <label class="label" for="f-nome">Nome</label>
+          <label class="campo-rotulo" for="f-nome">Nome</label>
           <input id="f-nome" name="nome" type="text" autocomplete="name" required aria-describedby="e-nome">
           <p class="field-error" id="e-nome" hidden></p>
         </div>
         <div class="field">
-          <label class="label" for="f-email">E-mail</label>
+          <label class="campo-rotulo" for="f-email">E-mail</label>
           <input id="f-email" name="email" type="email" autocomplete="email" required aria-describedby="e-email">
           <p class="field-error" id="e-email" hidden></p>
         </div>
         <div class="field-row">
           <div class="field">
-            <label class="label" for="f-whatsapp">WhatsApp (opcional)</label>
+            <label class="campo-rotulo" for="f-whatsapp">WhatsApp (opcional)</label>
             <input id="f-whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="(00) 00000-0000" aria-describedby="e-whatsapp">
             <p class="field-error" id="e-whatsapp" hidden></p>
           </div>
           <div class="field">
-            <label class="label" for="f-empresa">Empresa (opcional)</label>
+            <label class="campo-rotulo" for="f-empresa">Empresa (opcional)</label>
             <input id="f-empresa" name="empresa" type="text" autocomplete="organization">
           </div>
         </div>
         <div class="field">
-          <label class="label" for="f-mensagem">O que você precisa</label>
+          <label class="campo-rotulo" for="f-mensagem">O que você precisa</label>
           <textarea id="f-mensagem" name="mensagem" rows="5" required aria-describedby="e-mensagem"></textarea>
           <p class="field-error" id="e-mensagem" hidden></p>
         </div>
         <button class="btn btn-dark" type="submit">Enviar mensagem</button>
-        <p class="form-note">Usamos seus dados só para responder este contato. O envio passa pelo Formspree.</p>
+        <p class="form-note">Seus dados servem só para responder este contato e passam pelo Formspree. Veja a <a href="/privacidade.html">política de privacidade</a>.</p>
         <p class="form-status" id="form-status" role="alert" hidden></p>
       </form>
       <div class="form-ok" id="form-ok" tabindex="-1" hidden>
         <p class="form-ok-title">Recebemos sua mensagem.</p>
         <p>Respondemos em até um dia útil.</p>
       </div>
-    </div>
-    <div class="contact-direct">
-      <p class="label contact-alt-label">Prefere direto?</p>
-      <ul class="contact-links">
-        <li>
-          <a class="contact-copy" href="mailto:erick@draft.dev.br" data-copiar="erick@draft.dev.br"><span class="label">E-mail</span><span class="contact-value">erick@draft.dev.br</span></a>
-          <span class="contact-hint" role="status"></span>
-          <a class="contact-go" href="mailto:erick@draft.dev.br" aria-label="Escrever para erick@draft.dev.br"><span class="arrow" aria-hidden="true">→</span></a>
-        </li>
-        <li>
-          <a class="contact-copy" href="https://wa.me/5511999606775" target="_blank" rel="noopener" data-copiar="(11) 99960-6775"><span class="label">WhatsApp</span><span class="contact-value">(11) 99960-6775</span></a>
-          <span class="contact-hint" role="status"></span>
-          <a class="contact-go" href="https://wa.me/5511999606775" target="_blank" rel="noopener" aria-label="Abrir conversa no WhatsApp"><span class="arrow" aria-hidden="true">→</span></a>
-        </li>
-      </ul>
-      <p class="label contact-addr-label">Endereço</p>
-      <p class="contact-addr">Rua Sansão Alves dos Santos, 237<br>Cidade das Monções, São Paulo, SP</p>
     </div>
   </div>
 </section>
@@ -287,9 +282,8 @@
 <footer class="foot">
   <div class="wrap foot-in">
     <span class="foot-logo"><svg viewBox="-27 -760 2455 820" fill="currentColor" aria-hidden="true" focusable="false"><use href="#logo-draft"/></svg></span>
-    <p>Draft Tecnologia Ltda · CNPJ 24.288.593/0001-00</p>
-    <p>Rua Sansão Alves dos Santos, 237 · Cidade das Monções, São Paulo, SP</p>
-    <p class="mono">© <span id="ano">2026</span></p>
+    <p class="foot-dados">Draft Tecnologia Ltda · CNPJ 24.288.593/0001-00 · Rua Sansão Alves dos Santos, 237 · Cidade das Monções, São Paulo, SP · ©&nbsp;<span id="ano">2026</span></p>
+    <a class="foot-link" href="/privacidade.html">Política de privacidade</a>
   </div>
 </footer>
 <script>document.getElementById('ano').textContent = new Date().getFullYear();</script>

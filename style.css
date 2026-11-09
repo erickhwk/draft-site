@@ -1,17 +1,21 @@
 /* Draft · site institucional. Só tema claro; o sistema é chapado (sem sombra, gradiente decorativo ou ícone). */
+/* fontes servidas pelo próprio site (RED-04): nenhum terceiro recebe o IP de quem visita. Space Grotesk (subsets latin e latin-ext, este para nomes digitados no formulário) e Fraunces só com "problema."; licença OFL em assets/fontes/ */
+@font-face{font-family:"Space Grotesk";font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fontes/space-grotesk-500.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Space Grotesk";font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fontes/space-grotesk-ext-500.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Space Grotesk";font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fontes/space-grotesk-700.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Space Grotesk";font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fontes/space-grotesk-ext-700.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Fraunces";font-style:italic;font-weight:800;font-display:swap;src:url(/assets/fontes/fraunces-problema.woff2) format("woff2");unicode-range:U+2E,U+61-62,U+65,U+6C-6D,U+6F-70,U+72} /* só "problema." do H1 (ver CLAUDE.md) */
 /* stylelint-disable color-no-hex, function-disallowed-list -- o :root é o único lugar com cor literal; fora dele, só var(--token) */
 :root{
   --laranja:#FF5A36;          /* laranja da marca */
-  --laranja-escuro:#B8420F;   /* texto laranja sobre fundo claro */
+  --laranja-escuro:#B4400E;   /* texto laranja sobre fundo claro: 4,66:1 na areia, 5,06:1 no creme */
   --laranja-digital:#E55227;  /* digital do hero, tom sobre tom */
   --laranja-digital-contato:#F05732; /* mais discreto: fica perto de texto */
   --grafite:#25282A;
-  --grafite-2:#2E3236;
   --off-white:#F7F5EF;
   --creme:#F4F1EA;
   --areia:#ECE8DC;
   --ouro:#E0A93B;             /* cor do Judisys, não da Draft */
-  --verde:#1F7A4D;
   /* texto secundário e filetes: grafite sobre fundo claro, creme sobre fundo escuro */
   --texto-suave:rgba(37,40,42,.8);
   --texto-placeholder:rgba(37,40,42,.66); /* exemplo no campo: mais claro que o texto digitado, ainda 4,5:1 sobre o off-white */
@@ -21,10 +25,12 @@
   --linha-escuro:rgba(244,241,234,.2);
   --preto:#000;              /* hover do botão grafite */
   --laranja-claro:#FF6E4E;   /* hover do botão laranja */
-  --branco:#FFF;
   --ponto-janela:rgba(244,241,234,.35);
   --top-h:73px;
-  --mono:"JetBrains Mono",ui-monospace,monospace;
+  /* acento de texto (destaque de título, número, "Passo N"): cada superfície redefine; ver .section-dark, .hero, .contact, .top-hero */
+  --acento:var(--laranja-escuro);
+  --foco:var(--grafite);       /* contorno de foco; a superfície escura troca para laranja */
+  --respiro-secao:96px;
   color-scheme:light;
 }
 /* stylelint-enable color-no-hex, function-disallowed-list */
@@ -36,10 +42,9 @@ html{scroll-behavior:smooth}
 body{margin:0;background:var(--off-white);color:var(--grafite);
   font:500 16px/1.55 "Space Grotesk",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 img{max-width:100%;display:block}
-a{color:inherit}
+a{color:inherit;text-underline-offset:3px}
 /* foco grafite; laranja só sobre grafite (laranja sobre o claro não passa de 3:1) */
-:focus-visible{outline:3px solid var(--grafite);outline-offset:3px}
-.section-dark :focus-visible{outline-color:var(--laranja)}
+:focus-visible{outline:3px solid var(--foco);outline-offset:3px}
 
 h1,h2,h3{font-weight:700;margin:0}
 h2{font-size:clamp(32px,4.4vw,52px);line-height:1.05;letter-spacing:-0.03em}
@@ -49,17 +54,13 @@ ul,ol{list-style:none}
 
 .wrap{max-width:1200px;margin:0 auto;padding:0 32px}
 @media (max-width:480px){.wrap{padding:0 16px}}
-.section{padding:96px 0}
-@media (max-width:720px){.section{padding:72px 0}}
+.section{padding:var(--respiro-secao) 0}
+@media (max-width:720px){:root{--respiro-secao:72px}}
 
 .skip{position:absolute;left:-999px;top:8px;z-index:30;background:var(--grafite);color:var(--creme);
   padding:10px 16px;border-radius:10px}
 .skip:focus{left:8px}
 
-/* rótulo mono (também nas legendas dos números) */
-.label,.feature-stats dd,.judisys-stats dd{font:600 12px/1.4 var(--mono);letter-spacing:.13em;text-transform:uppercase}
-.label{color:var(--laranja-escuro)}
-.mono{font-family:var(--mono)}
 
 /* botões: um laranja por tela, os demais grafite */
 .btn{display:inline-flex;align-items:center;height:46px;padding:0 22px;border-radius:10px;
@@ -78,8 +79,9 @@ ul,ol{list-style:none}
 .logo{width:112px;color:var(--grafite)}
 nav{display:flex;align-items:center;gap:28px}
 .nav-link{font-size:15px;text-decoration:none;padding:6px 0;border-bottom:2px solid transparent;white-space:nowrap}
-.nav-link:hover{border-bottom-color:var(--laranja-escuro)}
-@media (max-width:760px){.nav-link{display:none}}
+.nav-link:hover{border-bottom-color:var(--acento)}
+/* com 4 links o nav precisa de ~640px: abaixo de 860px ficam só o logo e o botão (o logo encolhia) */
+@media (max-width:860px){.nav-link{display:none}}
 /* logo: no hover a hachura do "a" é redesenhada traço a traço, de cima para baixo, como um rascunho.
    Tracejado em unidades do viewBox (o traço mais longo tem ~396): todos andam na mesma velocidade,
    e o início em 430 deixa a ponta arredondada fora do traço enquanto ele espera a vez.
@@ -91,189 +93,197 @@ nav{display:flex;align-items:center;gap:28px}
 @keyframes logo-draft{from{stroke-dashoffset:430}to{stroke-dashoffset:0}}
 @media (max-width:380px){.logo{width:92px}.top .btn{padding:0 16px;font-size:15px}}
 
-/* stats (números grandes) */
-.stats{display:flex;flex-wrap:wrap}
-.stats dt,.project-foot dt{font-weight:700;line-height:1;letter-spacing:-0.03em}
-
 /* digital: textura tom sobre tom, sempre atrás do conteúdo */
 .hero-digital,.contact-digital{position:absolute;pointer-events:none;z-index:0}
 .hero .wrap,.contact .wrap{position:relative;z-index:1}
 
 /* blocos laranja: hero e contato */
 .hero,.contact{position:relative;overflow:hidden;background:var(--laranja);color:var(--grafite)}
-.hero .label,.contact .label{color:var(--grafite)}
+.hero,.contact,.top-hero{--acento:var(--grafite)}
 
-/* hero */
-.hero{padding:72px 0 44px}
-.hero-digital{width:660px;height:760px;right:-150px;top:-30px;color:var(--laranja-digital)}
-@media (max-width:1100px){.hero-digital{display:none}}
-/* tracejado de cada anel em --d/--g (no HTML), única fonte do padrão; --p = --d + --g */
-.hero-digital ellipse{stroke-dasharray:var(--d) var(--g)}
-/* a digital se desenha ao abrir a página, do anel de dentro para o de fora: cada traço cresce de 0
-   até o tamanho final mantendo o período (--p = --d + --g, já somado no HTML: calc() na lista não interpola), então os vãos terminam onde o guia manda */
-@media (prefers-reduced-motion:no-preference){
-  .hero-digital ellipse{animation:digital-desenha 1.3s cubic-bezier(.3,.6,.3,1) both;animation-delay:calc(.2s + var(--i)*90ms)}
-}
-@keyframes digital-desenha{
-  from{stroke-dasharray:0 var(--p);opacity:0}
-  15%{opacity:1}
-  to{stroke-dasharray:var(--d) var(--g);opacity:1}
-}
-.label-tri{display:flex;align-items:center;gap:8px}
-.label-tri::before{content:"";width:8px;height:8px;background:currentColor;clip-path:polygon(100% 0,100% 100%,0 100%)}
-.hero h1{font-size:clamp(44px,7.4vw,96px);line-height:.98;letter-spacing:-0.035em;max-width:8.2em;margin:22px 0 28px}
+/* hero: o nav fica transparente sobre o laranja e a digital passa por trás dele */
+.top-hero{position:relative;z-index:2;background:transparent}
+.hero{padding:88px 0 112px}
+/* bloco que passa por baixo do nav transparente (.top-hero): sobe a altura do nav e devolve no padding */
+.sob-nav{--respiro-topo:88px;margin-top:calc(-1 * var(--top-h));padding-top:calc(var(--top-h) + var(--respiro-topo))}
+/* impressao-digital-a do kit v1.1, sangrando pela direita e pelo topo; o traço compensa a escala (~5px na tela) */
+/* escala com a tela para não encostar no H1 nem nos cards; abaixo de 1180px some (o manual não quer o gesto atrás do texto) */
+.hero-digital{width:min(800px,55vw);height:auto;aspect-ratio:583 / 591;right:-6vw;top:-150px;stroke-width:3.6;color:var(--laranja-digital)}
+@media (max-width:1180px){.hero-digital{display:none}}
+.hero h1{font-size:clamp(44px,7.4vw,96px);line-height:.98;letter-spacing:-0.035em;max-width:8.2em;margin:0 0 28px}
+/* Fraunces itálica só aqui (woff2 recortado com "problema."); o resto do site é Space Grotesk */
+.hero .serif{font-family:Fraunces,Georgia,serif;font-style:italic;font-weight:800;letter-spacing:-0.02em} /* grafite como o resto do H1: creme sobre o laranja dá 2,75:1 (Erick, 2026-11-09) */
 .hero-lead{font-size:18px;max-width:560px}
 
-.audiences{display:flex;flex-wrap:wrap;gap:16px;margin-top:52px}
-.audience{flex:1 1 380px;display:flex;align-items:center;gap:24px;padding:28px 32px;border-radius:16px;text-decoration:none}
-.audience-text{flex:1;display:flex;flex-direction:column;gap:8px}
-.audience strong{font-size:22px;line-height:1.2;letter-spacing:-0.02em}
-.audience-sub{font-size:15px;line-height:1.5}
-.arrow{font-size:28px;line-height:1;transition:transform .15s}
+.audiences{display:flex;flex-wrap:wrap;gap:16px;margin-top:44px;max-width:780px}
+.audience{flex:1 1 300px;display:flex;flex-direction:column;gap:10px;padding:24px 28px 26px;border-radius:16px;text-decoration:none}
+.audience-for{font-size:14px;line-height:1.3}
+.audience strong{font-size:20px;line-height:1.25;letter-spacing:-0.015em}
+.arrow{display:inline-block;line-height:1;transition:transform .15s}
 .audience:hover .arrow,.contact-go:hover .arrow{transform:translateX(4px)}
-.audience-dark{background:var(--grafite);color:var(--creme)}
-.audience-dark .arrow{color:var(--laranja)}
-.audience-dark .audience-sub{color:var(--texto-suave-escuro)}
 .audience-light{background:var(--creme);color:var(--grafite)}
-.audience-light .label,.audience-light .arrow{color:var(--laranja-escuro)}
-.audience-light .audience-sub{color:var(--texto-suave)}
-@media (max-width:480px){.audience{padding:24px;flex-basis:100%}}
+.audience-light .audience-for{color:var(--texto-suave)}
+.audience-dark{background:var(--grafite);color:var(--creme)}
+.audience-dark .audience-for{color:var(--texto-suave-escuro)}
+@media (max-width:480px){.sob-nav{--respiro-topo:56px}.hero{padding-bottom:80px}.audience{padding:22px 24px;flex-basis:100%}}
 
-.hero-stats{margin-top:56px;border-top:2px solid var(--grafite);padding-top:28px;gap:24px}
-.hero-stats>div{flex:1 1 150px}
-.hero-stats dt{font-size:44px}
-.hero-stats dd{font-size:15px;margin-top:8px}
-@media (max-width:480px){.hero-stats>div{flex-basis:45%}.hero-stats dt{font-size:36px}}
+/* parágrafo de abertura de seção, nas superfícies clara e escura */
+.lead{font-size:17px;line-height:1.6;max-width:34em;margin-top:16px;color:var(--texto-suave)}
 
-/* projetos */
-.h2-proj{max-width:600px;margin:16px 0 48px}
+/* quando a gente é chamado: linhas editoriais alternadas, texto e tela do sistema */
+.casos,.dados,.faq{background:var(--creme)}
+.destaque{color:var(--acento)}
+.casos-lista{margin-top:56px}
+.caso{display:flex;flex-wrap:wrap;align-items:center;gap:40px 64px;padding:56px 0}
+.caso+.caso{border-top:1px solid var(--linha)}
+.caso:first-child{padding-top:0}
+.caso-inv{flex-direction:row-reverse}
+.caso-texto{flex:1 1 380px}
+.caso h3{font-size:clamp(26px,2.6vw,34px);line-height:1.12;letter-spacing:-0.025em;max-width:15em}
+.caso-texto>p{font-size:16px;line-height:1.6;max-width:31em;margin-top:16px}
+.caso-texto>p:not(.caso-numero){color:var(--texto-suave)}
+.caso-texto>.caso-numero{margin-top:24px}
+.caso-numero strong{font-size:clamp(30px,2.8vw,38px);line-height:1;letter-spacing:-0.03em;color:var(--acento);margin-right:4px}
+/* janela do sistema: barra com três pontos e o print recortado pelo topo */
+.janela{flex:1 1 420px;border-radius:16px;overflow:hidden;border:1px solid var(--linha)}
+.janela-bar{display:flex;gap:6px;padding:11px 14px}
+.janela-bar i{width:8px;height:8px;border-radius:50%}
+.janela-escura{background:var(--grafite);border-color:var(--grafite)}
+.janela-escura .janela-bar i{background:var(--ponto-janela)}
+.janela-clara{background:var(--areia)}
+.janela-clara .janela-bar i{background:var(--linha-forte)}
+.janela-print{width:100%;aspect-ratio:16 / 10;height:auto;object-fit:cover;object-position:top left}
+/* quadrado meio hachura, meio chapado (vem do card OABRJ da v1), atrás do canto de uma janela:
+   hachura a 45° subindo para a direita no triângulo de cima, chapado no de baixo. Dois na seção, por decisão do Erick:
+   laranja escuro no canto de cima da OABRJ, grafite no canto de baixo do Judisys */
+.janela-com-hachura{position:relative;isolation:isolate;flex:1 1 420px;display:flex}
+.janela-com-hachura .janela{flex:1}
+.hachura{--hachura-recuo:-28px;--hachura-cor:var(--laranja-escuro);position:absolute;z-index:-1;top:var(--hachura-recuo);right:var(--hachura-recuo);width:190px;height:190px;
+  background:linear-gradient(to bottom right,transparent 50%,var(--hachura-cor) 50%),
+    repeating-linear-gradient(135deg,var(--hachura-cor) 0 6px,transparent 6px 15px)}
+.hachura-grafite{--hachura-cor:var(--grafite)}
+.hachura-baixo{top:auto;right:auto;bottom:var(--hachura-recuo);left:var(--hachura-recuo)}
+/* janela escura sobre quadrado grafite: um contorno creme separa os dois, senão o chapado se funde com a janela */
+.janela-com-hachura .janela-escura{box-shadow:0 0 0 4px var(--creme)}
+@media (max-width:480px){.hachura{--hachura-recuo:-14px;width:120px;height:120px}}
+/* print de app: o celular fica no meio da imagem */
+.janela-app{object-position:center 40%}
+@media (max-width:480px){.caso{padding:44px 0;gap:28px}.casos-lista{margin-top:40px}}
 
-.feature{position:relative;overflow:hidden;display:flex;flex-wrap:wrap;background:var(--grafite);color:var(--creme);border-radius:16px}
-/* quadrado da hachura: metade hachura, metade chapado, atrás do print */
-.feature-hatch{position:absolute;top:0;right:0;width:190px;height:190px;
-  background:linear-gradient(to bottom right,transparent 50%,var(--laranja) 50%),
-    repeating-linear-gradient(135deg,var(--laranja) 0 6px,transparent 6px 15px)}
-.feature-text{flex:1 1 440px;padding:44px}
-.feature h3{font-size:clamp(28px,3.2vw,40px);line-height:1.08;letter-spacing:-0.03em;margin:14px 0 20px}
-.feature-text>p:not(.label){line-height:1.6;max-width:480px;color:var(--texto-suave-escuro)}
-.feature-stats{gap:40px;margin-top:32px;padding-top:28px;border-top:1px solid var(--linha-escuro);max-width:480px}
-.feature-stats dt{font-size:48px;color:var(--laranja)}
-.feature-stats dd{margin-top:10px;color:var(--texto-suave-escuro);text-wrap:balance}
-.feature-shot{flex:1 1 440px;position:relative;padding:32px;display:flex}
+.clientes{margin-top:24px;padding-top:40px;border-top:1px solid var(--linha)}
+.clientes-titulo{font-size:15px;font-weight:700}
+.clientes-logos{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:28px 40px;margin-top:28px}
+/* numa linha só (cabe a partir de ~1100px), espalhados na largura; antes disso quebram centralizados */
+@media (min-width:1100px){.clientes-logos{justify-content:space-between}}
+/* logos com o mesmo peso visual: largura em --w, no HTML, pela mesma área (√(3000 × proporção)) com ajuste
+   ótico por logo (OABRJ e K2 são pesados, Scopus e MCAA finos); todos na mesma tinta (PNGs de fundo transparente, AJ-03) */
+.clientes-logos img{width:var(--w);height:auto;filter:brightness(0);opacity:.72}
+/* o selo da MCAA tem as iniciais claras dentro do hexágono: escurece sem virar silhueta */
+.clientes-logos .logo-com-miolo{filter:grayscale(1) brightness(.42);opacity:.9}
+@media (max-width:720px){.clientes-logos{gap:24px 32px}.clientes-logos img{width:calc(var(--w) * .82)}}
 
-/* prints: recorte do topo da tela; o do card em destaque cobre o quadrado da hachura */
-.print{display:block;width:100%;height:170px;object-fit:cover;object-position:top left;border-radius:12px;border:1px solid var(--linha)}
-/* contain:size: a altura vem da coluna de texto, não da proporção da imagem */
-/* print de app: celular centralizado na imagem; num card largo o recorte pega a tela, não só a barra de status */
-.print-app{object-position:center 40%}
-.feature-shot .print{flex:1;height:auto;min-height:340px;contain:size;border-color:var(--linha-escuro)}
+/* superfície escura: Judisys e IA. Redefine os tokens que os componentes leem (acento, texto suave, filete) */
+.section-dark,.foot{background:var(--grafite);--acento:var(--laranja);--foco:var(--laranja);--texto-suave:var(--texto-suave-escuro);--linha:var(--linha-escuro)}
+.section-dark{color:var(--creme)}
 
-/* rótulo do card com etiqueta ao lado */
-.card-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
-/* com as colunas empilhadas, o print sobe para o topo e continua cobrindo o quadrado da hachura, longe do texto */
-@media (max-width:943px){.feature-shot{order:-1;padding-bottom:0}.feature-text{padding-top:32px}.feature-shot .print{min-height:260px}}
-@media (max-width:480px){.feature-text{padding:28px 24px 32px}.feature-shot{padding:24px 24px 0}.feature-shot .print{min-height:200px}
-  .feature-hatch{width:120px;height:120px}.feature-stats{gap:28px}.feature-stats dt{font-size:40px}}
-
-.projects{display:flex;flex-wrap:wrap;gap:20px;margin-top:20px}
-.project{flex:1 1 300px;display:flex;flex-direction:column;background:var(--areia);border-radius:16px;padding:28px}
-.project .label{color:var(--texto-suave)}
-.project>.card-meta{margin-top:28px}
-.project h3{font-size:26px;line-height:1.1;letter-spacing:-0.02em;margin:10px 0 12px}
-.project>p:not(.label){font-size:15px;line-height:1.6}
-.project-foot{margin-top:auto;padding-top:24px}
-.project-foot::before{content:"";display:block;border-top:1px solid var(--linha);margin-bottom:22px}
-.project-foot>div{display:flex;align-items:baseline;gap:6px}
-.project-foot>div+div{margin-top:10px}
-.project-foot dt{font-size:32px;color:var(--laranja-escuro)}
-.project-foot dd{font-size:15px}
-.project-orange{background:var(--laranja)}
-.project-orange .label{color:var(--grafite)}
-.project-orange .project-foot::before{border-color:var(--linha-forte)}
-.project-orange .project-foot dt{color:var(--grafite)}
-
-.clients{margin-top:56px;padding-top:36px;border-top:1px solid var(--linha)}
-.label-muted{color:var(--texto-suave)}
-.client-tiles{display:flex;flex-wrap:wrap;gap:16px;margin-top:20px}
-.client-tiles li{flex:1 1 130px;height:72px;display:flex;align-items:center;justify-content:center;
-  background:var(--areia);border-radius:12px;padding:12px 18px}
-/* logos em monocromático grafite; os PNGs têm fundo transparente (AJ-03: o multiply deixava o fundo quase branco à vista no iPhone) */
-.client-tiles img{max-height:34px;width:auto;object-fit:contain;filter:grayscale(1) contrast(1.1);opacity:.85}
+/* divisas curvas (só as duas ao redor do Judisys, ver CLAUDE.md): a cor da seção de cima entra na de baixo numa curva em S, a da peça "onda" do kit */
+/* a curva ocupa o topo da seção e sobe metade da altura sobre o respiro da seção de cima (mesma cor); o respiro do conteúdo é o da seção, um terço menor */
+.com-divisa{position:relative;--divisa-h:clamp(44px,7.5vw,108px);margin-top:calc(var(--divisa-h) * -0.5);padding-top:calc(var(--respiro-secao) * 2 / 3 + var(--divisa-h))}
+.defs{position:absolute;width:0;height:0;overflow:hidden}
+.divisa{position:absolute;top:-1px;left:0;width:100%;height:var(--divisa-h);display:block}
+.divisa-creme{fill:var(--creme)}
+.divisa-grafite{fill:var(--grafite)}
+/* a segunda divisa inverte o sentido da onda, para não repetir a curva */
+.divisa-inv{transform:scaleX(-1)}
 
 /* Judisys */
-.section-dark{background:var(--grafite);color:var(--creme)}
-.section-dark .label,.feature-text .label,.audience-dark .label{color:var(--laranja)}
-.judisys-in{display:flex;flex-wrap:wrap;gap:56px;align-items:flex-start}
-.judisys-text{flex:1 1 440px}
-.judisys-brand{display:flex;align-items:center;gap:14px;margin:14px 0 22px}
-.judisys-word{font-size:40px;font-weight:700;line-height:1;letter-spacing:-0.03em;color:var(--ouro)}
-.pill{background:var(--verde);color:var(--branco);font-size:14px;font-weight:700;line-height:1;padding:8px 14px;border-radius:999px}
-/* "Entregue": projeto que a Draft entregou e não mantém mais; só contorno, na cor do texto do card */
-.pill-entregue{background:none;color:inherit}
-/* nos cards de projeto as etiquetas (No ar, Entregue) ficam menores que a do Judisys e do mesmo tamanho entre si */
-.card-meta .pill{font-size:13px;padding:5px 10px;border:1.5px solid transparent}
-.card-meta .pill-entregue{border-color:currentColor}
-.judisys-lead{font-size:17px;line-height:1.6;max-width:520px;color:var(--texto-suave-escuro);margin:24px 0 32px}
-.window{flex:1 1 440px;border:1px solid var(--linha-escuro);border-radius:16px;overflow:hidden;background:var(--grafite-2);align-self:center}
-.window-bar{display:flex;gap:6px;padding:12px 16px;border-bottom:1px solid var(--linha-escuro)}
-.window-bar i{width:9px;height:9px;border-radius:50%;background:var(--ponto-janela)}
-.window img{width:100%;height:320px;object-fit:cover;object-position:top left}
-/* na janela estreita, altura fixa cortaria o painel pela direita: o print fica inteiro */
-@media (max-width:720px){.window img{height:auto}}
+.judisys-in{display:flex;flex-wrap:wrap;gap:48px 64px;align-items:center}
+.judisys-text{flex:1 1 400px}
+.judisys-nome{font-size:24px;font-weight:700;letter-spacing:-0.02em;color:var(--ouro);margin-bottom:12px}
+.judisys-text .lead{margin-bottom:32px}
+.diferenciais,.regras{display:flex;flex-wrap:wrap}
+.diferenciais li,.regras li{flex:1 1 260px}
+.diferenciais{gap:32px 48px;margin-top:80px}
+.diferenciais h3,.compromissos h3,.passos h3{font-size:20px;line-height:1.25;letter-spacing:-0.015em}
+.diferenciais p,.compromissos p,.passos h3+p,.regras p{font-size:15px;line-height:1.6;margin-top:8px;color:var(--texto-suave)}
+.judisys-hoje{margin-top:72px;font-size:clamp(22px,2.4vw,30px);line-height:1.35;letter-spacing:-0.015em;max-width:24em}
 
-.benefits{display:flex;flex-wrap:wrap;gap:32px;margin-top:72px}
-.benefits li{flex:1 1 260px;border-top:2px solid var(--laranja);padding-top:26px}
-.benefits h3{font-size:22px;line-height:1.2;letter-spacing:-0.02em;margin:12px 0 10px}
-.benefits p{font-size:15px;line-height:1.6;color:var(--texto-suave-escuro)}
+/* título à esquerda, conteúdo à direita: dados e FAQ */
+.duas-colunas{display:flex;flex-wrap:wrap;gap:40px 72px;align-items:flex-start}
+.coluna-titulo{flex:1 1 300px}
+.duas-colunas>:not(.coluna-titulo){flex:2 1 480px}
+.duas-colunas h2{font-size:clamp(36px,4.6vw,56px);line-height:1.02;letter-spacing:-0.035em}
 
-.judisys-stats{gap:24px 48px;margin-top:64px;padding-top:56px;border-top:1px solid var(--linha-escuro)}
-.judisys-stats dt{font-size:52px;color:var(--laranja)}
-.judisys-stats dd{margin-top:14px;color:var(--texto-suave-escuro)}
-@media (max-width:480px){.judisys-stats dt{font-size:44px}}
+/* compromissos de dados: numeral pelo contador do <ol> */
+.compromissos{counter-reset:compromisso;border-top:1px solid var(--linha)}
+.compromissos li{counter-increment:compromisso;display:grid;grid-template-columns:44px minmax(0,1fr);column-gap:20px;padding:24px 0;border-bottom:1px solid var(--linha)}
+.compromissos li::before{content:counter(compromisso);grid-row:1 / span 2;font-size:30px;font-weight:700;line-height:1;letter-spacing:-0.03em;color:var(--acento)}
 
-/* o que a gente faz / como a gente trabalha */
-.two-lists{display:flex;flex-wrap:wrap;gap:56px 64px}
-.two-lists>div{flex:1 1 440px}
-.two-lists h2{font-size:clamp(32px,4.4vw,44px);margin:16px 0 32px}
-.list li{padding:22px 0;border-top:1px solid var(--linha)}
-.list:not(.list-steps) li:last-child{border-bottom:1px solid var(--linha)}
-.list h3{font-size:20px;line-height:1.25;letter-spacing:-0.01em;margin-bottom:8px}
-.list p{font-size:15px;color:var(--texto-suave)}
-.list-steps li{border-top:2px solid var(--grafite)}
-.num{display:block;font:600 12px/1 var(--mono);letter-spacing:.13em;color:var(--laranja-escuro);margin-bottom:12px}
+/* IA */
+.ia-head{display:flex;flex-wrap:wrap;gap:24px 72px;align-items:flex-start}
+.ia-head h2{flex:1 1 420px}
+.ia-head .lead{flex:1 1 360px;margin-top:6px}
+.regras{gap:40px 32px;margin-top:64px}
+.regras li{border-top:4px solid var(--laranja);padding-top:24px}
+.regras h3{font-size:clamp(22px,2.2vw,26px);line-height:1.2;letter-spacing:-0.02em}
+.regras p{margin-top:12px}
+
+/* processo: linha do tempo reta; no celular vira vertical */
+.como{background:var(--areia)}
+.passos{--passos-gap:32px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--passos-gap);margin-top:56px}
+.passos li{position:relative;padding-top:36px}
+.passos li::before{content:"";position:absolute;top:6px;left:0;right:calc(-1 * var(--passos-gap));border-top:2px solid currentColor}
+.passos li:last-child::before{right:0}
+.passos li::after{content:"";position:absolute;top:0;left:0;width:14px;height:14px;border-radius:50%;background:var(--laranja)}
+.passo-n{font-size:14px;font-weight:700;color:var(--acento)}
+.passos h3{margin-top:6px}
+@media (max-width:860px){
+  .passos{grid-template-columns:minmax(0,1fr);gap:0}
+  .passos li{padding:0 0 32px 36px}
+  .passos li::before{top:7px;bottom:-7px;left:6px;right:auto;border-top:0;border-left:2px solid currentColor}
+  .passos li:last-child::before{display:none}
+}
+
+/* FAQ */
+.faq-lista{border-top:1px solid var(--linha)}
+.faq-lista details{border-bottom:1px solid var(--linha)}
+/* sem display:flex no <summary> (Safari antigo ignora e mostra o marcador nativo junto): a seta é posicionada */
+.faq-lista summary{position:relative;display:block;padding:20px 0 20px 20px;font-size:18px;font-weight:700;line-height:1.35;cursor:pointer;list-style:none}
+.faq-lista summary::-webkit-details-marker{display:none}
+.faq-lista summary::before{content:"";position:absolute;left:0;top:calc(20px + .675em - 5px);width:0;height:0;border-style:solid;border-width:5px 0 5px 8px;border-color:transparent transparent transparent currentColor}
+.faq-lista details[open] summary::before{rotate:90deg}
+@media (prefers-reduced-motion:no-preference){.faq-lista summary::before{transition:rotate .15s}}
+.faq-lista details p{padding:0 0 22px 20px;font-size:16px;line-height:1.6;max-width:40em;color:var(--texto-suave)}
 
 /* contato */
-.contact{padding:96px 0 116px}
-/* impressao-digital-b do kit v1.1: grande, sangra pelo canto e pode passar por baixo do texto */
-/* o recorte do canto é proporcional ao tamanho (translate em %), então cada quebra só troca a largura e a altura;
+.contact{padding:var(--respiro-secao) 0 calc(var(--respiro-secao) + 20px)} /* +20px embaixo: a digital b sangra pelo canto */
+/* impressao-digital-b do kit v1.1: grande, sangra pelo canto inferior esquerdo e pode passar por baixo do texto (Erick).
+   O recorte do canto é proporcional ao tamanho (translate em %), então cada quebra só troca a largura e a altura;
    o traço compensa a escala para ficar com ~16px nas duas */
-.contact-digital{width:990px;height:1095px;right:0;bottom:0;transform:translate(28.3%,51.6%);stroke-width:9;color:var(--laranja-digital-contato)}
+.contact-digital{width:990px;height:1095px;left:0;bottom:0;transform:translate(-36%,51.6%);stroke-width:9;color:var(--laranja-digital-contato)}
 @media (max-width:900px){.contact-digital{width:640px;height:708px;stroke-width:14}}
 @media (max-width:720px){.contact-digital{display:none}}
-/* título na largura toda; embaixo, form à esquerda e contato direto à direita, começando na mesma altura */
-.contact-in{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:32px 80px}
-.contact-head{grid-column:1 / -1}
-@media (max-width:900px){.contact-in{grid-template-columns:minmax(0,1fr)}.contact-direct{margin-top:24px}}
-.contact h2{font-size:clamp(40px,5.6vw,72px);line-height:1;letter-spacing:-0.035em;margin:14px 0 24px;text-wrap:balance}
-.contact-lead{font-size:17px;line-height:1.6;max-width:500px}
-.contact-links{margin-top:12px}
-.contact-links li,.form-ok{border-top:2px solid var(--grafite)}
-.contact-links li:last-child,.form-ok{border-bottom:2px solid var(--grafite)}
-/* clicar no valor copia; a seta abre o e-mail ou o WhatsApp. O aviso "Copiado" ocupa a mesma célula do botão, no canto */
-.contact-links li{--respiro:20px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:16px}
-.contact-copy{grid-area:1 / 1;display:grid;justify-items:start;padding:var(--respiro) 0 18px;text-decoration:none}
+/* texto à esquerda, formulário à direita */
+.contact-in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:48px 80px;align-items:start}
+@media (max-width:900px){.contact-in{grid-template-columns:minmax(0,1fr)}}
+.contact h2{font-size:clamp(40px,5.2vw,68px);line-height:1;letter-spacing:-0.035em;text-wrap:balance}
+.contact-lead{font-size:17px;line-height:1.6;max-width:30em;margin-top:22px}
+.depois-titulo{margin-top:32px;padding-top:20px;border-top:2px solid var(--grafite);font-size:16px;line-height:1.3}
+.depois{list-style:decimal;padding-left:1.3em;margin-top:12px;font-size:15px;line-height:1.5;max-width:30em}
+.depois li+li{margin-top:6px}
+/* clicar no valor copia ("Copiado" aparece ao lado); a seta abre o e-mail ou o WhatsApp */
+.contact-links{margin-top:28px}
+.contact-links li{position:relative;display:flex;flex-wrap:wrap;align-items:center;column-gap:4px}
+.contact-copy{font-size:18px;font-weight:700;line-height:1.4;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px;overflow-wrap:anywhere}
 .contact-copy[data-copiavel]{cursor:copy}
-.contact-hint{grid-area:1 / 1;justify-self:end;align-self:start;margin-top:var(--respiro);pointer-events:none;font:600 11px/1.4 var(--mono);letter-spacing:.13em;text-transform:uppercase}
-.contact-go{grid-area:1 / 2;display:grid;place-items:center;width:44px;height:44px;margin-right:-10px;text-decoration:none}
-.contact-links .label,.contact-addr-label,.contact-alt-label,.contact-form .label{font-size:11px}
-.contact-value,.form-ok-title{font-size:24px;font-weight:700;line-height:1.3;letter-spacing:-0.01em}
-.contact-value{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px;overflow-wrap:anywhere}
-.contact-links .arrow{font-size:24px}
-.contact-addr-label{margin-top:28px}
-.contact-addr{margin-top:8px}
+.contact-go{display:grid;place-items:center;width:44px;height:44px;text-decoration:none}
+.contact-links .arrow{font-size:20px}
+/* o aviso "Copiado" fica sobreposto acima da linha, à direita: aparecer e sumir não mexe no layout */
+.contact-hint{position:absolute;right:0;top:-8px;font-size:13px;font-weight:700;pointer-events:none}
+.form-ok-title{font-size:24px;font-weight:700;line-height:1.3;letter-spacing:-0.01em}
 /* formulário (FRM-01): só grafite sobre o laranja; o erro se marca pela borda dupla e pelo texto, não pela cor */
 .contact-form{display:grid;gap:18px}
-.contact-form .label{display:block;margin-bottom:6px}
+.campo-rotulo{display:block;margin-bottom:6px;font-size:13px;font-weight:700;line-height:1.3}
 .contact-form input,.contact-form textarea{display:block;width:100%;margin:0;padding:11px 14px;
   border:2px solid var(--grafite);border-radius:10px;background:var(--off-white);color:var(--grafite);font:inherit}
 .contact-form input{height:46px}
@@ -288,17 +298,27 @@ nav{display:flex;align-items:center;gap:28px}
 .contact-form .btn:disabled{cursor:progress}
 .form-note{margin-top:-6px;font-size:13px;line-height:1.5}
 .form-status{padding-top:12px;border-top:2px solid var(--grafite);font-size:15px;font-weight:700;line-height:1.5}
-.form-ok{padding:22px 0 20px}
+.form-ok{padding:22px 0 20px;border-block:2px solid var(--grafite)}
 .form-ok:focus{outline:none} /* recebe o foco por JS só para o leitor de tela anunciar; não é controle */
 .form-ok-title+p{margin-top:6px}
 
-/* rodapé */
-.foot{background:var(--grafite);color:var(--texto-suave-escuro);font-size:14px}
-.foot-in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 40px;min-height:96px;padding-top:24px;padding-bottom:24px}
-.foot-logo{width:120px;color:var(--laranja)}
-.foot .mono{font-size:12px;font-weight:600;letter-spacing:.13em}
-@media (max-width:720px){.foot-in{flex-direction:column;align-items:flex-start;justify-content:center;gap:10px}}
+/* rodapé: mesma superfície escura da .section-dark (tokens definidos lá) */
+.foot{color:var(--texto-suave);font-size:13px;line-height:1.5}
+.foot-in{display:flex;flex-wrap:wrap;align-items:center;gap:12px 40px;min-height:96px;padding-top:24px;padding-bottom:24px}
+.foot-logo{width:110px;color:var(--laranja)}
+.foot-dados{flex:1 1 420px}
+@media (max-width:720px){.foot-in{flex-direction:column;align-items:flex-start;justify-content:center;gap:10px}.foot-dados{flex-basis:auto}}
 
-/* 404 */
-.nf{min-height:calc(100vh - var(--top-h));min-height:calc(100svh - var(--top-h));display:flex;align-items:center;padding:72px 0}
+/* 404: bloco laranja por baixo do nav transparente, como o hero */
+.nf{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding-bottom:72px}
+.nf>.wrap{width:100%} /* item de flex ou grid: sem isso a margem automática encolhe e centraliza, desalinhado do logo */
 .nf .actions{margin-top:36px}
+/* política de privacidade: coluna de leitura no creme */
+.doc{background:var(--creme);padding:72px 0 96px}
+.doc-in{max-width:680px}
+.doc h1{font-size:clamp(36px,5vw,56px);line-height:1.02;letter-spacing:-.035em}
+.doc .doc-data{margin:16px 0 0;color:var(--texto-suave);font-size:15px}
+.doc .doc-lead{margin:32px 0 0;font-size:19px;line-height:1.5}
+.doc h2{margin:40px 0 0;font-size:22px;line-height:1.2;letter-spacing:-.02em}
+.doc h2 + p{margin-top:10px}
+.doc p{margin:12px 0 0;font-size:17px;line-height:1.6}
