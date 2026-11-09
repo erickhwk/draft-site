@@ -27,7 +27,7 @@
   --laranja-claro:#FF6E4E;   /* hover do botão laranja */
   --ponto-janela:rgba(244,241,234,.35);
   --top-h:73px;
-  /* acento de texto (destaque de título, rótulo, número): cada superfície redefine; ver .section-dark, .hero, .contact, .top-hero */
+  /* acento de texto (destaque de título, número, "Passo N"): cada superfície redefine; ver .section-dark, .hero, .contact, .top-hero */
   --acento:var(--laranja-escuro);
   --foco:var(--grafite);       /* contorno de foco; a superfície escura troca para laranja */
   --respiro-secao:96px;
@@ -42,7 +42,7 @@ html{scroll-behavior:smooth}
 body{margin:0;background:var(--off-white);color:var(--grafite);
   font:500 16px/1.55 "Space Grotesk",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 img{max-width:100%;display:block}
-a{color:inherit}
+a{color:inherit;text-underline-offset:3px}
 /* foco grafite; laranja só sobre grafite (laranja sobre o claro não passa de 3:1) */
 :focus-visible{outline:3px solid var(--foco);outline-offset:3px}
 
@@ -170,11 +170,13 @@ nav{display:flex;align-items:center;gap:28px}
 @media (max-width:720px){.clientes-logos{gap:24px 32px}.clientes-logos img{width:calc(var(--w) * .82)}}
 
 /* superfície escura: Judisys e IA. Redefine os tokens que os componentes leem (acento, texto suave, filete) */
-.section-dark{background:var(--grafite);color:var(--creme);--acento:var(--laranja);--foco:var(--laranja);--texto-suave:var(--texto-suave-escuro);--linha:var(--linha-escuro)}
+.section-dark,.foot{background:var(--grafite);--acento:var(--laranja);--foco:var(--laranja);--texto-suave:var(--texto-suave-escuro);--linha:var(--linha-escuro)}
+.section-dark{color:var(--creme)}
 
 /* divisas curvas (só as quatro do meio da página, ver CLAUDE.md): a cor da seção de cima entra na de baixo numa curva em S, a da peça "onda" do kit */
 /* a curva ocupa o topo da seção e sobe metade da altura sobre o respiro da seção de cima (mesma cor); o respiro do conteúdo é o da seção, um terço menor */
 .com-divisa{position:relative;--divisa-h:clamp(44px,7.5vw,108px);margin-top:calc(var(--divisa-h) * -0.5);padding-top:calc(var(--respiro-secao) * 2 / 3 + var(--divisa-h))}
+.defs{position:absolute;width:0;height:0;overflow:hidden}
 .divisa{position:absolute;top:-1px;left:0;width:100%;height:var(--divisa-h);display:block}
 .divisa-creme{fill:var(--creme)}
 .divisa-grafite{fill:var(--grafite)}
@@ -241,7 +243,7 @@ nav{display:flex;align-items:center;gap:28px}
 .faq-lista details p{padding:0 0 22px 20px;font-size:16px;line-height:1.6;max-width:40em;color:var(--texto-suave)}
 
 /* contato */
-.contact{padding:var(--respiro-secao) 0 calc(var(--respiro-secao) + 20px)}
+.contact{padding:var(--respiro-secao) 0 calc(var(--respiro-secao) + 20px)} /* +20px embaixo: a digital b sangra pelo canto */
 /* impressao-digital-b do kit v1.1: grande, sangra pelo canto inferior esquerdo e pode passar por baixo do texto (Erick).
    O recorte do canto é proporcional ao tamanho (translate em %), então cada quebra só troca a largura e a altura;
    o traço compensa a escala para ficar com ~16px nas duas */
@@ -265,7 +267,6 @@ nav{display:flex;align-items:center;gap:28px}
 .contact-links .arrow{font-size:20px}
 .contact-hint{font-size:13px;font-weight:700}
 .form-ok-title{font-size:24px;font-weight:700;line-height:1.3;letter-spacing:-0.01em}
-.form-ok{border-top:2px solid var(--grafite);border-bottom:2px solid var(--grafite)}
 /* formulário (FRM-01): só grafite sobre o laranja; o erro se marca pela borda dupla e pelo texto, não pela cor */
 .contact-form{display:grid;gap:18px}
 .campo-rotulo{display:block;margin-bottom:6px;font-size:13px;font-weight:700;line-height:1.3}
@@ -282,24 +283,21 @@ nav{display:flex;align-items:center;gap:28px}
 .contact-form .btn{justify-self:start}
 .contact-form .btn:disabled{cursor:progress}
 .form-note{margin-top:-6px;font-size:13px;line-height:1.5}
-.form-note a{text-underline-offset:3px}
 .form-status{padding-top:12px;border-top:2px solid var(--grafite);font-size:15px;font-weight:700;line-height:1.5}
-.form-ok{padding:22px 0 20px}
+.form-ok{padding:22px 0 20px;border-block:2px solid var(--grafite)}
 .form-ok:focus{outline:none} /* recebe o foco por JS só para o leitor de tela anunciar; não é controle */
 .form-ok-title+p{margin-top:6px}
 
-/* rodapé: superfície escura (foco laranja, texto suave claro) */
-.foot{background:var(--grafite);color:var(--texto-suave-escuro);font-size:13px;line-height:1.5;--foco:var(--laranja)}
+/* rodapé: mesma superfície escura da .section-dark (tokens definidos lá) */
+.foot{color:var(--texto-suave);font-size:13px;line-height:1.5}
 .foot-in{display:flex;flex-wrap:wrap;align-items:center;gap:12px 40px;min-height:96px;padding-top:24px;padding-bottom:24px}
 .foot-logo{width:110px;color:var(--laranja)}
 .foot-dados{flex:1 1 420px}
-.foot-link{text-underline-offset:3px}
-.sem-quebra{white-space:nowrap}
 @media (max-width:720px){.foot-in{flex-direction:column;align-items:flex-start;justify-content:center;gap:10px}.foot-dados{flex-basis:auto}}
 
 /* 404: bloco laranja por baixo do nav transparente, como o hero */
 .nf{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding-bottom:72px}
-.nf>.wrap{width:100%} /* item de flex: sem isso encolhe e centraliza, desalinhado do logo */
+.nf>.wrap{width:100%} /* item de flex ou grid: sem isso a margem automática encolhe e centraliza, desalinhado do logo */
 .nf .actions{margin-top:36px}
 /* política de privacidade: coluna de leitura no creme */
 .doc{background:var(--creme);padding:72px 0 96px}
@@ -310,4 +308,3 @@ nav{display:flex;align-items:center;gap:28px}
 .doc h2{margin:40px 0 0;font-size:22px;line-height:1.2;letter-spacing:-.02em}
 .doc h2 + p{margin-top:10px}
 .doc p{margin:12px 0 0;font-size:17px;line-height:1.6}
-.doc a{text-underline-offset:3px}
