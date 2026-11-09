@@ -9,7 +9,7 @@
 /* stylelint-disable color-no-hex, function-disallowed-list -- o :root é o único lugar com cor literal; fora dele, só var(--token) */
 :root{
   --laranja:#FF5A36;          /* laranja da marca */
-  --laranja-escuro:#B8420F;   /* texto laranja sobre fundo claro */
+  --laranja-escuro:#B4400E;   /* texto laranja sobre fundo claro: 4,66:1 na areia, 5,06:1 no creme */
   --laranja-digital:#E55227;  /* digital do hero, tom sobre tom */
   --laranja-digital-contato:#F05732; /* mais discreto: fica perto de texto */
   --grafite:#25282A;
