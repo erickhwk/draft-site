@@ -32,6 +32,8 @@
   --ponto-janela:rgba(244,241,234,.35);
   --top-h:73px;
   --mono:"JetBrains Mono",ui-monospace,monospace;
+  /* acento de texto (destaque de título, rótulo, número): cada superfície redefine; ver .section-dark, .hero, .contact, .top-hero */
+  --acento:var(--laranja-escuro);
   color-scheme:light;
 }
 /* stylelint-enable color-no-hex, function-disallowed-list */
@@ -65,7 +67,7 @@ ul,ol{list-style:none}
 
 /* rótulo mono (também nas legendas dos números) */
 .label,.judisys-stats dd{font:600 12px/1.4 var(--mono);letter-spacing:.13em;text-transform:uppercase}
-.label{color:var(--laranja-escuro)}
+.label{color:var(--acento)}
 .mono{font-family:var(--mono)}
 
 /* botões: um laranja por tela, os demais grafite */
@@ -85,7 +87,7 @@ ul,ol{list-style:none}
 .logo{width:112px;color:var(--grafite)}
 nav{display:flex;align-items:center;gap:28px}
 .nav-link{font-size:15px;text-decoration:none;padding:6px 0;border-bottom:2px solid transparent;white-space:nowrap}
-.nav-link:hover{border-bottom-color:var(--laranja-escuro)}
+.nav-link:hover{border-bottom-color:var(--acento)}
 @media (max-width:760px){.nav-link{display:none}}
 /* logo: no hover a hachura do "a" é redesenhada traço a traço, de cima para baixo, como um rascunho.
    Tracejado em unidades do viewBox (o traço mais longo tem ~396): todos andam na mesma velocidade,
@@ -108,18 +110,19 @@ nav{display:flex;align-items:center;gap:28px}
 
 /* blocos laranja: hero e contato */
 .hero,.contact{position:relative;overflow:hidden;background:var(--laranja);color:var(--grafite)}
-.hero .label,.contact .label{color:var(--grafite)}
+.hero,.contact,.top-hero{--acento:var(--grafite)}
 
 /* hero: o nav fica transparente sobre o laranja e a digital passa por trás dele */
 .top-hero{position:relative;z-index:2;background:transparent}
-.top-hero .nav-link:hover{border-bottom-color:var(--grafite)}
-.hero{margin-top:calc(-1 * var(--top-h));padding:calc(var(--top-h) + 88px) 0 112px}
+.hero{padding:88px 0 112px}
+/* bloco que passa por baixo do nav transparente (.top-hero): sobe a altura do nav e devolve no padding */
+.sob-nav{--respiro-topo:88px;margin-top:calc(-1 * var(--top-h));padding-top:calc(var(--top-h) + var(--respiro-topo))}
 /* impressao-digital-a do kit v1.1, sangrando pela direita e pelo topo; o traço compensa a escala (~5px na tela) */
 .hero-digital{width:800px;height:811px;right:-90px;top:-150px;stroke-width:3.6;color:var(--laranja-digital)}
 @media (max-width:1100px){.hero-digital{display:none}}
 .hero h1{font-size:clamp(44px,7.4vw,96px);line-height:.98;letter-spacing:-0.035em;max-width:8.2em;margin:0 0 28px}
 /* Fraunces itálica só aqui (woff2 recortado com "problema."); o resto do site é Space Grotesk */
-.serif{font-family:Fraunces,Georgia,serif;font-style:italic;font-weight:800;letter-spacing:-0.02em;color:var(--creme)}
+.hero .serif{font-family:Fraunces,Georgia,serif;font-style:italic;font-weight:800;letter-spacing:-0.02em;color:var(--creme)}
 .hero-lead{font-size:18px;max-width:560px}
 
 .audiences{display:flex;flex-wrap:wrap;gap:16px;margin-top:44px;max-width:780px}
@@ -132,12 +135,11 @@ nav{display:flex;align-items:center;gap:28px}
 .audience-light .audience-for{color:var(--texto-suave)}
 .audience-dark{background:var(--grafite);color:var(--creme)}
 .audience-dark .audience-for{color:var(--texto-suave-escuro)}
-.audience-dark:focus-visible{outline-color:var(--grafite)}
-@media (max-width:480px){.audience{padding:22px 24px;flex-basis:100%}}
+@media (max-width:480px){.sob-nav{--respiro-topo:56px}.hero{padding-bottom:80px}.audience{padding:22px 24px;flex-basis:100%}}
 
 /* quando a gente é chamado: linhas editoriais alternadas, texto e tela do sistema */
 .casos{background:var(--creme)}
-.destaque{color:var(--laranja-escuro)}
+.destaque{color:var(--acento)}
 .secao-lead{font-size:17px;line-height:1.55;margin-top:14px;color:var(--texto-suave)}
 .casos-lista{margin-top:56px}
 .caso{display:flex;flex-wrap:wrap;align-items:center;gap:40px 64px;padding:56px 0}
@@ -146,9 +148,10 @@ nav{display:flex;align-items:center;gap:28px}
 .caso-inv{flex-direction:row-reverse}
 .caso-texto{flex:1 1 380px}
 .caso h3{font-size:clamp(26px,2.6vw,34px);line-height:1.12;letter-spacing:-0.025em;max-width:15em}
-.caso-texto>p{font-size:16px;line-height:1.6;max-width:31em;margin-top:16px;color:var(--texto-suave)}
-.caso-texto>.caso-numero{margin-top:24px;color:var(--grafite)}
-.caso-numero strong{font-size:clamp(30px,2.8vw,38px);line-height:1;letter-spacing:-0.03em;color:var(--laranja-escuro);margin-right:4px}
+.caso-texto>p{font-size:16px;line-height:1.6;max-width:31em;margin-top:16px}
+.caso-texto>p:not(.caso-numero){color:var(--texto-suave)}
+.caso-texto>.caso-numero{margin-top:24px}
+.caso-numero strong{font-size:clamp(30px,2.8vw,38px);line-height:1;letter-spacing:-0.03em;color:var(--acento);margin-right:4px}
 /* janela do sistema: barra com três pontos e o print recortado pelo topo */
 .janela{flex:1 1 420px;border-radius:16px;overflow:hidden;border:1px solid var(--linha)}
 .janela-bar{display:flex;gap:6px;padding:11px 14px}
@@ -160,8 +163,7 @@ nav{display:flex;align-items:center;gap:28px}
 .janela-print{width:100%;aspect-ratio:16 / 10;height:auto;object-fit:cover;object-position:top left}
 /* print de app: o celular fica no meio da imagem */
 .janela-app{object-position:center 40%}
-@media (max-width:860px){.caso,.caso-inv{flex-direction:column;align-items:stretch}.caso-texto,.janela{flex-basis:auto}}
-@media (max-width:480px){.caso{padding:44px 0;gap:28px}.casos-lista{margin-top:40px}.hero{padding-top:calc(var(--top-h) + 56px);padding-bottom:80px}}
+@media (max-width:480px){.caso{padding:44px 0;gap:28px}.casos-lista{margin-top:40px}}
 
 .clientes{display:flex;flex-wrap:wrap;align-items:center;gap:20px 40px;margin-top:24px;padding-top:40px;border-top:1px solid var(--linha)}
 .clientes-titulo{font-size:15px;font-weight:700}
@@ -171,7 +173,7 @@ nav{display:flex;align-items:center;gap:28px}
 
 /* Judisys */
 .section-dark{background:var(--grafite);color:var(--creme)}
-.section-dark .label{color:var(--laranja)}
+.section-dark{--acento:var(--laranja)}
 .judisys-in{display:flex;flex-wrap:wrap;gap:56px;align-items:flex-start}
 .judisys-text{flex:1 1 440px}
 .judisys-brand{display:flex;align-items:center;gap:14px;margin:14px 0 22px}
