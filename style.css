@@ -88,7 +88,8 @@ ul,ol{list-style:none}
 nav{display:flex;align-items:center;gap:28px}
 .nav-link{font-size:15px;text-decoration:none;padding:6px 0;border-bottom:2px solid transparent;white-space:nowrap}
 .nav-link:hover{border-bottom-color:var(--acento)}
-@media (max-width:760px){.nav-link{display:none}}
+/* com 4 links o nav precisa de ~640px: abaixo de 860px ficam só o logo e o botão (o logo encolhia) */
+@media (max-width:860px){.nav-link{display:none}}
 /* logo: no hover a hachura do "a" é redesenhada traço a traço, de cima para baixo, como um rascunho.
    Tracejado em unidades do viewBox (o traço mais longo tem ~396): todos andam na mesma velocidade,
    e o início em 430 deixa a ponta arredondada fora do traço enquanto ele espera a vez.
@@ -168,13 +169,15 @@ nav{display:flex;align-items:center;gap:28px}
 
 .clientes{margin-top:24px;padding-top:40px;border-top:1px solid var(--linha)}
 .clientes-titulo{font-size:15px;font-weight:700}
-.clientes-logos{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:28px 40px;margin-top:28px}
+.clientes-logos{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:28px 40px;margin-top:28px}
+/* numa linha só (cabe a partir de ~1100px), espalhados na largura; antes disso quebram centralizados */
+@media (min-width:1100px){.clientes-logos{justify-content:space-between}}
 /* logos com o mesmo peso visual: largura em --w, no HTML, pela mesma área (√(3000 × proporção)) com ajuste
    ótico por logo (OABRJ e K2 são pesados, Scopus e MCAA finos); todos na mesma tinta (PNGs de fundo transparente, AJ-03) */
 .clientes-logos img{width:var(--w);height:auto;filter:brightness(0);opacity:.72}
 /* o selo da MCAA tem as iniciais claras dentro do hexágono: escurece sem virar silhueta */
 .clientes-logos .logo-com-miolo{filter:grayscale(1) brightness(.42);opacity:.9}
-@media (max-width:720px){.clientes-logos{justify-content:center;gap:24px 32px}.clientes-logos img{width:calc(var(--w) * .82)}}
+@media (max-width:720px){.clientes-logos{gap:24px 32px}.clientes-logos img{width:calc(var(--w) * .82)}}
 
 /* Judisys */
 .section-dark{background:var(--grafite);color:var(--creme)}
