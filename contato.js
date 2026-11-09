@@ -14,7 +14,8 @@
     }
     link.setAttribute('data-copiavel', '');
     link.setAttribute('role', 'button');
-    link.setAttribute('aria-label', 'Copiar ' + link.querySelector('.label').textContent + ' ' + link.dataset.copiar);
+    // o nome acessível repete o texto visível, na mesma ordem (controle por voz, WCAG 2.5.3)
+    link.setAttribute('aria-label', 'Copiar ' + link.textContent.trim());
     link.addEventListener('click', function (e) {
       // Cmd/Ctrl/Shift/Alt + clique ou botão do meio: abre o link, como qualquer link
       if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;

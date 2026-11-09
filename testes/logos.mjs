@@ -1,4 +1,4 @@
-// Logos de clientes (AJ-03): o .client-tiles img não usa mais mix-blend-mode, então todo PNG precisa vir com
+// Logos de clientes (AJ-03): os logos (.clientes-logos img) não usam mix-blend-mode e são escurecidos por filtro, então todo PNG precisa vir com
 // fundo transparente. Confere os quatro cantos de cada logo da home; fundo branco opaco faz o teste falhar.
 //
 // Local:  python3 -m http.server 8010 --bind 127.0.0.1   (na raiz, em outro terminal)
@@ -17,7 +17,7 @@ const canal = process.env.PW_CANAL ?? "chrome";
 const browser = await pw.chromium.launch({ ...(canal ? { channel: canal } : {}), headless: true });
 const page = await browser.newPage();
 await page.goto(BASE);
-const logos = await page.$$eval(".client-tiles img", (imgs) => Promise.all(imgs.map(async (img) => {
+const logos = await page.$$eval(".clientes-logos img", (imgs) => Promise.all(imgs.map(async (img) => {
   img.loading = "eager";
   await img.decode();
   const c = Object.assign(document.createElement("canvas"), { width: img.naturalWidth, height: img.naturalHeight });
@@ -36,6 +36,6 @@ for (const { src, cantos } of logos) {
   if (!passou) falhas++;
   console.log(`${passou ? "PASSOU" : "FALHOU"}  ${src} com fundo transparente${passou ? "" : `  (alfa dos cantos: ${cantos.join(", ")})`}`);
 }
-if (!logos.length) { falhas++; console.log("FALHOU  nenhum logo encontrado em .client-tiles"); }
+if (!logos.length) { falhas++; console.log("FALHOU  nenhum logo encontrado em .clientes-logos"); }
 console.log(`\n${logos.length - falhas} de ${logos.length} passaram`);
 process.exit(falhas ? 1 : 0);
