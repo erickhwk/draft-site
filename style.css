@@ -106,10 +106,12 @@ nav{display:flex;align-items:center;gap:28px}
 .top-hero{position:relative;z-index:2;background:transparent}
 .hero{padding:88px 0 112px}
 /* borda do traço à mão (kit v1.1, primeira linha da peça, esticada na largura): o creme dos casos sobe no fim do hero,
-   com um segundo traço creme por cima, como a peça de duas linhas (Erick, 2026-11-10). Fica no respiro de baixo do hero */
-.hero-borda{position:absolute;left:0;bottom:-1px;width:100%;height:90px;pointer-events:none;z-index:0;color:var(--creme);fill:currentColor}
+   com um segundo traço creme por cima, como a peça de duas linhas (Erick, 2026-11-10). A altura acompanha a largura,
+   como as divisas, para o tremido manter a proporção; o máximo (90px) cabe no padding de baixo do hero (112px, 80px no
+   celular): reduzir esse padding faz os cards encostarem na borda. O segundo traço repete um trecho da curva do contorno */
+.hero-borda{position:absolute;left:0;bottom:-1px;width:100%;height:clamp(40px,6.25vw,90px);pointer-events:none;z-index:0;color:var(--creme);fill:currentColor}
 .hero-borda-traco{fill:none;stroke:currentColor;stroke-width:7;stroke-linecap:round;vector-effect:non-scaling-stroke}
-@media (max-width:480px){.hero-borda{height:40px}.hero-borda-traco{stroke-width:4}}
+@media (max-width:480px){.hero-borda-traco{stroke-width:4}}
 /* bloco que passa por baixo do nav transparente (.top-hero): sobe a altura do nav e devolve no padding */
 .sob-nav{--respiro-topo:88px;margin-top:calc(-1 * var(--top-h));padding-top:calc(var(--top-h) + var(--respiro-topo))}
 /* impressao-digital-a do kit v1.1, sangrando pela direita e pelo topo; o traço compensa a escala (~5px na tela) */
