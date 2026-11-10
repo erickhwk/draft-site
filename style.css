@@ -11,6 +11,7 @@
   --laranja-escuro:#B4400E;   /* texto laranja sobre fundo claro: 4,66:1 na areia, 5,06:1 no creme */
   --laranja-digital:#E55227;  /* digital do hero, tom sobre tom */
   --laranja-digital-contato:#F05732; /* mais discreto: fica perto de texto */
+  --iceberg:#D3CCB9;          /* contorno do iceberg, tom sobre tom na areia */
   --grafite:#25282A;
   --off-white:#F7F5EF;
   --creme:#F4F1EA;
@@ -229,19 +230,29 @@ nav{display:flex;align-items:center;gap:28px}
 .regras p{margin-top:12px}
 
 /* processo: linha do tempo reta; no celular vira vertical */
-.como{background:var(--areia)}
+.como{position:relative;overflow:hidden;background:var(--areia)}
 .passos{--passos-gap:32px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--passos-gap);margin-top:56px}
 .passos li{position:relative;padding-top:36px}
 .passos li::before{content:"";position:absolute;top:6px;left:0;right:calc(-1 * var(--passos-gap));border-top:2px solid currentColor}
 .passos li:last-child::before{right:0}
 .passos li::after{content:"";position:absolute;top:0;left:0;width:14px;height:14px;border-radius:50%;background:var(--laranja)}
 .passo-n{font-size:14px;font-weight:700;color:var(--acento)}
+/* iceberg atrás dos passos (decisoes-marca.md, 2026-11-10): a linha do tempo é a linha d'água, que no viewBox fica em
+   y=200 de 900, então a ponta sobe 20% da largura acima da linha. A base da ponta (x 330–690) termina antes do fim da linha;
+   a parte submersa sai pela borda de baixo e pela direita */
+.passos-agua{position:relative}
+.passos-agua .passos{position:relative;z-index:1}
+.iceberg{--ice-w:min(960px,80vw);position:absolute;z-index:0;pointer-events:none;width:var(--ice-w);height:calc(var(--ice-w) * .9);left:calc(100% - var(--ice-w) * .72);top:calc(7px - var(--ice-w) * .2);color:var(--iceberg);stroke-width:2}
+.iceberg path{vector-effect:non-scaling-stroke}
+.iceberg-ponta{fill:var(--creme)}
+.iceberg-fundo{stroke-dasharray:6 8}
 .passos h3{margin-top:6px}
 @media (max-width:860px){
   .passos{grid-template-columns:minmax(0,1fr);gap:0}
   .passos li{padding:0 0 32px 36px}
   .passos li::before{top:7px;bottom:-7px;left:6px;right:auto;border-top:0;border-left:2px solid currentColor}
   .passos li:last-child::before{display:none}
+  .iceberg{display:none} /* a linha do tempo fica vertical: sem linha d'água */
 }
 
 /* FAQ */
