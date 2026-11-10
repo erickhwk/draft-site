@@ -10,7 +10,8 @@
   --laranja:#FF5A36;          /* laranja da marca */
   --laranja-escuro:#B4400E;   /* texto laranja sobre fundo claro: 4,66:1 na areia, 5,06:1 no creme */
   --laranja-digital:#E55227;  /* digital do hero, tom sobre tom */
-  --laranja-digital-contato:#F05732; /* mais discreto: fica perto de texto */
+  --laranja-onda:#FF6A49;     /* onda do contato: mais clara que o fundo, para o grafite por cima subir a 5,2:1 */
+  --iceberg:#D3CCB9;          /* contorno do iceberg, tom sobre tom na areia */
   --grafite:#25282A;
   --off-white:#F7F5EF;
   --creme:#F4F1EA;
@@ -93,8 +94,8 @@ nav{display:flex;align-items:center;gap:28px}
 @keyframes logo-draft{from{stroke-dashoffset:430}to{stroke-dashoffset:0}}
 @media (max-width:380px){.logo{width:92px}.top .btn{padding:0 16px;font-size:15px}}
 
-/* digital: textura tom sobre tom, sempre atrás do conteúdo */
-.hero-digital,.contact-digital{position:absolute;pointer-events:none;z-index:0}
+/* digital do hero e onda do contato: textura tom sobre tom, sempre atrás do conteúdo */
+.hero-digital,.contact-onda{position:absolute;pointer-events:none;z-index:0}
 .hero .wrap,.contact .wrap{position:relative;z-index:1}
 
 /* blocos laranja: hero e contato */
@@ -104,6 +105,15 @@ nav{display:flex;align-items:center;gap:28px}
 /* hero: o nav fica transparente sobre o laranja e a digital passa por trás dele */
 .top-hero{position:relative;z-index:2;background:transparent}
 .hero{padding:88px 0 112px}
+/* borda do traço à mão (kit v1.1, primeira linha da peça, esticada na largura): o creme dos casos sobe no fim do hero,
+   com a segunda linha da peça como traço creme por cima, mais curta e à direita, sem acompanhar o contorno (Erick, 2026-11-10:
+   paralela, parecia franja). A altura acompanha a largura,
+   como as divisas, para o tremido manter a proporção. O viewBox (y de -25 a 100) tem folga para o contorno e o traço
+   não serem cortados. Com 100px no máximo e o padding de baixo do hero em 112px (80px no celular, borda de 36px), o
+   traço fica a uns 28px dos cards: reduzir esse padding faz os cards encostarem na borda. */
+.hero-borda{position:absolute;left:0;bottom:-1px;width:100%;height:clamp(36px,6.95vw,100px);pointer-events:none;z-index:0;color:var(--creme);fill:currentColor}
+.hero-borda-traco{fill:none;stroke:currentColor;stroke-width:7;stroke-linecap:round;vector-effect:non-scaling-stroke}
+@media (max-width:480px){.hero-borda-traco{stroke-width:4}}
 /* bloco que passa por baixo do nav transparente (.top-hero): sobe a altura do nav e devolve no padding */
 .sob-nav{--respiro-topo:88px;margin-top:calc(-1 * var(--top-h));padding-top:calc(var(--top-h) + var(--respiro-topo))}
 /* impressao-digital-a do kit v1.1, sangrando pela direita e pelo topo; o traço compensa a escala (~5px na tela) */
@@ -141,9 +151,11 @@ nav{display:flex;align-items:center;gap:28px}
 .caso-texto{flex:1 1 380px}
 .caso h3{font-size:clamp(26px,2.6vw,34px);line-height:1.12;letter-spacing:-0.025em;max-width:15em}
 .caso-texto>p{font-size:16px;line-height:1.6;max-width:31em;margin-top:16px}
-.caso-texto>p:not(.caso-numero){color:var(--texto-suave)}
-.caso-texto>.caso-numero{margin-top:24px}
+.caso-texto>p:not(.caso-numero,.caso-tag){color:var(--texto-suave)}
+.caso-texto>:is(.caso-numero,.caso-tag){margin-top:24px}
 .caso-numero strong{font-size:clamp(30px,2.8vw,38px);line-height:1;letter-spacing:-0.03em;color:var(--acento);margin-right:4px}
+/* produto que ainda não está no ar (Dirce): pílula no lugar do número */
+.caso-texto>.caso-tag{display:inline-block;padding:5px 14px;border:1.5px solid var(--acento);border-radius:999px;font-size:14px;font-weight:700;line-height:1.3;color:var(--acento)}
 /* janela do sistema: barra com três pontos e o print recortado pelo topo */
 .janela{flex:1 1 420px;border-radius:16px;overflow:hidden;border:1px solid var(--linha)}
 .janela-bar{display:flex;gap:6px;padding:11px 14px}
@@ -154,15 +166,17 @@ nav{display:flex;align-items:center;gap:28px}
 .janela-clara .janela-bar i{background:var(--linha-forte)}
 .janela-print{width:100%;aspect-ratio:16 / 10;height:auto;object-fit:cover;object-position:top left}
 /* quadrado meio hachura, meio chapado (vem do card OABRJ da v1), atrás do canto de uma janela:
-   hachura a 45° subindo para a direita no triângulo de cima, chapado no de baixo. Dois na seção, por decisão do Erick:
-   laranja escuro no canto de cima da OABRJ, grafite no canto de baixo do Judisys */
+   hachura a 45° subindo para a direita no triângulo de cima, chapado no de baixo. Um por janela na seção, por decisão do
+   Erick (2026-11-10), alternando a cor: Judisys grafite embaixo à esquerda, Varig laranja escuro em cima à esquerda,
+   Pamcard grafite embaixo à direita, Dirce laranja escuro em cima à direita */
 .janela-com-hachura{position:relative;isolation:isolate;flex:1 1 420px;display:flex}
 .janela-com-hachura .janela{flex:1}
 .hachura{--hachura-recuo:-28px;--hachura-cor:var(--laranja-escuro);position:absolute;z-index:-1;top:var(--hachura-recuo);right:var(--hachura-recuo);width:190px;height:190px;
   background:linear-gradient(to bottom right,transparent 50%,var(--hachura-cor) 50%),
     repeating-linear-gradient(135deg,var(--hachura-cor) 0 6px,transparent 6px 15px)}
 .hachura-grafite{--hachura-cor:var(--grafite)}
-.hachura-baixo{top:auto;right:auto;bottom:var(--hachura-recuo);left:var(--hachura-recuo)}
+.hachura-baixo{top:auto;bottom:var(--hachura-recuo)}
+.hachura-esq{right:auto;left:var(--hachura-recuo)}
 /* janela escura sobre quadrado grafite: um contorno creme separa os dois, senão o chapado se funde com a janela */
 .janela-com-hachura .janela-escura{box-shadow:0 0 0 4px var(--creme)}
 @media (max-width:480px){.hachura{--hachura-recuo:-14px;width:120px;height:120px}}
@@ -229,19 +243,29 @@ nav{display:flex;align-items:center;gap:28px}
 .regras p{margin-top:12px}
 
 /* processo: linha do tempo reta; no celular vira vertical */
-.como{background:var(--areia)}
-.passos{--passos-gap:32px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--passos-gap);margin-top:56px}
+.como{position:relative;overflow:hidden;background:var(--areia)}
+.passos{--passos-gap:32px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--passos-gap)}
 .passos li{position:relative;padding-top:36px}
 .passos li::before{content:"";position:absolute;top:6px;left:0;right:calc(-1 * var(--passos-gap));border-top:2px solid currentColor}
 .passos li:last-child::before{right:0}
 .passos li::after{content:"";position:absolute;top:0;left:0;width:14px;height:14px;border-radius:50%;background:var(--laranja)}
 .passo-n{font-size:14px;font-weight:700;color:var(--acento)}
+/* iceberg atrás dos passos (decisoes-marca.md, 2026-11-10): a linha do tempo é a linha d'água, que no viewBox fica em
+   y=200 de 900, então a ponta sobe 20% da largura acima da linha. A base da ponta (x 330–690) termina antes do fim da linha;
+   a parte submersa sai pela borda de baixo e pela direita */
+.passos-agua{position:relative;margin-top:56px;container-type:inline-size}
+.passos-agua .passos,.como h2{position:relative;z-index:1}
+.iceberg{--ice-w:min(960px,85cqw);position:absolute;z-index:0;pointer-events:none;width:var(--ice-w);height:calc(var(--ice-w) * .9);left:calc(100% - var(--ice-w) * .72);top:calc(7px - var(--ice-w) * .2);color:var(--iceberg);stroke-width:2}
+.iceberg path{vector-effect:non-scaling-stroke}
+.iceberg-ponta{fill:var(--creme)}
+.iceberg-fundo{stroke-dasharray:6 8}
 .passos h3{margin-top:6px}
 @media (max-width:860px){
   .passos{grid-template-columns:minmax(0,1fr);gap:0}
   .passos li{padding:0 0 32px 36px}
   .passos li::before{top:7px;bottom:-7px;left:6px;right:auto;border-top:0;border-left:2px solid currentColor}
   .passos li:last-child::before{display:none}
+  .iceberg{display:none} /* a linha do tempo fica vertical: sem linha d'água */
 }
 
 /* FAQ */
@@ -256,13 +280,12 @@ nav{display:flex;align-items:center;gap:28px}
 .faq-lista details p{padding:0 0 22px 20px;font-size:16px;line-height:1.6;max-width:40em;color:var(--texto-suave)}
 
 /* contato */
-.contact{padding:var(--respiro-secao) 0 calc(var(--respiro-secao) + 20px)} /* +20px embaixo: a digital b sangra pelo canto */
-/* impressao-digital-b do kit v1.1: grande, sangra pelo canto inferior esquerdo e pode passar por baixo do texto (Erick).
-   O recorte do canto é proporcional ao tamanho (translate em %), então cada quebra só troca a largura e a altura;
-   o traço compensa a escala para ficar com ~16px nas duas */
-.contact-digital{width:990px;height:1095px;left:0;bottom:0;transform:translate(-36%,51.6%);stroke-width:9;color:var(--laranja-digital-contato)}
-@media (max-width:900px){.contact-digital{width:640px;height:708px;stroke-width:14}}
-@media (max-width:720px){.contact-digital{display:none}}
+.contact{padding:var(--respiro-secao) 0}
+/* onda do kit v1.1 (quatro linhas), tom sobre tom, atravessando a metade de baixo da seção por trás do texto (Erick,
+   2026-11-10, no lugar da impressao-digital-b). Esticada na largura (preserveAspectRatio none) com traço constante; os paths já saem do viewBox (x -20 a 820) */
+.contact-onda{left:0;width:100%;bottom:-6%;height:62%;stroke-width:22;color:var(--laranja-onda)}
+.contact-onda path{vector-effect:non-scaling-stroke}
+@media (max-width:900px){.contact-onda{height:300px;bottom:-40px;stroke-width:14}} /* uma coluna: seção alta, altura fixa */
 /* texto à esquerda, formulário à direita */
 .contact-in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:48px 80px;align-items:start}
 @media (max-width:900px){.contact-in{grid-template-columns:minmax(0,1fr)}}

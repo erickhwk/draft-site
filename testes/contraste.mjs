@@ -43,10 +43,10 @@ for (const caminho of PAGINAS) {
         e.hidden = false;
         if (!e.textContent.trim()) e.textContent = "Texto de exemplo da mensagem";
       });
-      // digitais e quadrados são decorativos, tom sobre tom: escondidos, o axe mede o texto contra o fundo da seção
+      // digital, onda, quadrados e iceberg são decorativos: escondidos, o axe mede o texto contra o fundo da seção
       // em vez de marcar como "a conferir" tudo o que passa por cima deles
       const s = document.createElement("style");
-      s.textContent = ".hero-digital, .contact-digital, .hachura { display: none !important }";
+      s.textContent = ".hero-digital, .contact-onda, .hachura, .iceberg { display: none !important }";
       document.head.append(s);
     });
     await page.addScriptTag({ content: axe });
