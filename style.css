@@ -143,10 +143,10 @@ nav{display:flex;align-items:center;gap:28px}
 .caso h3{font-size:clamp(26px,2.6vw,34px);line-height:1.12;letter-spacing:-0.025em;max-width:15em}
 .caso-texto>p{font-size:16px;line-height:1.6;max-width:31em;margin-top:16px}
 .caso-texto>p:not(.caso-numero,.caso-tag){color:var(--texto-suave)}
-.caso-texto>.caso-numero{margin-top:24px}
+.caso-texto>:is(.caso-numero,.caso-tag){margin-top:24px}
 .caso-numero strong{font-size:clamp(30px,2.8vw,38px);line-height:1;letter-spacing:-0.03em;color:var(--acento);margin-right:4px}
 /* produto que ainda não está no ar (Dirce): pílula no lugar do número */
-.caso-texto>.caso-tag{display:inline-block;margin-top:24px;padding:5px 14px;border:1.5px solid var(--acento);border-radius:999px;font-size:14px;font-weight:700;line-height:1.3;color:var(--acento)}
+.caso-texto>.caso-tag{display:inline-block;padding:5px 14px;border:1.5px solid var(--acento);border-radius:999px;font-size:14px;font-weight:700;line-height:1.3;color:var(--acento)}
 /* janela do sistema: barra com três pontos e o print recortado pelo topo */
 .janela{flex:1 1 420px;border-radius:16px;overflow:hidden;border:1px solid var(--linha)}
 .janela-bar{display:flex;gap:6px;padding:11px 14px}
@@ -166,9 +166,8 @@ nav{display:flex;align-items:center;gap:28px}
   background:linear-gradient(to bottom right,transparent 50%,var(--hachura-cor) 50%),
     repeating-linear-gradient(135deg,var(--hachura-cor) 0 6px,transparent 6px 15px)}
 .hachura-grafite{--hachura-cor:var(--grafite)}
-.hachura-baixo{top:auto;right:auto;bottom:var(--hachura-recuo);left:var(--hachura-recuo)}
-.hachura-cima-esq{right:auto;left:var(--hachura-recuo)}
-.hachura-baixo-dir{top:auto;bottom:var(--hachura-recuo)}
+.hachura-baixo{top:auto;bottom:var(--hachura-recuo)}
+.hachura-esq{right:auto;left:var(--hachura-recuo)}
 /* janela escura sobre quadrado grafite: um contorno creme separa os dois, senão o chapado se funde com a janela */
 .janela-com-hachura .janela-escura{box-shadow:0 0 0 4px var(--creme)}
 @media (max-width:480px){.hachura{--hachura-recuo:-14px;width:120px;height:120px}}
