@@ -9,7 +9,8 @@
 :root{
   --laranja:#FF5A36;          /* laranja da marca */
   --laranja-escuro:#B4400E;   /* texto laranja sobre fundo claro: 4,66:1 na areia, 5,06:1 no creme */
-  --laranja-digital:#E55227;  /* digital do hero e onda do contato, tom sobre tom */
+  --laranja-digital:#E55227;  /* digital do hero, tom sobre tom */
+  --laranja-onda:#FF6A49;     /* onda do contato: mais clara que o fundo, para o grafite por cima subir a 5,2:1 */
   --iceberg:#D3CCB9;          /* contorno do iceberg, tom sobre tom na areia */
   --grafite:#25282A;
   --off-white:#F7F5EF;
@@ -93,7 +94,7 @@ nav{display:flex;align-items:center;gap:28px}
 @keyframes logo-draft{from{stroke-dashoffset:430}to{stroke-dashoffset:0}}
 @media (max-width:380px){.logo{width:92px}.top .btn{padding:0 16px;font-size:15px}}
 
-/* digital: textura tom sobre tom, sempre atrás do conteúdo */
+/* digital do hero e onda do contato: textura tom sobre tom, sempre atrás do conteúdo */
 .hero-digital,.contact-onda{position:absolute;pointer-events:none;z-index:0}
 .hero .wrap,.contact .wrap{position:relative;z-index:1}
 
@@ -272,10 +273,10 @@ nav{display:flex;align-items:center;gap:28px}
 /* contato */
 .contact{padding:var(--respiro-secao) 0}
 /* onda do kit v1.1 (quatro linhas), tom sobre tom, atravessando a metade de baixo da seção por trás do texto (Erick,
-   2026-11-10, no lugar da impressao-digital-b). Esticada na largura (preserveAspectRatio none) com traço constante */
-.contact-onda{left:-2%;width:104%;bottom:-6%;height:62%;stroke-width:22;color:var(--laranja-digital)}
+   2026-11-10, no lugar da impressao-digital-b). Esticada na largura (preserveAspectRatio none) com traço constante; os paths já saem do viewBox (x -20 a 820) */
+.contact-onda{left:0;width:100%;bottom:-6%;height:62%;stroke-width:22;color:var(--laranja-onda)}
 .contact-onda path{vector-effect:non-scaling-stroke}
-@media (max-width:720px){.contact-onda{height:300px;bottom:-40px;stroke-width:14}}
+@media (max-width:900px){.contact-onda{height:300px;bottom:-40px;stroke-width:14}} /* uma coluna: seção alta, altura fixa */
 /* texto à esquerda, formulário à direita */
 .contact-in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:48px 80px;align-items:start}
 @media (max-width:900px){.contact-in{grid-template-columns:minmax(0,1fr)}}
