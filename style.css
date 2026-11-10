@@ -155,8 +155,9 @@ nav{display:flex;align-items:center;gap:28px}
 .janela-clara .janela-bar i{background:var(--linha-forte)}
 .janela-print{width:100%;aspect-ratio:16 / 10;height:auto;object-fit:cover;object-position:top left}
 /* quadrado meio hachura, meio chapado (vem do card OABRJ da v1), atrás do canto de uma janela:
-   hachura a 45° subindo para a direita no triângulo de cima, chapado no de baixo. Dois na seção, por decisão do Erick:
-   laranja escuro no canto de cima da Dirce, grafite no canto de baixo do Judisys */
+   hachura a 45° subindo para a direita no triângulo de cima, chapado no de baixo. Um por janela na seção, por decisão do
+   Erick (2026-11-10), alternando a cor: Judisys grafite embaixo à esquerda, Varig laranja escuro em cima à esquerda,
+   Pamcard grafite embaixo à direita, Dirce laranja escuro em cima à direita */
 .janela-com-hachura{position:relative;isolation:isolate;flex:1 1 420px;display:flex}
 .janela-com-hachura .janela{flex:1}
 .hachura{--hachura-recuo:-28px;--hachura-cor:var(--laranja-escuro);position:absolute;z-index:-1;top:var(--hachura-recuo);right:var(--hachura-recuo);width:190px;height:190px;
@@ -164,6 +165,8 @@ nav{display:flex;align-items:center;gap:28px}
     repeating-linear-gradient(135deg,var(--hachura-cor) 0 6px,transparent 6px 15px)}
 .hachura-grafite{--hachura-cor:var(--grafite)}
 .hachura-baixo{top:auto;right:auto;bottom:var(--hachura-recuo);left:var(--hachura-recuo)}
+.hachura-cima-esq{right:auto;left:var(--hachura-recuo)}
+.hachura-baixo-dir{top:auto;bottom:var(--hachura-recuo)}
 /* janela escura sobre quadrado grafite: um contorno creme separa os dois, senão o chapado se funde com a janela */
 .janela-com-hachura .janela-escura{box-shadow:0 0 0 4px var(--creme)}
 @media (max-width:480px){.hachura{--hachura-recuo:-14px;width:120px;height:120px}}
