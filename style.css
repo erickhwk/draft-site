@@ -231,7 +231,7 @@ nav{display:flex;align-items:center;gap:28px}
 
 /* processo: linha do tempo reta; no celular vira vertical */
 .como{position:relative;overflow:hidden;background:var(--areia)}
-.passos{--passos-gap:32px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--passos-gap);margin-top:56px}
+.passos{--passos-gap:32px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--passos-gap)}
 .passos li{position:relative;padding-top:36px}
 .passos li::before{content:"";position:absolute;top:6px;left:0;right:calc(-1 * var(--passos-gap));border-top:2px solid currentColor}
 .passos li:last-child::before{right:0}
@@ -240,9 +240,9 @@ nav{display:flex;align-items:center;gap:28px}
 /* iceberg atrás dos passos (decisoes-marca.md, 2026-11-10): a linha do tempo é a linha d'água, que no viewBox fica em
    y=200 de 900, então a ponta sobe 20% da largura acima da linha. A base da ponta (x 330–690) termina antes do fim da linha;
    a parte submersa sai pela borda de baixo e pela direita */
-.passos-agua{position:relative}
-.passos-agua .passos{position:relative;z-index:1}
-.iceberg{--ice-w:min(960px,80vw);position:absolute;z-index:0;pointer-events:none;width:var(--ice-w);height:calc(var(--ice-w) * .9);left:calc(100% - var(--ice-w) * .72);top:calc(7px - var(--ice-w) * .2);color:var(--iceberg);stroke-width:2}
+.passos-agua{position:relative;margin-top:56px;container-type:inline-size}
+.passos-agua .passos,.como h2{position:relative;z-index:1}
+.iceberg{--ice-w:min(960px,85cqw);position:absolute;z-index:0;pointer-events:none;width:var(--ice-w);height:calc(var(--ice-w) * .9);left:calc(100% - var(--ice-w) * .72);top:calc(7px - var(--ice-w) * .2);color:var(--iceberg);stroke-width:2}
 .iceberg path{vector-effect:non-scaling-stroke}
 .iceberg-ponta{fill:var(--creme)}
 .iceberg-fundo{stroke-dasharray:6 8}
